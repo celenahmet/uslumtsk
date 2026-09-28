@@ -6,12 +6,18 @@
 (function () {
   'use strict';
   var form = document.getElementById('iletisim-formu');
-  if (!form) return;
+  // Ad/telefon/metin kuralları sunucuyla ORTAK: assets/js/uslu-rules.js
+  var R = window.UsluRules;
+  if (!form || !R) return;
   var EN = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
   var M = EN
     ? {
         name: 'Please enter your first and last name (e.g. Ayşe Yılmaz).',
         nameChars: 'Your name can only contain letters.',
+        nameFake: 'Please enter your real first and last name.',
+        phoneFake: 'Please enter a valid phone number.',
+        messageLink: 'Links cannot be added to the message.',
+        messageAbuse: 'Please use appropriate language.',
         phoneStart: 'The number must start with 0.',
         phoneLen: 'The number must have 11 digits (currently {n}).',
         phoneHint: '11 digits starting with 0',
@@ -28,6 +34,10 @@
     : {
         name: 'Adınızı ve soyadınızı birlikte yazın (örn. Ayşe Yılmaz).',
         nameChars: 'Ad soyad yalnız harf içermeli.',
+        nameFake: 'Lütfen gerçek adınızı ve soyadınızı yazın.',
+        phoneFake: 'Lütfen geçerli bir telefon numarası yazın.',
+        messageLink: 'Mesaja bağlantı eklenemez.',
+        messageAbuse: 'Lütfen uygun bir dil kullanın.',
         phoneStart: 'Numara 0 ile başlamalı.',
         phoneLen: 'Numara 11 haneli olmalı (şu an {n} hane).',
         phoneHint: '0 ile başlayan 11 hane',
@@ -48,36 +58,32 @@
       message = $('cf-message'), kvkk = $('cf-kvkk'), hp = $('cf-website'), hint = $('cf-phone-hint'),
       status = $('cf-status'), button = form.querySelector('.cf-send');
 
-  var NAME_OK = /^[\p{L}'’.\-]{2,}(?: [\p{L}'’.\-]{2,})+$/u;
   var EMAIL_OK = /^[^\s@<>()",;:]+@[^\s@<>()",;:]+\.[^\s@<>()",;:]{2,}$/;
 
-  function digits(v) {
-    var d = String(v || '').replace(/\D/g, '');
-    if (d.indexOf('90') === 0 && d.length > 11) d = '0' + d.slice(2);
-    return d.slice(0, 11);
-  }
-  function fmt(d) {
-    return [d.slice(0, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)].filter(Boolean).join(' ');
-  }
+  var digits = R.phoneDigits, fmt = R.phoneFormat;
   function squash(v) { return v.replace(/\s+/g, ' ').trim(); }
 
   var checks = {
     name: function () {
-      var v = squash(name.value);
-      if (/[\d_@#$%^&*()+=<>?!/\\|{}\[\]]/.test(v)) return M.nameChars;
-      return NAME_OK.test(v) ? '' : M.name;
+      var c = R.nameProblem(squash(name.value));
+      return !c ? '' : c === 'name_chars' ? M.nameChars : c === 'name_format' ? M.name : M.nameFake;
     },
     phone: function () {
       var d = digits(phone.value);
-      if (d.charAt(0) && d.charAt(0) !== '0') return M.phoneStart;
-      return d.length === 11 ? '' : M.phoneLen.replace('{n}', String(d.length));
+      var c = R.phoneProblem(d);
+      return !c ? '' : c === 'phone_start' ? M.phoneStart : c === 'phone_len' ? M.phoneLen.replace('{n}', String(d.length)) : M.phoneFake;
     },
     email: function () {
       var v = email.value.trim();
       return !v || EMAIL_OK.test(v) ? '' : M.email;
     },
     topic: function () { return topic.value ? '' : M.topic; },
-    message: function () { return message.value.trim().length >= 10 ? '' : M.message; },
+    message: function () {
+      var v = message.value.trim();
+      if (v.length < 10) return M.message;
+      var c = R.textProblem(v);
+      return !c ? '' : c === 'text_link' ? M.messageLink : M.messageAbuse;
+    },
     kvkk: function () { return kvkk.checked ? '' : M.kvkk; }
   };
   var fields = { name: name, phone: phone, email: email, topic: topic, message: message, kvkk: kvkk };

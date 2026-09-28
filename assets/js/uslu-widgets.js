@@ -1,11 +1,11 @@
 /*
- * Uslu Sürücü Kursu: WhatsApp teklif asistanı + erişilebilirlik çubuğu.
+ * Uslu Sürücü Kursu: canlı destek görünümlü teklif asistanı + erişilebilirlik çubuğu.
  *
  * Tawk.to yerine kendi asistanımız (maliaksoytesisat'taki akışın sürücü kursuna
- * uyarlanmışı), canlı destek görünümünde: talep, eğitim ve kimin için olduğu hızlı
- * cevapla; ad, telefon ve not yazma kutusundan alınır, hazır mesajla kursun WhatsApp
- * hattına geçilir. Bilgiler SİTEDE SAKLANMAZ; mesajı ziyaretçi kendi WhatsApp'ından
- * gönderir.
+ * uyarlanmışı): talep, eğitim ve kimin için olduğu liste kartından; ad soyad ve telefon
+ * tek form kartından alınır. "Mesaj gönder" talebi /api/iletisim/ üzerinden Resend ile
+ * kursun e-postasına iletir (site veriyi SAKLAMAZ); iletilemezse aynı talep WhatsApp'tan
+ * gönderilebilir. Metinler KVKK aydınlatma metniyle (/kvkk/) uyumlu tutulur.
  *
  * Erişilebilirlik çubuğu: solda, dikeyde ortalı, küçük; 10 işlev, tercihler bu
  * tarayıcıda saklanır.
@@ -27,7 +27,8 @@
         launcher: 'Chat with us',
         title: 'Uslu Driving School',
         online: 'Online',
-        hours: 'Daily 09.00-19.30',
+        hours: 'Open 7 days',
+        hoursLong: 'Monday-Thursday 09.00-19.30, Friday-Sunday 09.00-20.30',
         close: 'Close',
         restart: 'Start over',
         typing: 'typing',
@@ -44,30 +45,47 @@
         whoQ: 'Who is the course for?',
         whoAckSelf: 'Got it.',
         whoAckOther: 'Got it, let us prepare the details for them together.',
-        nameQ: 'So we can get back to you, could you type your first and last name?',
-        nameQOther: 'Could you type your own first and last name? We will get back to you.',
+        contactQ: 'So we can get back to you, could you share your name and phone number?',
+        contactQOther: 'So we can get back to you, could you share your own name and phone number?',
+        name: 'Full name',
+        nameOther: 'Your full name',
         namePh: 'e.g. Ayşe Yılmaz',
-        phoneQ: 'Nice to meet you, {n}. Which number can we reach you on?',
+        phone: 'Phone',
         phonePh: '0532 123 45 67',
         phoneHint: '11 digits starting with 0',
+        formHint: 'Fill in the form above',
+        pickHint: 'Choose an option above',
+        nice: 'Nice to meet you, {n}.',
         timeQ: 'When is a good time to call you? You can choose more than one.',
         anyTime: 'Any time',
         noteQ: 'Is there anything you would like to add?',
         notePh: 'Write a note...',
         noNote: 'No, that is all',
-        pickHint: 'Choose an option above',
         cont: 'Continue',
         sendAria: 'Send',
         nameErr: 'Please enter your first and last name together (e.g. Ayşe Yılmaz).',
         nameChars: 'Your name can only contain letters.',
+        nameFake: 'Please enter your real first and last name.',
+        phoneFake: 'Please enter a valid phone number.',
+        textLink: 'Links cannot be added to the note.',
+        textAbuse: 'Please use appropriate language.',
+        editAck: 'Of course, let us fix that.',
+        summaryAgain: 'Updated. Here is the latest version of your request.',
+        edit: 'Edit',
+        noNoteVal: 'None',
         phoneStart: 'The number must start with 0.',
         phoneLen: 'The number must have 11 digits (currently {n}).',
-        spamErr: 'That was very fast. Please wait a moment and try again.',
-        summary: 'Thank you, {n}. Your message is ready; you can check it before sending.',
+        summary: 'Thank you, {n}. Here is your request; you can check it before sending.',
         send: 'Send message',
-        sent: 'Opened, please send it there',
-        after: 'Once you send the message, our team will get back to you during working hours (daily 09.00-19.30).',
-        privacy: 'Your details are not stored on this website; you send the message from your own WhatsApp.',
+        sending: 'Sending...',
+        sentOk: 'Thank you, {n}. Your request has reached our team; we will get back to you during working hours ({h}).',
+        sendFail: 'We could not deliver your request just now. You can send the same message on WhatsApp right away.',
+        tooMany: 'Too many attempts. Please try again a little later or send it on WhatsApp.',
+        waAlso: 'Also write on WhatsApp',
+        waSend: 'Send on WhatsApp',
+        again: 'New request',
+        privacy: 'Your request is sent to our school by email so that we can reply.',
+        privacyLink: 'Privacy notice (KVKK)',
         teaser: 'Would you like a quote?',
         course: 'Course',
         request: 'Request',
@@ -101,13 +119,14 @@
           ['esim', 'For my spouse'],
           ['yakinim', 'For a relative or friend']
         ],
-        times: ['Morning', 'Afternoon', 'Evening']
+        times: [['sabah', 'Morning'], ['ogle', 'Afternoon'], ['aksam', 'Evening']]
       }
     : {
         launcher: 'Bize yazın',
         title: 'Uslu Sürücü Kursu',
         online: 'Çevrimiçi',
-        hours: 'Her gün 09.00-19.30',
+        hours: 'Haftanın 7 günü açığız',
+        hoursLong: 'Pazartesi-Perşembe 09.00-19.30, Cuma-Pazar 09.00-20.30',
         close: 'Kapat',
         restart: 'Baştan başla',
         typing: 'yazıyor',
@@ -124,30 +143,47 @@
         whoQ: 'Eğitimi kimin için düşünüyorsunuz?',
         whoAckSelf: 'Anladım.',
         whoAckOther: 'Anladım, bilgileri onun için birlikte hazırlayalım.',
-        nameQ: 'Size dönüş yapabilmemiz için adınızı ve soyadınızı yazar mısınız?',
-        nameQOther: 'Size dönüş yapabilmemiz için kendi adınızı ve soyadınızı yazar mısınız?',
+        contactQ: 'Size dönüş yapabilmemiz için adınızı ve telefon numaranızı paylaşır mısınız?',
+        contactQOther: 'Size dönüş yapabilmemiz için kendi adınızı ve telefon numaranızı paylaşır mısınız?',
+        name: 'Ad Soyad',
+        nameOther: 'Sizin adınız soyadınız',
         namePh: 'Örn. Ayşe Yılmaz',
-        phoneQ: 'Memnun oldum, {n}. Size hangi numaradan ulaşalım?',
+        phone: 'Telefon',
         phonePh: '0532 123 45 67',
         phoneHint: '0 ile başlayan 11 hane',
+        formHint: 'Yukarıdaki formu doldurun',
+        pickHint: 'Yukarıdan bir seçenek belirleyin',
+        nice: 'Memnun oldum, {n}.',
         timeQ: 'Sizi hangi saatlerde aramamız uygun olur? Birden fazla seçebilirsiniz.',
         anyTime: 'Fark etmez',
         noteQ: 'Eklemek istediğiniz bir not var mı?',
         notePh: 'Notunuzu yazın...',
         noNote: 'Yok, bu kadar',
-        pickHint: 'Yukarıdan bir seçenek belirleyin',
         cont: 'Devam et',
         sendAria: 'Gönder',
         nameErr: 'Adınızı ve soyadınızı birlikte yazın (örn. Ayşe Yılmaz).',
         nameChars: 'Ad soyad yalnız harf içermeli.',
+        nameFake: 'Lütfen gerçek adınızı ve soyadınızı yazın.',
+        phoneFake: 'Lütfen geçerli bir telefon numarası yazın.',
+        textLink: 'Nota bağlantı eklenemez.',
+        textAbuse: 'Lütfen uygun bir dil kullanın.',
+        editAck: 'Tabii, hemen düzeltelim.',
+        summaryAgain: 'Güncelledim. Talebinizin son hâline göz atabilirsiniz.',
+        edit: 'Düzenle',
+        noNoteVal: 'Yok',
         phoneStart: 'Numara 0 ile başlamalı.',
         phoneLen: 'Numara 11 haneli olmalı (şu an {n} hane).',
-        spamErr: 'Çok hızlı ilerlediniz. Birkaç saniye bekleyip yeniden deneyin.',
-        summary: 'Teşekkürler {n}. Mesajınız hazır, göndermeden önce göz atabilirsiniz.',
+        summary: 'Teşekkürler {n}. Talebiniz hazır, göndermeden önce göz atabilirsiniz.',
         send: 'Mesaj gönder',
-        sent: 'Açıldı, oradan gönderin',
-        after: 'Mesajınızı gönderdiğinizde ekibimiz mesai saatlerinde (her gün 09.00-19.30) size dönüş yapar.',
-        privacy: 'Bilgileriniz bu sitede saklanmaz; mesajı kendi WhatsApp’ınızdan siz gönderirsiniz.',
+        sending: 'Gönderiliyor...',
+        sentOk: 'Teşekkürler {n}, talebiniz ekibimize ulaştı. Mesai saatlerimizde ({h}) size dönüş yapacağız.',
+        sendFail: 'Talebinizi şu an iletemedik. Aynı mesajı WhatsApp’tan hemen gönderebilirsiniz.',
+        tooMany: 'Çok fazla deneme yapıldı. Biraz sonra yeniden deneyin ya da WhatsApp’tan gönderin.',
+        waAlso: 'WhatsApp’tan da yazın',
+        waSend: 'WhatsApp’tan gönder',
+        again: 'Yeni talep',
+        privacy: 'Talebiniz, size yanıt verebilmemiz için kursumuza e-postayla iletilir.',
+        privacyLink: 'KVKK Aydınlatma Metni',
         teaser: 'Teklif almak ister misiniz?',
         course: 'İlgilendiğim eğitim',
         request: 'Talebim',
@@ -181,7 +217,7 @@
           ['esim', 'Eşim için'],
           ['yakinim', 'Bir yakınım veya arkadaşım için']
         ],
-        times: ['Sabah', 'Öğle', 'Akşam']
+        times: [['sabah', 'Sabah'], ['ogle', 'Öğle'], ['aksam', 'Akşam']]
       };
 
   var A = EN
@@ -236,7 +272,7 @@
     '.uc-launch:hover{transform:translateY(-2px)}.uc-launch:focus-visible{outline:3px solid ' + RED + ';outline-offset:3px}' +
     '.uc-launch svg{width:30px;height:30px}' +
     '.uc-teaser{position:fixed;right:88px;bottom:30px;z-index:9990;background:#fff;color:' + NAVY + ';border:0;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:0 6px 30px rgb(4 30 55 / 18%);cursor:pointer;max-width:220px;text-align:left}' +
-    '.uc-panel{position:fixed;right:20px;bottom:90px;z-index:9991;width:370px;max-width:calc(100vw - 24px);height:min(600px,calc(100vh - 112px));display:flex;flex-direction:column;background:#fff;color:' + NAVY + ';border-radius:16px;box-shadow:0 12px 48px rgb(4 30 55 / 28%);overflow:hidden}' +
+    '.uc-panel{position:fixed;right:20px;bottom:90px;z-index:9991;width:370px;max-width:calc(100vw - 24px);height:min(620px,calc(100vh - 112px));display:flex;flex-direction:column;background:#fff;color:' + NAVY + ';border-radius:16px;box-shadow:0 12px 48px rgb(4 30 55 / 28%);overflow:hidden}' +
     '.uc-panel[hidden]{display:none}' +
     '.uc-head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:' + NAVY + ';color:#fff;border-top:3px solid ' + RED + ';flex:0 0 auto}' +
     '.uc-ava{position:relative;width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}' +
@@ -247,7 +283,8 @@
     '.uc-hbtn{background:transparent;border:0;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85;flex:0 0 34px}' +
     '.uc-hbtn:hover{opacity:1;background:rgb(255 255 255 / 10%)}.uc-hbtn svg{width:18px;height:18px}' +
     '.uc-hgap{margin-left:auto}' +
-    '.uc-log{flex:1 1 auto;overflow-y:auto;padding:16px 14px 10px;background:#f3f5f8;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.45;scroll-behavior:smooth}' +
+    '.uc-log{flex:1 1 auto;overflow-y:auto;padding:16px 14px 12px;background:#f3f5f8;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.45;scroll-behavior:smooth}' +
+    '.uc-log>*{flex-shrink:0}' +
     '.uc-row{display:flex;align-items:flex-end;gap:8px;animation:uc-in .22s ease-out both}' +
     '.uc-row.uc-me{justify-content:flex-end}' +
     '.uc-row.uc-gap{margin-top:8px}' +
@@ -261,11 +298,32 @@
     '.uc-dots i:nth-child(2){animation-delay:.15s}.uc-dots i:nth-child(3){animation-delay:.3s}' +
     '@keyframes uc-dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}' +
     '@keyframes uc-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}' +
-    '.uc-replies{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;margin:8px 0 2px 34px;animation:uc-in .22s ease-out both}' +
-    '.uc-reply{border:1.5px solid ' + RED + ';background:#fff;color:' + RED + ';border-radius:18px;padding:7px 13px;font-size:13.5px;font-weight:600;line-height:1.3;cursor:pointer;text-align:left;transition:background .15s,color .15s}' +
-    '.uc-reply:hover,.uc-reply[aria-pressed="true"]{background:' + RED + ';color:#fff}' +
-    '.uc-reply.uc-go{background:' + NAVY + ';border-color:' + NAVY + ';color:#fff}.uc-reply.uc-go:hover{background:' + RED + ';border-color:' + RED + '}' +
-    '.uc-card{margin:4px 0 0 34px;background:#fff;border-left:3px solid ' + RED + ';border-radius:4px 12px 12px 4px;padding:10px 12px;font-size:13px;line-height:1.55;white-space:pre-wrap;color:' + NAVY + ';box-shadow:0 1px 2px rgb(4 30 55 / 8%);animation:uc-in .22s ease-out both}' +
+    /* seçenekler: mesajın altında tek parça liste kartı */
+    '.uc-card{margin:6px 0 4px 34px;background:#fff;border:1px solid #e3e7ec;border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgb(4 30 55 / 6%);animation:uc-in .22s ease-out both}' +
+    '.uc-panel .uc-choice{display:flex;align-items:center;gap:10px;width:100%;padding:11px 14px;background:#fff;border:0;border-top:1px solid #eef0f3;font-size:14px;font-weight:600;line-height:1.3;color:' + NAVY + ';text-align:left;cursor:pointer;transition:background .15s,color .15s}' +
+    '.uc-choice:first-child{border-top:0}' +
+    '.uc-choice span{flex:1 1 auto}' +
+    '.uc-choice svg{width:8px;height:12px;flex:0 0 8px;color:' + RED + ';transition:transform .15s}' +
+    '.uc-choice:hover{background:#f7f8fa;color:' + RED + '}.uc-choice:hover svg{transform:translateX(3px)}' +
+    '.uc-choice .uc-box{width:18px;height:18px;flex:0 0 18px;border:1.5px solid #c9ced6;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#fff;transition:all .15s}' +
+    '.uc-choice .uc-box svg{width:11px;height:11px;color:#fff;opacity:0}' +
+    '.uc-choice[aria-pressed="true"] .uc-box{background:' + RED + ';border-color:' + RED + '}.uc-choice[aria-pressed="true"] .uc-box svg{opacity:1}' +
+    '.uc-choice.uc-go{justify-content:center;background:' + NAVY + ';color:#fff;border-top:0}.uc-choice.uc-go span{flex:0 0 auto}.uc-choice.uc-go:hover{background:' + RED + ';color:#fff}' +
+    '.uc-choice.uc-go svg{color:#fff}' +
+    /* iletişim formu kartı */
+    '.uc-form{padding:12px 14px 14px}' +
+    '.uc-form label{display:block;font-size:12.5px;font-weight:700;color:' + NAVY + ';margin:8px 0 5px}.uc-form label:first-of-type{margin-top:0}' +
+    '.uc-form input{width:100%;border:1px solid #dfe3e8;border-radius:10px;padding:10px 12px;font-size:15px;color:' + NAVY + ';background:#fff}' +
+    '.uc-form input:focus{border-color:' + NAVY + ';outline:0;box-shadow:0 0 0 3px rgb(4 30 55 / 8%)}.uc-form input[aria-invalid="true"]{border-color:' + RED + '}' +
+    '.uc-fhint{font-size:12px;color:#6b7280;margin-top:5px}.uc-fhint.uc-good{color:#15803d;font-weight:600}.uc-fhint.uc-bad{color:' + RED + ';font-weight:600}' +
+    '.uc-ferr{font-size:12px;color:' + RED + ';font-weight:600;margin-top:5px}.uc-ferr:empty{display:none}' +
+    '.uc-fgo{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:12px;border:0;border-radius:10px;padding:11px 14px;background:' + NAVY + ';color:#fff;font-size:14.5px;font-weight:700;cursor:pointer;transition:background .2s}' +
+    '.uc-fgo:hover{background:' + RED + '}.uc-fgo svg{width:16px;height:16px}' +
+    /* özet kartı: satır satır */
+    '.uc-sum .uc-sr{display:flex;gap:10px;padding:8px 14px;border-top:1px solid #eef0f3;font-size:13px;line-height:1.4}.uc-sum .uc-sr:first-child{border-top:0}' +
+    '.uc-sum .uc-sr{align-items:center}.uc-sum .uc-sr span{flex:0 0 104px;color:#6b7280}.uc-sum .uc-sr b{flex:1 1 auto;font-weight:600;color:' + NAVY + ';word-break:break-word}' +
+    '.uc-edit{flex:0 0 30px;width:30px;height:30px;margin:-4px -6px -4px 0;border:0;border-radius:50%;background:transparent;color:#9aa4b2;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}' +
+    '.uc-edit:hover{color:' + RED + ';background:#fff1f3}.uc-edit svg{width:15px;height:15px}' +
     '.uc-dock{flex:0 0 auto;border-top:1px solid #e6e9ee;background:#fff;padding:10px 12px 12px}' +
     '.uc-hint{font-size:12px;color:#6b7280;margin:0 4px 6px;min-height:16px}.uc-hint.uc-bad{color:' + RED + ';font-weight:600}.uc-hint.uc-good{color:#15803d;font-weight:600}' +
     '.uc-comp{display:flex;align-items:center;gap:8px}' +
@@ -274,15 +332,19 @@
     '.uc-comp input:disabled{background:#f5f6f8;border-color:#eceef1}' +
     '.uc-sendb{width:42px;height:42px;flex:0 0 42px;border-radius:50%;border:0;background:' + RED + ';color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}' +
     '.uc-sendb:hover{background:' + NAVY + '}.uc-sendb:disabled{background:#d6dae0;cursor:default}.uc-sendb svg{width:18px;height:18px}' +
-    '.uc-panel button:focus-visible,.uc-panel input:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
-    '.uc-main{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:28px;padding:7px 8px 7px 18px;background:' + RED + ';color:#fff;font-weight:600;font-size:15px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 10%);transition:background .4s}' +
-    '.uc-main:hover{background:' + NAVY + '}' +
+    '.uc-panel button:focus-visible,.uc-panel input:focus-visible,.uc-panel a:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
+    '.uc-main{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:28px;padding:7px 8px 7px 18px;background:' + RED + ';color:#fff;font-weight:600;font-size:15px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 10%);transition:background .4s;text-decoration:none}' +
+    '.uc-main:hover{background:' + NAVY + ';color:#fff}.uc-main[disabled]{opacity:.75;cursor:wait}' +
     '.uc-main .uc-ic{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#fff;color:' + RED + ';margin-left:12px;flex:0 0 36px}' +
     '.uc-main .uc-ic svg{width:18px;height:18px}' +
-    '.uc-note{font-size:11.5px;color:#6b7280;margin-top:8px;line-height:1.45;text-align:center}' +
+    '.uc-main.uc-wa{background:#25d366}.uc-main.uc-wa .uc-ic{color:#25d366}.uc-main.uc-wa:hover{background:#1da851}' +
+    '.uc-alt{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:8px;border:1.5px solid #25d366;border-radius:28px;padding:9px 14px;background:#fff;color:#128c4a;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none}' +
+    '.uc-alt:hover{background:#f0fdf4;color:#128c4a}.uc-alt svg{width:18px;height:18px}' +
+    '.uc-link{display:block;margin:10px auto 0;background:transparent;border:0;color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}.uc-link:hover{color:' + RED + '}' +
+    '.uc-note{font-size:11.5px;color:#6b7280;margin-top:8px;line-height:1.45;text-align:center}.uc-note a{color:' + NAVY + ';text-decoration:underline}' +
     '.uc-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}' +
     '@media (max-width:480px){.uc-panel{right:10px;left:10px;width:auto;bottom:84px;height:calc(100vh - 100px);height:calc(100dvh - 100px)}}' +
-    '@media (prefers-reduced-motion:reduce){.uc-row,.uc-replies,.uc-card{animation:none}.uc-dots i{animation:none}.uc-log{scroll-behavior:auto}}' +
+    '@media (prefers-reduced-motion:reduce){.uc-row,.uc-card{animation:none}.uc-dots i{animation:none}.uc-log{scroll-behavior:auto}}' +
     /* erişilebilirlik: aynı dil, küçük ve köşeli */
     '.ua-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:9989;width:34px;height:42px;border:0;border-radius:0 4px 4px 0;background:' + NAVY + ';color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 15%);opacity:.8;border-right:3px solid ' + RED + ';transition:opacity .2s,width .2s}' +
     '.ua-tab:hover,.ua-tab:focus-visible,.ua-tab[aria-expanded="true"]{opacity:1;width:38px}.ua-tab:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
@@ -354,18 +416,23 @@
 
   /* ================================================================ SOHBET */
   // Canlı destek havası (Ahmet, 28.09.2026: "chat ediliyormuş havası vermeli, premium
-  // müşteri hizmetleri gibi"): asistan baloncukla yazar, önce "yazıyor" görünür;
-  // seçenekler hızlı cevap düğmesi, serbest bilgi alttaki yazma kutusundan alınır.
-  // Akış: nasıl yardımcı olabiliriz → eğitim → kimin için → ad soyad → telefon →
-  // arama zamanı → not → özet ve "Mesaj gönder".
+  // müşteri hizmetleri gibi"): asistan baloncukla yazar, önce "yazıyor" görünür.
+  // Seçenekler mesajın altında liste kartı; ad soyad ve telefon tek form kartında.
+  // Akış: nasıl yardımcı olabiliriz → eğitim → kimin için → ad soyad + telefon →
+  // arama zamanı → not → özet → "Mesaj gönder" (Resend ile kursun e-postasına, /api/iletisim/).
+  // E-posta gidemezse aynı talep WhatsApp'tan gönderilebilir.
   function buildChat() {
+    // Ad/telefon/metin kuralları sunucuyla ORTAK: assets/js/uslu-rules.js (önce yüklenir).
+    var R = window.UsluRules;
+    if (!R) return;
     var AVATAR = '/assets/img/course/logo-avatar.webp';
+    var API = '/api/iletisim/';
     var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // quiet: kendiliğinden açıldıysa ziyaretçi panele dokunana dek odak sayfada kalır.
     var state, gen = 0, lastSide = null, lastOpener = null, quiet = false;
 
     function reset() {
-      state = { topic: null, course: null, who: null, name: '', phone: '', times: [], note: '', openedAt: 0 };
+      state = { topic: null, course: null, who: null, name: '', phone: '', times: [], note: '', startedAt: Date.now() };
     }
     reset();
 
@@ -380,13 +447,13 @@
     var headText = el('div');
     headText.appendChild(el('b', null, T.title));
     headText.appendChild(el('small', null, T.online + ' · ' + T.hours));
-    var again = el('button', { type: 'button', class: 'uc-hbtn uc-hgap', 'aria-label': T.restart, title: T.restart });
-    again.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var againBtn = el('button', { type: 'button', class: 'uc-hbtn uc-hgap', 'aria-label': T.restart, title: T.restart });
+    againBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var x = el('button', { type: 'button', class: 'uc-hbtn', 'aria-label': T.close, title: T.close });
     x.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
     head.appendChild(ava);
     head.appendChild(headText);
-    head.appendChild(again);
+    head.appendChild(againBtn);
     head.appendChild(x);
     var log = el('div', { class: 'uc-log', role: 'log', 'aria-live': 'polite' });
     var dock = el('div', { class: 'uc-dock' });
@@ -399,6 +466,9 @@
 
     var TICK = '<svg class="uc-tick" viewBox="0 0 16 10" aria-hidden="true" focusable="false"><path d="M1 5.5l3 3L10 2M6.5 8.5L13 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     var PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12l16-8-6 16-2.5-6.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>';
+    var CARET = '<svg viewBox="0 0 8 12" aria-hidden="true" focusable="false"><path d="M1.5 1l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var CHECK = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2 6.5l2.5 2.5L10 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
     function label(list, key) {
       for (var i = 0; i < list.length; i++) if (list[i][0] === key) return list[i][1];
@@ -407,6 +477,7 @@
     function fill(s, map) {
       return s.replace(/\{(\w)\}/g, function (m, k) { return map[k] != null ? map[k] : m; });
     }
+    function firstName() { return state.name.split(' ')[0]; }
     function scrollDown() { log.scrollTop = log.scrollHeight; }
     function focusIn(node) { if (!quiet && !panel.hidden && node && node.focus) node.focus(); }
 
@@ -455,12 +526,11 @@
       })();
     }
 
-    // Alt kutu: seçenek adımlarında kapalı, serbest yanıt adımlarında açık.
-    function idleDock() {
+    // Alt kutu: seçenek ve form adımlarında kapalı, yalnız not adımında açık.
+    function idleDock(hint) {
       dock.textContent = '';
-      dock.appendChild(el('div', { class: 'uc-hint' }));
       var c = el('div', { class: 'uc-comp' });
-      var inp = el('input', { type: 'text', placeholder: T.pickHint, disabled: '', 'aria-label': T.pickHint });
+      var inp = el('input', { type: 'text', placeholder: hint || T.pickHint, disabled: '', 'aria-label': hint || T.pickHint });
       var sb = el('button', { type: 'button', class: 'uc-sendb', disabled: '', 'aria-label': T.sendAria });
       sb.innerHTML = PLANE;
       c.appendChild(inp);
@@ -468,78 +538,175 @@
       dock.appendChild(c);
     }
 
-    function replies(list, onPick) {
+    function card(extra) {
+      var c = el('div', { class: 'uc-card' + (extra ? ' ' + extra : '') });
+      log.appendChild(c);
+      return c;
+    }
+
+    // Tek seçim: liste kartı, seçilen satır ziyaretçinin baloncuğu olur.
+    function choices(list, onPick) {
       idleDock();
-      var wrap = el('div', { class: 'uc-replies' });
+      var c = card();
       list.forEach(function (item) {
-        var b = el('button', { type: 'button', class: 'uc-reply' }, item[1]);
+        var b = el('button', { type: 'button', class: 'uc-choice' });
+        b.appendChild(el('span', null, item[1]));
+        b.insertAdjacentHTML('beforeend', CARET);
         b.addEventListener('click', function () {
-          wrap.remove();
+          c.remove();
           bubble('me', item[1]);
           onPick(item[0]);
         });
-        wrap.appendChild(b);
+        c.appendChild(b);
       });
-      log.appendChild(wrap);
       scrollDown();
-      focusIn(wrap.querySelector('button'));
+      focusIn(c.querySelector('button'));
     }
 
-    function multi(list, onDone) {
+    // Çoklu seçim: işaret kutulu satırlar + altta "Fark etmez / Devam et".
+    function multi(list, onDone, initial) {
       idleDock();
-      var wrap = el('div', { class: 'uc-replies' });
-      var picked = [];
-      list.forEach(function (t) {
-        var b = el('button', { type: 'button', class: 'uc-reply', 'aria-pressed': 'false' }, t);
+      var c = card();
+      var picked = (initial || []).slice();
+      var go;
+      list.forEach(function (item) {
+        var b = el('button', { type: 'button', class: 'uc-choice', 'aria-pressed': picked.indexOf(item[0]) >= 0 ? 'true' : 'false' });
+        var box = el('span', { class: 'uc-box', 'aria-hidden': 'true' });
+        box.innerHTML = CHECK;
+        b.appendChild(box);
+        b.appendChild(el('span', null, item[1]));
         b.addEventListener('click', function () {
-          var i = picked.indexOf(t);
-          if (i >= 0) picked.splice(i, 1); else picked.push(t);
+          var i = picked.indexOf(item[0]);
+          if (i >= 0) picked.splice(i, 1); else picked.push(item[0]);
           b.setAttribute('aria-pressed', i >= 0 ? 'false' : 'true');
-          go.textContent = picked.length ? T.cont + ' →' : T.anyTime;
+          go.firstChild.textContent = picked.length ? T.cont : T.anyTime;
         });
-        wrap.appendChild(b);
+        c.appendChild(b);
       });
-      var go = el('button', { type: 'button', class: 'uc-reply uc-go' }, T.anyTime);
+      go = el('button', { type: 'button', class: 'uc-choice uc-go' });
+      go.appendChild(el('span', null, picked.length ? T.cont : T.anyTime));
+      go.insertAdjacentHTML('beforeend', CARET);
       go.addEventListener('click', function () {
-        var chosen = list.filter(function (t) { return picked.indexOf(t) >= 0; });
-        wrap.remove();
-        bubble('me', chosen.length ? chosen.join(', ') : T.anyTime);
-        onDone(chosen);
+        var chosen = list.filter(function (item) { return picked.indexOf(item[0]) >= 0; });
+        c.remove();
+        bubble('me', chosen.length ? chosen.map(function (x) { return x[1]; }).join(', ') : T.anyTime);
+        onDone(chosen.map(function (x) { return x[0]; }));
       });
-      wrap.appendChild(go);
-      log.appendChild(wrap);
+      c.appendChild(go);
       scrollDown();
-      focusIn(wrap.querySelector('button'));
+      focusIn(c.querySelector('button'));
     }
 
-    // Serbest yanıt: cfg = { ph, type, mode, hint(v)->[metin, sınıf], format(v), check(v)->hata|null, skip }
-    function ask(cfg, onOk) {
-      var skipWrap = null;
-      dock.textContent = '';
-      var hint = el('div', { class: 'uc-hint', id: 'uc-hint' });
-      var f = el('form', { class: 'uc-comp', novalidate: '' });
+    // Kural kodlarını ekrandaki metne çevir (kurallar: uslu-rules.js).
+    var phoneDigits = R.phoneDigits, phoneFormat = R.phoneFormat;
+    function titleCase(v) { return R.titleCase(v, EN); }
+    function nameProblem(v) {
+      var c = R.nameProblem(v);
+      if (!c) return null;
+      return c === 'name_chars' ? T.nameChars : c === 'name_format' ? T.nameErr : T.nameFake;
+    }
+    function phoneProblem(d) {
+      var c = R.phoneProblem(d);
+      if (!c) return null;
+      return c === 'phone_start' ? T.phoneStart : c === 'phone_len' ? T.phoneLen.replace('{n}', String(d.length)) : T.phoneFake;
+    }
+    function textProblem(v) {
+      var c = R.textProblem(v);
+      return !c ? null : c === 'text_link' ? T.textLink : T.textAbuse;
+    }
+
+    // Ad soyad + telefon tek kartta (Ahmet: "iletişim ve ad soyad birlikte istensin").
+    function contactForm(onOk) {
+      idleDock(T.formHint);
+      var c = card('uc-form-card');
+      var f = el('form', { class: 'uc-form', novalidate: '' });
       var hp = el('input', { type: 'text', name: 'website', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'uc-hp' });
-      var inp = el('input', { id: cfg.id, type: cfg.type || 'text', placeholder: cfg.ph, maxlength: String(cfg.max || 80), autocomplete: cfg.ac || 'off', 'aria-label': cfg.ph, 'aria-describedby': 'uc-hint' });
-      if (cfg.mode) inp.setAttribute('inputmode', cfg.mode);
-      var sb = el('button', { type: 'submit', class: 'uc-sendb', 'aria-label': T.sendAria });
-      sb.innerHTML = PLANE;
       f.appendChild(hp);
-      f.appendChild(inp);
-      f.appendChild(sb);
+      f.appendChild(el('label', { for: 'uc-name' }, state.who && state.who !== 'kendim' ? T.nameOther : T.name));
+      var nm = el('input', { id: 'uc-name', type: 'text', autocomplete: 'name', maxlength: '80', placeholder: T.namePh, 'aria-describedby': 'uc-name-err' });
+      nm.value = state.name;
+      f.appendChild(nm);
+      var nErr = el('div', { class: 'uc-ferr', id: 'uc-name-err', role: 'alert' });
+      f.appendChild(nErr);
+      f.appendChild(el('label', { for: 'uc-phone' }, T.phone));
+      var ph = el('input', { id: 'uc-phone', type: 'tel', inputmode: 'numeric', autocomplete: 'tel-national', maxlength: '14', placeholder: T.phonePh, 'aria-describedby': 'uc-phone-hint' });
+      ph.value = state.phone;
+      f.appendChild(ph);
+      var hint = el('div', { class: 'uc-fhint', id: 'uc-phone-hint', role: 'status' });
+      f.appendChild(hint);
       function paint() {
-        if (cfg.format) inp.value = cfg.format(inp.value);
-        var h = cfg.hint ? cfg.hint(inp.value) : ['', ''];
-        hint.textContent = h[0];
-        hint.className = 'uc-hint' + (h[1] ? ' ' + h[1] : '');
-        inp.removeAttribute('aria-invalid');
+        var d = phoneDigits(ph.value);
+        ph.value = phoneFormat(d);
+        var bad = d.length > 0 && d.charAt(0) !== '0';
+        hint.textContent = bad ? T.phoneStart : T.phoneHint + ' · ' + d.length + '/11';
+        hint.className = 'uc-fhint' + (bad ? ' uc-bad' : d.length === 11 ? ' uc-good' : '');
+        ph.removeAttribute('aria-invalid');
       }
-      inp.addEventListener('input', paint);
+      ph.addEventListener('input', paint);
+      nm.addEventListener('input', function () { nErr.textContent = ''; nm.removeAttribute('aria-invalid'); });
       paint();
+      var go = el('button', { type: 'submit', class: 'uc-fgo' });
+      go.appendChild(el('span', null, T.cont));
+      go.insertAdjacentHTML('beforeend', ARROW);
+      f.appendChild(go);
       f.addEventListener('submit', function (ev) {
         ev.preventDefault();
         if (hp.value) return; // bot
-        var v = inp.value.replace(/\s+/g, ' ').trim();
-        var problem = cfg.check ? cfg.check(v) : null;
+        var name = nm.value.replace(/\s+/g, ' ').trim();
+        var np = nameProblem(name);
+        var d = phoneDigits(ph.value);
+        var pp = phoneProblem(d);
+        nErr.textContent = np || '';
+        if (np) nm.setAttribute('aria-invalid', 'true');
+        if (pp) {
+          hint.textContent = pp;
+          hint.className = 'uc-fhint uc-bad';
+          ph.setAttribute('aria-invalid', 'true');
+        }
+        if (np) { nm.focus(); return; }
+        if (pp) { ph.focus(); return; }
+        state.name = titleCase(name);
+        state.phone = phoneFormat(d);
+        c.remove();
+        bubble('me', state.name + '\n' + state.phone);
+        onOk();
+      });
+      c.appendChild(f);
+      scrollDown();
+      focusIn(nm);
+    }
+
+    // Not: alttaki yazma kutusu açılır; "Yok, bu kadar" kartı atlar.
+    function askNote(onOk, initial) {
+      dock.textContent = '';
+      var hint = el('div', { class: 'uc-hint', id: 'uc-note-hint', role: 'alert' });
+      dock.appendChild(hint);
+      var f = el('form', { class: 'uc-comp', novalidate: '' });
+      var inp = el('input', { id: 'uc-note', type: 'text', placeholder: T.notePh, maxlength: '300', autocomplete: 'off', 'aria-label': T.notePh, 'aria-describedby': 'uc-note-hint' });
+      inp.value = initial || '';
+      inp.addEventListener('input', function () { hint.textContent = ''; hint.className = 'uc-hint'; inp.removeAttribute('aria-invalid'); });
+      var sb = el('button', { type: 'submit', class: 'uc-sendb', 'aria-label': T.sendAria });
+      sb.innerHTML = PLANE;
+      f.appendChild(inp);
+      f.appendChild(sb);
+      dock.appendChild(f);
+      var c = card();
+      var skip = el('button', { type: 'button', class: 'uc-choice' });
+      skip.appendChild(el('span', null, T.noNote));
+      skip.insertAdjacentHTML('beforeend', CARET);
+      c.appendChild(skip);
+      function done(v) {
+        c.remove();
+        idleDock();
+        bubble('me', v || T.noNote);
+        onOk(v);
+      }
+      skip.addEventListener('click', function () { done(''); });
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var v = inp.value.replace(/\s+/g, ' ').trim().slice(0, 300);
+        if (!v) return;
+        var problem = textProblem(v);
         if (problem) {
           hint.textContent = problem;
           hint.className = 'uc-hint uc-bad';
@@ -547,72 +714,48 @@
           inp.focus();
           return;
         }
-        if (!v && cfg.skip) return;
-        if (skipWrap) skipWrap.remove();
-        idleDock();
-        bubble('me', cfg.show ? cfg.show(v) : v);
-        onOk(v);
+        done(v);
       });
-      dock.appendChild(hint);
-      dock.appendChild(f);
-      if (cfg.skip) {
-        var wrap = skipWrap = el('div', { class: 'uc-replies' });
-        var s = el('button', { type: 'button', class: 'uc-reply' }, cfg.skip);
-        s.addEventListener('click', function () {
-          wrap.remove();
-          idleDock();
-          bubble('me', cfg.skip);
-          onOk('');
-        });
-        wrap.appendChild(s);
-        log.appendChild(wrap);
-        scrollDown();
-      }
       scrollDown();
       focusIn(inp);
     }
 
-    // Telefon: 0 ile başlayan 11 hane (Ahmet, 28.09.2026). +90 ile yazılırsa 0'a çevrilir;
-    // yazarken "0532 123 45 67" biçimine girer.
-    function phoneDigits(v) {
-      var d = String(v || '').replace(/\D/g, '');
-      if (d.indexOf('90') === 0 && d.length > 11) d = '0' + d.slice(2);
-      return d.slice(0, 11);
-    }
-    function phoneFormat(d) {
-      return [d.slice(0, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)].filter(Boolean).join(' ');
-    }
-    function phoneProblem(d) {
-      if (!d) return T.phoneLen.replace('{n}', '0');
-      if (d.charAt(0) !== '0') return T.phoneStart;
-      if (d.length !== 11) return T.phoneLen.replace('{n}', String(d.length));
-      return null;
-    }
-    // Ad soyad: en az iki kelime, yalnız harf (Türkçe dahil). Baş harfler büyütülür.
-    var NAME_OK = /^[\p{L}'’.\-]{2,}(?: [\p{L}'’.\-]{2,})+$/u;
-    function nameProblem(v) {
-      if (/[\d_@#$%^&*()+=<>?!/\\|{}\[\]]/.test(v)) return T.nameChars;
-      return NAME_OK.test(v) ? null : T.nameErr;
-    }
-    function titleCase(v) {
-      var loc = EN ? 'en' : 'tr';
-      return v.split(' ').map(function (w) {
-        return w.charAt(0).toLocaleUpperCase(loc) + w.slice(1).toLocaleLowerCase(loc);
-      }).join(' ');
-    }
-
-    function message() {
+    // WhatsApp yedeği: satırlar "•" ile ayrılır ki WhatsApp'ın önizleme sayfası satır
+    // sonlarını yutsa da okunaklı kalsın (Ahmet: "alt alta okunaklı olsun").
+    function waText() {
       var lines = [
         T.intro,
-        T.request + ': ' + label(T.topics, state.topic),
-        T.course + ': ' + label(T.courses, state.course),
-        T.lWho + ': ' + label(T.who, state.who),
-        T.lName + ': ' + state.name,
-        T.lPhone + ': ' + state.phone
+        '',
+        '• ' + T.request + ': ' + label(T.topics, state.topic),
+        '• ' + T.course + ': ' + label(T.courses, state.course),
+        '• ' + T.lWho + ': ' + label(T.who, state.who),
+        '• ' + T.lName + ': ' + state.name,
+        '• ' + T.lPhone + ': ' + state.phone
       ];
-      if (state.times.length) lines.push(T.lTime + ': ' + state.times.join(', '));
-      if (state.note) lines.push(T.lNote + ': ' + state.note);
+      if (state.times.length) lines.push('• ' + T.lTime + ': ' + state.times.map(function (k) { return label(T.times, k); }).join(', '));
+      if (state.note) lines.push('• ' + T.lNote + ': ' + state.note);
       return lines.join('\n');
+    }
+    function waUrl() {
+      return 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent(waText());
+    }
+    function waButton(cls, text) {
+      var a = el('a', { class: cls, href: waUrl(), target: '_blank', rel: 'noopener noreferrer' });
+      if (cls.indexOf('uc-main') >= 0) {
+        a.appendChild(el('span', null, text));
+        var ic = el('span', { class: 'uc-ic', 'aria-hidden': 'true' });
+        ic.innerHTML = ICON_WA;
+        a.appendChild(ic);
+      } else {
+        a.innerHTML = ICON_WA;
+        a.appendChild(el('span', null, text));
+      }
+      return a;
+    }
+    function restartLink() {
+      var b = el('button', { type: 'button', class: 'uc-link' }, T.again);
+      b.addEventListener('click', function () { restart(); });
+      return b;
     }
 
     function greeting() {
@@ -623,94 +766,153 @@
     /* ---- akış ---- */
     function stepTopic() {
       say([greeting(), T.helpQ], function () {
-        replies(T.topics, function (k) { state.topic = k; stepCourse(true); });
+        choices(T.topics, function (k) { state.topic = k; stepCourse(); });
       });
     }
-    function stepCourse(withAck) {
-      say((withAck ? [T.ack[state.topic]] : []).concat(T.courseQ), function () {
-        replies(T.courses, function (k) { state.course = k; stepWho(); });
+    function stepCourse() {
+      say([T.ack[state.topic], T.courseQ], function () {
+        choices(T.courses, function (k) { state.course = k; stepWho(); });
       });
     }
     function stepWho(pre) {
       say((pre || []).concat(T.whoQ), function () {
-        replies(T.who, function (k) {
-          state.who = k;
-          state.openedAt = Date.now();
-          stepName();
-        });
+        choices(T.who, function (k) { state.who = k; stepContact(); });
       });
     }
-    function stepName() {
+    function stepContact() {
       var self = state.who === 'kendim';
-      say([self ? T.whoAckSelf : T.whoAckOther, self ? T.nameQ : T.nameQOther], function () {
-        ask({ id: 'uc-name', ph: T.namePh, ac: 'name', max: 80, check: nameProblem, show: titleCase }, function (v) {
-          state.name = titleCase(v);
-          stepPhone();
-        });
-      });
-    }
-    function stepPhone() {
-      say([fill(T.phoneQ, { n: state.name.split(' ')[0] })], function () {
-        ask({
-          id: 'uc-phone', ph: T.phonePh, type: 'tel', mode: 'numeric', ac: 'tel-national', max: 14,
-          format: function (v) { return phoneFormat(phoneDigits(v)); },
-          hint: function (v) {
-            var d = phoneDigits(v);
-            if (d.length && d.charAt(0) !== '0') return [T.phoneStart, 'uc-bad'];
-            return [T.phoneHint + ' · ' + d.length + '/11', d.length === 11 ? 'uc-good' : ''];
-          },
-          check: function (v) {
-            var p = phoneProblem(phoneDigits(v));
-            if (!p && Date.now() - state.openedAt < 1500) return T.spamErr;
-            return p;
-          },
-          show: function (v) { return phoneFormat(phoneDigits(v)); }
-        }, function (v) {
-          state.phone = phoneFormat(phoneDigits(v));
-          stepTime();
-        });
+      say([self ? T.whoAckSelf : T.whoAckOther, self ? T.contactQ : T.contactQOther], function () {
+        contactForm(stepTime);
       });
     }
     function stepTime() {
-      say([T.timeQ], function () {
-        multi(T.times, function (chosen) { state.times = chosen; stepNote(); });
+      say([fill(T.nice, { n: firstName() }), T.timeQ], function () {
+        multi(T.times, function (keys) { state.times = keys; stepNote(); });
       });
     }
     function stepNote() {
       say([T.noteQ], function () {
-        ask({ id: 'uc-note', ph: T.notePh, max: 300, skip: T.noNote }, function (v) {
-          state.note = v.slice(0, 300);
-          stepSummary();
-        });
+        askNote(function (v) { state.note = v; stepSummary(); });
       });
     }
-    function stepSummary() {
-      var text = message();
-      say([fill(T.summary, { n: state.name.split(' ')[0] })], function () {
-        log.appendChild(el('div', { class: 'uc-card' }, text));
+    // Özet: her satırın yanında "düzenle"; o adım yeniden sorulur, sonra özete dönülür
+    // (Ahmet: "mesajda düzenleme imkanı yok").
+    var PENCIL = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h4L19 9l-4-4L4 16v4zM14 6l4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    function stepSummary(again) {
+      say([again ? T.summaryAgain : fill(T.summary, { n: firstName() })], function () {
+        var c = card('uc-sum');
+        var rows = [
+          ['topic', T.request, label(T.topics, state.topic)],
+          ['course', T.course, label(T.courses, state.course)],
+          ['who', T.lWho, label(T.who, state.who)],
+          ['contact', T.lName, state.name],
+          ['contact', T.lPhone, state.phone],
+          ['times', T.lTime, state.times.length ? state.times.map(function (k) { return label(T.times, k); }).join(', ') : T.anyTime],
+          ['note', T.lNote, state.note || T.noNoteVal]
+        ];
+        rows.forEach(function (r) {
+          var d = el('div', { class: 'uc-sr' });
+          d.appendChild(el('span', null, r[1]));
+          d.appendChild(el('b', null, r[2]));
+          var e = el('button', { type: 'button', class: 'uc-edit', 'aria-label': T.edit + ': ' + r[1], title: T.edit });
+          e.innerHTML = PENCIL;
+          e.addEventListener('click', function () { editField(r[0], c); });
+          d.appendChild(e);
+          c.appendChild(d);
+        });
         scrollDown();
         dock.textContent = '';
-        var b = el('button', { type: 'button', class: 'uc-main' });
-        var bt = el('span', null, T.send);
+        var send = el('button', { type: 'button', class: 'uc-main' });
+        var st = el('span', null, T.send);
         var ic = el('span', { class: 'uc-ic', 'aria-hidden': 'true' });
         ic.innerHTML = PLANE;
-        b.appendChild(bt);
-        b.appendChild(ic);
-        var told = false;
-        b.addEventListener('click', function () {
-          window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
-          bt.textContent = T.sent;
-          if (!told) { told = true; say([T.after]); }
-        });
-        dock.appendChild(b);
-        dock.appendChild(el('div', { class: 'uc-note' }, T.privacy));
+        send.appendChild(st);
+        send.appendChild(ic);
+        send.addEventListener('click', function () { submit(send, st); });
+        dock.appendChild(send);
+        var note = el('div', { class: 'uc-note' });
+        note.appendChild(document.createTextNode(T.privacy + ' '));
+        note.appendChild(el('a', { href: '/kvkk/', target: '_blank', rel: 'noopener' }, T.privacyLink));
+        dock.appendChild(note);
         scrollDown();
-        focusIn(b);
+        focusIn(send);
       });
+    }
+
+    function editField(field, sumCard) {
+      if (busy) return;
+      if (sumCard) sumCard.remove();
+      idleDock();
+      var back = function () { stepSummary(true); };
+      var ask = function (q, then) { say([T.editAck, q], then); };
+      if (field === 'topic') ask(T.helpQ, function () { choices(T.topics, function (k) { state.topic = k; back(); }); });
+      else if (field === 'course') ask(T.courseQ, function () { choices(T.courses, function (k) { state.course = k; back(); }); });
+      else if (field === 'who') ask(T.whoQ, function () { choices(T.who, function (k) { state.who = k; back(); }); });
+      else if (field === 'contact') ask(state.who === 'kendim' ? T.contactQ : T.contactQOther, function () { contactForm(back); });
+      else if (field === 'times') ask(T.timeQ, function () { multi(T.times, function (keys) { state.times = keys; back(); }, state.times); });
+      else ask(T.noteQ, function () { askNote(function (v) { state.note = v; back(); }, state.note); });
+    }
+
+    // Gönderim: sunucu doğrular, Resend ile kursun e-postasına iletir.
+    var busy = false;
+    function submit(btn, labelNode) {
+      if (busy) return;
+      busy = true;
+      btn.disabled = true;
+      labelNode.textContent = T.sending;
+      var g = gen;
+      var payload = {
+        source: 'asistan',
+        lang: EN ? 'en' : 'tr',
+        website: '',
+        t: Date.now() - state.startedAt,
+        name: state.name,
+        phone: phoneDigits(state.phone),
+        topic: state.topic,
+        course: state.course,
+        who: state.who,
+        times: state.times,
+        note: state.note,
+        kvkk: true
+      };
+      fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: 'same-origin'
+      })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .catch(function () { return { ok: false }; })
+        .then(function (data) {
+          busy = false;
+          if (g !== gen) return;
+          dock.textContent = '';
+          if (data && data.ok) {
+            // Gönderilen talep artık düzenlenmez (yeniden gönderimi önler); yeni talep baştan başlar.
+            Array.prototype.forEach.call(log.querySelectorAll('.uc-edit'), function (b) { b.remove(); });
+            say([fill(T.sentOk, { n: firstName(), h: T.hoursLong })], function () {
+              dock.textContent = '';
+              dock.appendChild(waButton('uc-alt', T.waAlso));
+              dock.appendChild(restartLink());
+              scrollDown();
+            });
+          } else if (data && (data.error === 'name' || data.error === 'phone' || data.error === 'note')) {
+            editField(data.error === 'note' ? 'note' : 'contact', log.querySelector('.uc-sum'));
+          } else {
+            say([data && data.error === 'rate' ? T.tooMany : T.sendFail], function () {
+              dock.textContent = '';
+              dock.appendChild(waButton('uc-main uc-wa', T.waSend));
+              dock.appendChild(restartLink());
+              scrollDown();
+              focusIn(dock.querySelector('a'));
+            });
+          }
+        });
     }
 
     function restart(course) {
       gen++;
+      busy = false;
       reset();
       log.textContent = '';
       lastSide = null;
@@ -740,7 +942,7 @@
       if (opts && opts.course) { started = true; restart(opts.course); }
       else if (!started) { started = true; restart(); }
       else {
-        var f = dock.querySelector('input:not([disabled]), button') || log.querySelector('.uc-replies button');
+        var f = log.querySelector('.uc-card button, .uc-card input') || dock.querySelector('input:not([disabled]), button, a');
         focusIn(f);
       }
     }
@@ -753,7 +955,7 @@
 
     launch.addEventListener('click', function () { panel.hidden ? open() : close(); });
     x.addEventListener('click', close);
-    again.addEventListener('click', function () { restart(); });
+    againBtn.addEventListener('click', function () { restart(); });
     teaser.addEventListener('click', function () { open(); });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     panel.addEventListener('pointerdown', function () { quiet = false; });
