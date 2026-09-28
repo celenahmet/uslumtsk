@@ -28,19 +28,24 @@
         online: 'online',
         close: 'Close',
         back: 'Back',
-        hello: 'Hello! Which licence course are you interested in?',
-        topic: 'What would you like to know?',
-        contact: 'Where can we reach you?',
+        helpQ: 'Hello! How can we help you?',
+        courseQ: 'Which licence course are you interested in?',
+        whoQ: 'Who is the course for?',
+        contact: 'How can we reach you?',
         name: 'Full name',
-        namePh: 'Your full name',
+        nameOther: 'Your full name',
+        namePh: 'e.g. Ayşe Yılmaz',
         phone: 'Phone',
-        phonePh: '05xx xxx xx xx',
+        phonePh: '0532 123 45 67',
+        phoneHint: '11 digits starting with 0',
         time: 'Best time to call (optional, choose any)',
         note: 'Note (optional)',
         notePh: 'Anything you would like to add...',
         cont: 'Continue',
-        nameErr: 'Please enter your full name.',
-        phoneErr: 'Please enter a valid phone number.',
+        nameErr: 'Please enter your first and last name (e.g. Ayşe Yılmaz).',
+        nameChars: 'Your name can only contain letters.',
+        phoneStart: 'The number must start with 0.',
+        phoneLen: 'The number must have 11 digits (currently {n}).',
         spamErr: 'That was very fast. Please wait a moment and try again.',
         summary: 'Your message is ready. Please check it before sending.',
         send: 'Send message',
@@ -51,6 +56,7 @@
         teaser: 'Would you like a quote?',
         course: 'Course',
         request: 'Request',
+        lWho: 'Course is for',
         none: 'Not specified',
         intro: 'Hello, I found your driving school on your website ' + SITE + '.',
         lName: 'Name',
@@ -70,8 +76,15 @@
         topics: [
           ['teklif', 'I would like a price quote'],
           ['kayit', 'I would like to enrol'],
-          ['program', 'Schedule and duration'],
-          ['soru', 'Another question']
+          ['program', 'Information about schedule and duration'],
+          ['soru', 'Help with something else']
+        ],
+        who: [
+          ['kendim', 'For myself'],
+          ['cocugum', 'For my child'],
+          ['kardesim', 'For my sibling'],
+          ['esim', 'For my spouse'],
+          ['yakinim', 'For a relative or friend']
         ],
         times: ['Morning', 'Afternoon', 'Evening']
       }
@@ -81,19 +94,24 @@
         online: 'çevrimiçi',
         close: 'Kapat',
         back: 'Geri',
-        hello: 'Merhaba! Hangi ehliyet eğitimiyle ilgileniyorsunuz?',
-        topic: 'Ne öğrenmek istersiniz?',
+        helpQ: 'Merhaba! Size nasıl yardımcı olabiliriz?',
+        courseQ: 'Hangi ehliyet eğitimiyle ilgileniyorsunuz?',
+        whoQ: 'Eğitimi kimin için düşünüyorsunuz?',
         contact: 'Size nasıl ulaşalım?',
         name: 'Ad Soyad',
-        namePh: 'Adınız ve soyadınız',
+        nameOther: 'Sizin adınız soyadınız',
+        namePh: 'Örn. Ayşe Yılmaz',
         phone: 'Telefon',
-        phonePh: '05xx xxx xx xx',
+        phonePh: '0532 123 45 67',
+        phoneHint: '0 ile başlayan 11 hane',
         time: 'Uygun arama zamanı (isteğe bağlı, birden fazla seçilebilir)',
         note: 'Not (isteğe bağlı)',
         notePh: 'Eklemek istediğiniz bir şey varsa...',
         cont: 'Devam et',
-        nameErr: 'Lütfen adınızı ve soyadınızı yazın.',
-        phoneErr: 'Lütfen geçerli bir telefon numarası yazın.',
+        nameErr: 'Adınızı ve soyadınızı birlikte yazın (örn. Ayşe Yılmaz).',
+        nameChars: 'Ad soyad yalnız harf içermeli.',
+        phoneStart: 'Numara 0 ile başlamalı.',
+        phoneLen: 'Numara 11 haneli olmalı (şu an {n} hane).',
         spamErr: 'Çok hızlı ilerlediniz. Birkaç saniye bekleyip yeniden deneyin.',
         summary: 'Mesajınız hazır. Göndermeden önce kontrol edebilirsiniz.',
         send: 'Mesaj gönder',
@@ -104,6 +122,7 @@
         teaser: 'Teklif almak ister misiniz?',
         course: 'İlgilendiğim eğitim',
         request: 'Talebim',
+        lWho: 'Eğitim kimin için',
         none: 'Belirtilmedi',
         intro: 'Merhabalar, ' + SITE + ' web sitenizden sürücü kursunuzu gördüm.',
         lName: 'Ad Soyad',
@@ -123,8 +142,15 @@
         topics: [
           ['teklif', 'Fiyat teklifi almak istiyorum'],
           ['kayit', 'Kayıt olmak istiyorum'],
-          ['program', 'Ders programı ve süre'],
-          ['soru', 'Başka bir sorum var']
+          ['program', 'Ders programı ve süre hakkında bilgi'],
+          ['soru', 'Başka bir konuda yardım']
+        ],
+        who: [
+          ['kendim', 'Kendim için'],
+          ['cocugum', 'Çocuğum için'],
+          ['kardesim', 'Kardeşim için'],
+          ['esim', 'Eşim için'],
+          ['yakinim', 'Bir yakınım veya arkadaşım için']
         ],
         times: ['Sabah', 'Öğle', 'Akşam']
       };
@@ -193,6 +219,11 @@
     '.uc-body{padding:16px 18px 18px;overflow-y:auto;font-size:15px;line-height:1.5}' +
     '.uc-tag{display:block;text-transform:uppercase;font-weight:700;font-size:12px;letter-spacing:.04em;color:' + RED + '}' +
     '.uc-bar{height:3px;background:#eef0f3;margin:6px 0 12px}.uc-bar i{display:block;height:3px;background:' + RED + '}' +
+    '.uc-crumbs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}' +
+    '.uc-crumb{border:1px solid #e3e6ea;background:#f7f8fa;color:' + NAVY + ';font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 8px;cursor:pointer;letter-spacing:.02em}' +
+    '.uc-crumb:hover{border-color:' + RED + ';color:' + RED + '}' +
+    '.uc-hint{font-size:12px;color:#6b7280;margin-top:5px}.uc-hint.uc-bad{color:' + RED + ';font-weight:600}.uc-hint.uc-good{color:#15803d;font-weight:600}' +
+    '.uc-body input[aria-invalid="true"]{border-color:' + RED + '}' +
     '.uc-q{font-size:17px;font-weight:700;line-height:1.3;color:' + NAVY + ';margin-bottom:10px}' +
     '.uc-opts{display:flex;flex-direction:column}' +
     '.uc-opt{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid #eceef1;padding:11px 2px;cursor:pointer;font-size:14px;font-weight:600;text-transform:uppercase;color:' + NAVY + ';transition:color .3s,padding .3s}' +
@@ -292,7 +323,7 @@
 
   /* ================================================================ SOHBET */
   function buildChat() {
-    var state = { step: 0, course: null, topic: null, openedAt: 0, lastOpener: null };
+    var state = { step: 0, topic: null, course: null, who: null, openedAt: 0, lastOpener: null };
 
     var launch = el('button', { type: 'button', class: 'uc-launch', 'aria-label': T.launcher, 'aria-expanded': 'false', 'aria-controls': 'uc-panel', 'data-uslu-widget': '' });
     launch.innerHTML = ICON_WA;
@@ -342,14 +373,27 @@
       return b;
     }
 
-    // Başlıklardaki kırmızı etiket + ince ilerleme çizgisi + soru.
+    var TOTAL = 5;
+    // Başlıklardaki kırmızı etiket + ince ilerleme çizgisi + önceki seçimler + soru.
     function heading(step, text) {
-      body.appendChild(el('span', { class: 'uc-tag' }, T.stepWord + ' ' + (step + 1) + ' / 4'));
+      body.appendChild(el('span', { class: 'uc-tag' }, T.stepWord + ' ' + (step + 1) + ' / ' + TOTAL));
       var bar = el('div', { class: 'uc-bar', 'aria-hidden': 'true' });
       var fill = el('i');
-      fill.style.width = ((step + 1) * 25) + '%';
+      fill.style.width = Math.round(((step + 1) / TOTAL) * 100) + '%';
       bar.appendChild(fill);
       body.appendChild(bar);
+      // Önceki cevaplar küçük etiketler: dokununca o adıma döner.
+      var picks = [[0, state.topic, T.topics], [1, state.course, T.courses], [2, state.who, T.who]]
+        .filter(function (x) { return x[0] < step && x[1]; });
+      if (picks.length) {
+        var crumbs = el('div', { class: 'uc-crumbs' });
+        picks.forEach(function (x) {
+          var cb = el('button', { type: 'button', class: 'uc-crumb' }, label(x[2], x[1]));
+          cb.addEventListener('click', function () { render(x[0]); });
+          crumbs.appendChild(cb);
+        });
+        body.appendChild(crumbs);
+      }
       body.appendChild(el('div', { class: 'uc-q' }, text));
     }
 
@@ -372,10 +416,40 @@
     }
 
     function message(data) {
-      var lines = [T.intro, T.course + ': ' + label(T.courses, state.course), T.request + ': ' + label(T.topics, state.topic), T.lName + ': ' + data.name, T.lPhone + ': ' + data.phone];
+      var lines = [
+        T.intro,
+        T.request + ': ' + label(T.topics, state.topic),
+        T.course + ': ' + label(T.courses, state.course),
+        T.lWho + ': ' + label(T.who, state.who),
+        T.lName + ': ' + data.name,
+        T.lPhone + ': ' + data.phone
+      ];
       if (data.time) lines.push(T.lTime + ': ' + data.time);
       if (data.note) lines.push(T.lNote + ': ' + data.note);
       return lines.join('\n');
+    }
+
+    // Telefon: 0 ile başlayan 11 hane (Ahmet, 28.09.2026). +90 ile yazılırsa 0'a çevrilir;
+    // yazarken "0532 123 45 67" biçimine girer.
+    function phoneDigits(v) {
+      var d = String(v || '').replace(/\D/g, '');
+      if (d.indexOf('90') === 0 && d.length > 11) d = '0' + d.slice(2);
+      return d.slice(0, 11);
+    }
+    function phoneFormat(d) {
+      return [d.slice(0, 4), d.slice(4, 7), d.slice(7, 9), d.slice(9, 11)].filter(Boolean).join(' ');
+    }
+    function phoneProblem(d) {
+      if (!d) return T.phoneLen.replace('{n}', '0');
+      if (d.charAt(0) !== '0') return T.phoneStart;
+      if (d.length !== 11) return T.phoneLen.replace('{n}', String(d.length));
+      return null;
+    }
+    // Ad soyad: en az iki kelime, yalnız harf (Türkçe dahil).
+    var NAME_OK = /^[\p{L}'’.\-]{2,}(?: [\p{L}'’.\-]{2,})+$/u;
+    function nameProblem(v) {
+      if (/[\d_@#$%^&*()+=<>?!/\\|{}\[\]]/.test(v)) return T.nameChars;
+      return NAME_OK.test(v) ? null : T.nameErr;
     }
 
     var form = { name: '', phone: '', time: '', note: '' };
@@ -384,25 +458,40 @@
       state.step = step;
       body.textContent = '';
       if (step === 0) {
-        heading(0, T.hello);
-        body.appendChild(options(T.courses, function (k) { state.course = k; render(1); }));
+        heading(0, T.helpQ);
+        body.appendChild(options(T.topics, function (k) { state.topic = k; render(1); }));
       } else if (step === 1) {
-        heading(1, T.topic);
-        body.appendChild(options(T.topics, function (k) { state.topic = k; state.openedAt = Date.now(); render(2); }));
+        heading(1, T.courseQ);
+        body.appendChild(options(T.courses, function (k) { state.course = k; render(2); }));
         body.appendChild(backLink(0));
       } else if (step === 2) {
-        heading(2, T.contact);
+        heading(2, T.whoQ);
+        body.appendChild(options(T.who, function (k) { state.who = k; state.openedAt = Date.now(); render(3); }));
+        body.appendChild(backLink(1));
+      } else if (step === 3) {
+        heading(3, T.contact);
         var f = el('form', { novalidate: '' });
         var hp = el('input', { type: 'text', name: 'website', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'uc-hp' });
         f.appendChild(hp);
-        f.appendChild(el('label', { for: 'uc-name' }, T.name));
-        var nm = el('input', { id: 'uc-name', type: 'text', autocomplete: 'name', maxlength: '80', placeholder: T.namePh, required: '' });
+        f.appendChild(el('label', { for: 'uc-name' }, state.who && state.who !== 'kendim' ? T.nameOther : T.name));
+        var nm = el('input', { id: 'uc-name', type: 'text', autocomplete: 'name', maxlength: '80', placeholder: T.namePh, required: '', 'aria-describedby': 'uc-err' });
         nm.value = form.name;
         f.appendChild(nm);
         f.appendChild(el('label', { for: 'uc-phone' }, T.phone));
-        var ph = el('input', { id: 'uc-phone', type: 'tel', autocomplete: 'tel', inputmode: 'tel', maxlength: '20', placeholder: T.phonePh, required: '' });
+        var ph = el('input', { id: 'uc-phone', type: 'tel', autocomplete: 'tel-national', inputmode: 'numeric', maxlength: '14', placeholder: T.phonePh, required: '', 'aria-describedby': 'uc-phone-hint' });
         ph.value = form.phone;
         f.appendChild(ph);
+        var hint = el('div', { id: 'uc-phone-hint', class: 'uc-hint' });
+        f.appendChild(hint);
+        function updatePhone() {
+          var d = phoneDigits(ph.value);
+          ph.value = phoneFormat(d);
+          var bad = d.length > 0 && d.charAt(0) !== '0';
+          hint.textContent = bad ? T.phoneStart : T.phoneHint + ' · ' + d.length + '/11';
+          hint.className = 'uc-hint' + (bad ? ' uc-bad' : d.length === 11 ? ' uc-good' : '');
+        }
+        ph.addEventListener('input', updatePhone);
+        updatePhone();
         // Birden fazla seçilebilir (Ahmet, 28.09.2026); hiçbiri seçilmezse mesaja yazılmaz.
         var fs = el('fieldset', { class: 'uc-times' });
         fs.appendChild(el('legend', null, T.time));
@@ -421,28 +510,32 @@
         var nt = el('textarea', { id: 'uc-note', maxlength: '300', placeholder: T.notePh });
         nt.value = form.note;
         f.appendChild(nt);
-        var err = el('div', { class: 'uc-err', role: 'alert' });
+        var err = el('div', { id: 'uc-err', class: 'uc-err', role: 'alert' });
         f.appendChild(err);
         f.appendChild(mainButton(T.cont, ARROW, 'submit'));
         f.addEventListener('submit', function (ev) {
           ev.preventDefault();
           if (hp.value) return; // bot
           var name = nm.value.replace(/\s+/g, ' ').trim();
-          var digits = ph.value.replace(/[^\d+]/g, '');
-          if (name.length < 3 || name.indexOf(' ') < 0) { err.textContent = T.nameErr; nm.focus(); return; }
-          if (!/^\+?\d{10,15}$/.test(digits)) { err.textContent = T.phoneErr; ph.focus(); return; }
+          var nProb = nameProblem(name);
+          if (nProb) { err.textContent = nProb; nm.setAttribute('aria-invalid', 'true'); nm.focus(); return; }
+          nm.removeAttribute('aria-invalid');
+          var d = phoneDigits(ph.value);
+          var pProb = phoneProblem(d);
+          if (pProb) { err.textContent = pProb; ph.setAttribute('aria-invalid', 'true'); ph.focus(); return; }
+          ph.removeAttribute('aria-invalid');
           if (Date.now() - state.openedAt < 1500) { err.textContent = T.spamErr; return; }
           form.name = name;
-          form.phone = ph.value.trim();
+          form.phone = phoneFormat(d);
           form.time = boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.value; }).join(', ');
           form.note = nt.value.replace(/\s+/g, ' ').trim().slice(0, 300);
-          render(3);
+          render(4);
         });
         body.appendChild(f);
-        body.appendChild(backLink(1));
-      } else if (step === 3) {
+        body.appendChild(backLink(2));
+      } else if (step === 4) {
         var text = message(form);
-        heading(3, T.summary);
+        heading(4, T.summary);
         body.appendChild(el('div', { class: 'uc-pre' }, text));
         var send = mainButton(T.send, SEND);
         send.addEventListener('click', function () {
@@ -452,12 +545,12 @@
         body.appendChild(send);
         var again = el('button', { type: 'button', class: 'uc-link' }, T.again);
         again.addEventListener('click', function () {
-          state.course = null; state.topic = null;
+          state.course = null; state.topic = null; state.who = null;
           form.name = form.phone = form.time = form.note = '';
           render(0);
         });
         var links = el('div', { class: 'uc-links' });
-        links.appendChild(backLink(2));
+        links.appendChild(backLink(3));
         links.appendChild(again);
         body.appendChild(links);
         body.appendChild(el('div', { class: 'uc-note' }, T.privacy));
@@ -469,9 +562,9 @@
       teaser.hidden = true;
       store.set('uc-seen', '1', true);
       if (opts && opts.course) {
-        state.course = opts.course;
+        // Kurs kartındaki "Teklif al": talep ve kurs belli, "kimin için" sorusundan devam.
         state.topic = 'teklif';
-        state.openedAt = Date.now();
+        state.course = opts.course;
         render(2);
       } else if (panel.hidden) {
         render(state.step || 0);
