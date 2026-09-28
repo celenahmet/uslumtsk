@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
+  "crons": [
+    {"path": "/api/haftalik-rapor/", "schedule": "0 6 * * 1"}
+  ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
