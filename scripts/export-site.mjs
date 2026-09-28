@@ -27,7 +27,7 @@ function copy(file) {
  }
 }
 const pages=[...fs.readFileSync('sitemap.xml','utf8').matchAll(/<loc>https:\/\/uslusurucukursu\.com([^<]*)<\/loc>/g)].map(m=>m[1].replace(/^\//,'')+'index.html');
-for (const file of [...pages,'robots.txt','sitemap.xml','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
+for (const file of [...pages,'robots.txt','llms.txt','sitemap.xml','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
 for (const dir of ['qr','en/qr','e-sinav','en/e-sinav','whatsapp','galeri','en/gallery']) {
  // Public redirect tools are intentional; gallery content is already in sitemap.
  const candidate=path.join(dir,'index.html');if(fs.existsSync(candidate))copy(candidate);

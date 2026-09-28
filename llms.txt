@@ -1,0 +1,43 @@
+# Uslu Sürücü Kursu
+
+> Ankara Sincan'da sürücü kursu. B sınıfı manuel ve otomatik ehliyet, A1 ve A2 motosiklet ehliyeti, özel gereksinimli sürücü adayları için A-B sınıfı eğitim, büyük araç ehliyetleri ve özel direksiyon dersleri verir. 35 yıllık deneyime sahiptir. Ücretler sabit liste olarak yayımlanmaz; güncel fiyat için kurstan teklif alınır.
+
+Uslu Driving School is a driving school in Sincan, Ankara, Türkiye. An English version of the site is available at https://uslusurucukursu.com/en/
+
+## İletişim
+
+- Adres: Ankara Cd. 2/51, 06936 Sincan/Ankara, Türkiye
+- Telefon ve WhatsApp: +90 532 068 56 47
+- E-posta: bilgi@uslusurucukursu.com
+- Çalışma saatleri: her gün 09.00-19.30
+- Instagram: https://www.instagram.com/uslu_surucu/
+- Harita: https://g.co/kgs/MfyA3BT
+- [İletişim sayfası](https://uslusurucukursu.com/iletisim/)
+
+## Eğitimler
+
+- [B sınıfı manuel ehliyet](https://uslusurucukursu.com/egitim/manuel-b/): debriyaj ve vites koordinasyonu, kalkış, duruş, park ve trafikte araç kontrolü.
+- [B sınıfı otomatik ehliyet](https://uslusurucukursu.com/egitim/otomatik-b/): gaz ve fren kontrolü, park manevraları, ayna kullanımı ve trafik akışına uyum.
+- [A1 motosiklet ehliyeti](https://uslusurucukursu.com/egitim/motor-a1/): denge, kontrollü kalkış, frenleme ve manevra.
+- [A2 motosiklet ehliyeti](https://uslusurucukursu.com/egitim/motor-a2/): motosiklet hâkimiyeti, kontrollü frenleme, dönüşler ve güvenli sürüş.
+- [Özel gereksinimli A-B sınıfı](https://uslusurucukursu.com/egitim/ozel-ab/): eğitim ve araç uygunluğu adaya göre bireysel değerlendirilir.
+- [Büyük araç ehliyetleri](https://uslusurucukursu.com/egitim/diger/): seçenekler hedeflenen sınıfa ve mevcut sürücü belgesine göre değişir.
+- [Özel direksiyon dersi](https://uslusurucukursu.com/egitim/ozel/): trafiğe yeniden çıkış, park ve araç kontrolünü pekiştirme.
+- [Tüm eğitimler ve kayıt bilgisi](https://uslusurucukursu.com/egitim/)
+
+## Kurs hakkında
+
+- [Hakkımızda ve eğitmenler](https://uslusurucukursu.com/hakkimizda/)
+- [Sık sorulan sorular](https://uslusurucukursu.com/sss/)
+- [Öğrenci yorumları](https://uslusurucukursu.com/yorumlar/)
+- [Fotoğraf galerisi](https://uslusurucukursu.com/galeri/genel/)
+- [Eğitim araçları](https://uslusurucukursu.com/galeri/araclar/)
+- [Eğitim sınıfları](https://uslusurucukursu.com/galeri/siniflar/)
+
+## English
+
+- [Home](https://uslusurucukursu.com/en/)
+- [Courses](https://uslusurucukursu.com/en/train/)
+- [About us](https://uslusurucukursu.com/en/about-us/)
+- [FAQ](https://uslusurucukursu.com/en/faq/)
+- [Contact](https://uslusurucukursu.com/en/contact/)
