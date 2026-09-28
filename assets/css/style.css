@@ -3749,3 +3749,16 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .heading-size-3{font-size:30px}.heading-size-4{font-size:25px}.heading-size-5{font-size:20px}.heading-size-6{font-size:16px}
 
 .choose-area .site-title span {color:#ff7597}.counter-box p{font-size:20px;font-weight:600;color:#fff}.course-instructor p{font-weight:600;line-height:1.2}.navbar-toggler-icon{pointer-events:none}@media(max-width:767px){.hero-responsive{background-image:url(/assets/img/slider/slider-1-mobile.webp)!important}}
+
+/* 28.09.2026 duzeltmeler (Ahmet): menu tasmasi, sagdaki tanitim gorseli, alt bilgi okunurlugu */
+.navbar .nav-item .dropdown-menu{width:auto;min-width:220px}
+.navbar .nav-item .dropdown-menu .dropdown-item{white-space:nowrap}
+.choose-img{min-height:320px;background-position:left center!important}
+@media (max-width:991.98px){.choose-img{margin-right:0}}
+@media (min-width:992px) and (max-width:1199.98px){.choose-img{margin-right:calc((960px - 100vw)/2 - 12px)}}
+@media (min-width:1200px){.choose-img{margin-right:calc((1185px - 100vw)/2 - 12px)}}
+.choose-area{overflow-x:clip}
+@media (min-width:992px){.footer-widget-title{font-size:24px}}
+.footer-newsletter .footer-list li{color:rgba(255,255,255,.88)}
+.footer-newsletter .footer-list li i{color:#cb1643;margin-right:4px}
+.footer-list li a{display:inline-flex;align-items:baseline;gap:6px}
