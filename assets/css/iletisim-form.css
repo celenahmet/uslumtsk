@@ -1,0 +1,28 @@
+/* İletişim formu: sitenin lacivert/kırmızı dili. Yalnız iletişim sayfalarında yüklenir. */
+.cf-form{margin-top:10px}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+.cf-field{display:flex;flex-direction:column;margin-bottom:10px}
+.cf-wide{grid-column:1/-1}
+.cf-field label{font-size:15px;font-weight:600;color:#041e37;margin-bottom:6px}
+.cf-req{color:#cb1643}
+.cf-opt{font-weight:400;color:#6b7280;font-size:13px}
+.cf-field input[type=text],.cf-field input[type=tel],.cf-field input[type=email],.cf-field select,.cf-field textarea{width:100%;border:1px solid #dfe3e8;border-radius:0;background:#fff;color:#041e37;font:inherit;font-size:16px;padding:12px 14px;transition:border-color .2s,box-shadow .2s}
+.cf-field textarea{resize:vertical;min-height:130px}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{outline:0;border-color:#041e37;box-shadow:0 0 0 3px rgb(4 30 55 / 10%)}
+.cf-field [aria-invalid=true]{border-color:#cb1643}
+.cf-hint{font-size:13px;color:#6b7280;margin-top:5px}
+.cf-hint.cf-good{color:#15803d;font-weight:600}
+.cf-err{font-size:13px;font-weight:600;color:#cb1643;margin-top:5px}
+.cf-err:empty{display:none}
+.cf-check{display:flex!important;align-items:flex-start;gap:10px;font-weight:400!important;font-size:15px!important;cursor:pointer}
+.cf-check input{width:18px;height:18px;margin-top:3px;accent-color:#cb1643;flex:0 0 18px}
+.cf-check a{color:#cb1643;text-decoration:underline}
+.cf-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.cf-status{margin:6px 0 14px;font-size:15px;font-weight:600}
+.cf-status:empty{display:none}
+.cf-status.cf-ok{color:#15803d;background:#f0fdf4;border-left:3px solid #15803d;padding:12px 14px}
+.cf-status.cf-fail{color:#cb1643;background:#fff1f3;border-left:3px solid #cb1643;padding:12px 14px}
+.cf-send[disabled]{opacity:.7;cursor:wait}
+.contact-form-header p a{color:#cb1643;font-weight:600;white-space:nowrap}
+.cf-form :focus-visible{outline:3px solid #cb1643;outline-offset:2px}
+@media (max-width:767.98px){.cf-grid{grid-template-columns:1fr}.contact-form{margin-bottom:40px}}
