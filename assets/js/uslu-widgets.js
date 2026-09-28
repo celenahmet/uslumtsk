@@ -2,9 +2,10 @@
  * Uslu Sürücü Kursu: WhatsApp teklif asistanı + erişilebilirlik çubuğu.
  *
  * Tawk.to yerine kendi asistanımız (maliaksoytesisat'taki akışın sürücü kursuna
- * uyarlanmışı): kurs ve talep seçilir, iletişim bilgisi alınır, hazır mesajla
- * kursun WhatsApp hattına geçilir. Bilgiler SİTEDE SAKLANMAZ; mesajı ziyaretçi
- * kendi WhatsApp'ından gönderir.
+ * uyarlanmışı), canlı destek görünümünde: talep, eğitim ve kimin için olduğu hızlı
+ * cevapla; ad, telefon ve not yazma kutusundan alınır, hazır mesajla kursun WhatsApp
+ * hattına geçilir. Bilgiler SİTEDE SAKLANMAZ; mesajı ziyaretçi kendi WhatsApp'ından
+ * gönderir.
  *
  * Erişilebilirlik çubuğu: solda, dikeyde ortalı, küçük; 10 işlev, tercihler bu
  * tarayıcıda saklanır.
@@ -23,35 +24,49 @@
 
   var T = EN
     ? {
-        launcher: 'Get a quote on WhatsApp',
-        title: 'Uslu Driving School Assistant',
-        online: 'online',
+        launcher: 'Chat with us',
+        title: 'Uslu Driving School',
+        online: 'Online',
+        hours: 'Daily 09.00-19.30',
         close: 'Close',
-        back: 'Back',
-        helpQ: 'Hello! How can we help you?',
+        restart: 'Start over',
+        typing: 'typing',
+        greet: ['Good morning', 'Good afternoon', 'Good evening'],
+        welcome: '{g}, welcome to Uslu Driving School.',
+        helpQ: 'How can we help you today?',
+        ack: {
+          teklif: 'Happy to help. Let us prepare a quote just for you.',
+          kayit: 'Great, let us help you with your enrolment.',
+          program: 'Of course, let us clarify the schedule and duration for you.',
+          soru: 'Of course, we are here to help.'
+        },
         courseQ: 'Which licence course are you interested in?',
         whoQ: 'Who is the course for?',
-        contact: 'How can we reach you?',
-        name: 'Full name',
-        nameOther: 'Your full name',
+        whoAckSelf: 'Got it.',
+        whoAckOther: 'Got it, let us prepare the details for them together.',
+        nameQ: 'So we can get back to you, could you type your first and last name?',
+        nameQOther: 'Could you type your own first and last name? We will get back to you.',
         namePh: 'e.g. Ayşe Yılmaz',
-        phone: 'Phone',
+        phoneQ: 'Nice to meet you, {n}. Which number can we reach you on?',
         phonePh: '0532 123 45 67',
         phoneHint: '11 digits starting with 0',
-        time: 'Best time to call (optional, choose any)',
-        note: 'Note (optional)',
-        notePh: 'Anything you would like to add...',
+        timeQ: 'When is a good time to call you? You can choose more than one.',
+        anyTime: 'Any time',
+        noteQ: 'Is there anything you would like to add?',
+        notePh: 'Write a note...',
+        noNote: 'No, that is all',
+        pickHint: 'Choose an option above',
         cont: 'Continue',
-        nameErr: 'Please enter your first and last name (e.g. Ayşe Yılmaz).',
+        sendAria: 'Send',
+        nameErr: 'Please enter your first and last name together (e.g. Ayşe Yılmaz).',
         nameChars: 'Your name can only contain letters.',
         phoneStart: 'The number must start with 0.',
         phoneLen: 'The number must have 11 digits (currently {n}).',
         spamErr: 'That was very fast. Please wait a moment and try again.',
-        summary: 'Your message is ready. Please check it before sending.',
+        summary: 'Thank you, {n}. Your message is ready; you can check it before sending.',
         send: 'Send message',
-        sent: 'Opened. Please send it there.',
-        again: 'New request',
-        stepWord: 'Step',
+        sent: 'Opened, please send it there',
+        after: 'Once you send the message, our team will get back to you during working hours (daily 09.00-19.30).',
         privacy: 'Your details are not stored on this website; you send the message from your own WhatsApp.',
         teaser: 'Would you like a quote?',
         course: 'Course',
@@ -76,8 +91,8 @@
         topics: [
           ['teklif', 'I would like a price quote'],
           ['kayit', 'I would like to enrol'],
-          ['program', 'Information about schedule and duration'],
-          ['soru', 'Help with something else']
+          ['program', 'Schedule and duration'],
+          ['soru', 'Something else']
         ],
         who: [
           ['kendim', 'For myself'],
@@ -89,35 +104,49 @@
         times: ['Morning', 'Afternoon', 'Evening']
       }
     : {
-        launcher: 'WhatsApp’tan teklif alın',
-        title: 'Uslu Sürücü Kursu Asistanı',
-        online: 'çevrimiçi',
+        launcher: 'Bize yazın',
+        title: 'Uslu Sürücü Kursu',
+        online: 'Çevrimiçi',
+        hours: 'Her gün 09.00-19.30',
         close: 'Kapat',
-        back: 'Geri',
-        helpQ: 'Merhaba! Size nasıl yardımcı olabiliriz?',
+        restart: 'Baştan başla',
+        typing: 'yazıyor',
+        greet: ['Günaydın', 'İyi günler', 'İyi akşamlar'],
+        welcome: '{g}, Uslu Sürücü Kursu’na hoş geldiniz.',
+        helpQ: 'Size nasıl yardımcı olabiliriz?',
+        ack: {
+          teklif: 'Memnuniyetle. Size özel bir teklif hazırlayalım.',
+          kayit: 'Harika, kaydınız için size yardımcı olalım.',
+          program: 'Tabii, ders programını ve süreyi sizin için netleştirelim.',
+          soru: 'Elbette, size yardımcı olalım.'
+        },
         courseQ: 'Hangi ehliyet eğitimiyle ilgileniyorsunuz?',
         whoQ: 'Eğitimi kimin için düşünüyorsunuz?',
-        contact: 'Size nasıl ulaşalım?',
-        name: 'Ad Soyad',
-        nameOther: 'Sizin adınız soyadınız',
+        whoAckSelf: 'Anladım.',
+        whoAckOther: 'Anladım, bilgileri onun için birlikte hazırlayalım.',
+        nameQ: 'Size dönüş yapabilmemiz için adınızı ve soyadınızı yazar mısınız?',
+        nameQOther: 'Size dönüş yapabilmemiz için kendi adınızı ve soyadınızı yazar mısınız?',
         namePh: 'Örn. Ayşe Yılmaz',
-        phone: 'Telefon',
+        phoneQ: 'Memnun oldum, {n}. Size hangi numaradan ulaşalım?',
         phonePh: '0532 123 45 67',
         phoneHint: '0 ile başlayan 11 hane',
-        time: 'Uygun arama zamanı (isteğe bağlı, birden fazla seçilebilir)',
-        note: 'Not (isteğe bağlı)',
-        notePh: 'Eklemek istediğiniz bir şey varsa...',
+        timeQ: 'Sizi hangi saatlerde aramamız uygun olur? Birden fazla seçebilirsiniz.',
+        anyTime: 'Fark etmez',
+        noteQ: 'Eklemek istediğiniz bir not var mı?',
+        notePh: 'Notunuzu yazın...',
+        noNote: 'Yok, bu kadar',
+        pickHint: 'Yukarıdan bir seçenek belirleyin',
         cont: 'Devam et',
+        sendAria: 'Gönder',
         nameErr: 'Adınızı ve soyadınızı birlikte yazın (örn. Ayşe Yılmaz).',
         nameChars: 'Ad soyad yalnız harf içermeli.',
         phoneStart: 'Numara 0 ile başlamalı.',
         phoneLen: 'Numara 11 haneli olmalı (şu an {n} hane).',
         spamErr: 'Çok hızlı ilerlediniz. Birkaç saniye bekleyip yeniden deneyin.',
-        summary: 'Mesajınız hazır. Göndermeden önce kontrol edebilirsiniz.',
+        summary: 'Teşekkürler {n}. Mesajınız hazır, göndermeden önce göz atabilirsiniz.',
         send: 'Mesaj gönder',
         sent: 'Açıldı, oradan gönderin',
-        again: 'Yeni talep',
-        stepWord: 'Adım',
+        after: 'Mesajınızı gönderdiğinizde ekibimiz mesai saatlerinde (her gün 09.00-19.30) size dönüş yapar.',
         privacy: 'Bilgileriniz bu sitede saklanmaz; mesajı kendi WhatsApp’ınızdan siz gönderirsiniz.',
         teaser: 'Teklif almak ister misiniz?',
         course: 'İlgilendiğim eğitim',
@@ -142,8 +171,8 @@
         topics: [
           ['teklif', 'Fiyat teklifi almak istiyorum'],
           ['kayit', 'Kayıt olmak istiyorum'],
-          ['program', 'Ders programı ve süre hakkında bilgi'],
-          ['soru', 'Başka bir konuda yardım']
+          ['program', 'Ders programı ve süre'],
+          ['soru', 'Başka bir konu']
         ],
         who: [
           ['kendim', 'Kendim için'],
@@ -202,56 +231,58 @@
     '[data-uslu-widget] *{box-sizing:border-box}' +
     '[data-uslu-widget] button,[data-uslu-widget] input,[data-uslu-widget] select,[data-uslu-widget] textarea{font-family:inherit}' +
     '#scroll-top{bottom:92px!important;right:24px!important}' +
-    /* sohbet: sitenin köşeli kart, lacivert başlık, kırmızı etiket ve theme-btn dili */
-    '.uc-launch{position:fixed;right:20px;bottom:20px;z-index:9990;width:56px;height:56px;border-radius:50%;border:0;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 24px rgb(0 0 0 / 18%);cursor:pointer;transition:transform .2s}' +
+    /* sohbet: canlı destek görünümü; sitenin lacivert/kırmızı dili, baloncuklar yuvarlak */
+    '.uc-launch{position:fixed;right:20px;bottom:20px;z-index:9990;width:58px;height:58px;border-radius:50%;border:0;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgb(0 0 0 / 20%);cursor:pointer;transition:transform .2s}' +
     '.uc-launch:hover{transform:translateY(-2px)}.uc-launch:focus-visible{outline:3px solid ' + RED + ';outline-offset:3px}' +
     '.uc-launch svg{width:30px;height:30px}' +
-    '.uc-teaser{position:fixed;right:86px;bottom:28px;z-index:9990;background:#fff;color:' + NAVY + ';border:0;border-left:3px solid ' + RED + ';padding:10px 14px;font-size:14px;font-weight:600;box-shadow:0 0 50px 0 rgb(32 32 32 / 15%);cursor:pointer;max-width:220px;text-align:left}' +
-    '.uc-panel{position:fixed;right:20px;bottom:88px;z-index:9991;width:350px;max-width:calc(100vw - 24px);max-height:min(580px,calc(100vh - 110px));display:flex;flex-direction:column;background:#fff;color:' + NAVY + ';box-shadow:0 0 50px 0 rgb(32 32 32 / 22%);overflow:hidden}' +
+    '.uc-teaser{position:fixed;right:88px;bottom:30px;z-index:9990;background:#fff;color:' + NAVY + ';border:0;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:0 6px 30px rgb(4 30 55 / 18%);cursor:pointer;max-width:220px;text-align:left}' +
+    '.uc-panel{position:fixed;right:20px;bottom:90px;z-index:9991;width:370px;max-width:calc(100vw - 24px);height:min(600px,calc(100vh - 112px));display:flex;flex-direction:column;background:#fff;color:' + NAVY + ';border-radius:16px;box-shadow:0 12px 48px rgb(4 30 55 / 28%);overflow:hidden}' +
     '.uc-panel[hidden]{display:none}' +
-    '.uc-head{position:relative;display:flex;align-items:flex-start;gap:10px;padding:16px 16px 18px;background:' + NAVY + ';color:#fff;border-top:4px solid ' + RED + '}' +
-    '.uc-head b{display:block;font-size:17px;font-weight:700;line-height:1.25;padding-bottom:10px;position:relative}' +
-    '.uc-head b::before,.uc-head b::after{content:"";position:absolute;bottom:0;height:3px;background:' + RED + '}.uc-head b::before{left:0;width:15px}.uc-head b::after{left:20px;width:35px}' +
-    '.uc-head small{display:block;font-size:12px;opacity:.85;margin-top:8px}' +
-    '.uc-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#25d366;margin-right:6px;vertical-align:middle}' +
-    '.uc-x{margin-left:auto;background:transparent;border:0;color:#fff;width:32px;height:32px;cursor:pointer;font-size:22px;line-height:1;opacity:.85}.uc-x:hover{opacity:1}' +
-    '.uc-x:focus-visible,.uc-body button:focus-visible,.uc-body input:focus-visible,.uc-body select:focus-visible,.uc-body textarea:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
-    '.uc-body{padding:16px 18px 18px;overflow-y:auto;font-size:15px;line-height:1.5}' +
-    '.uc-tag{display:block;text-transform:uppercase;font-weight:700;font-size:12px;letter-spacing:.04em;color:' + RED + '}' +
-    '.uc-bar{height:3px;background:#eef0f3;margin:6px 0 12px}.uc-bar i{display:block;height:3px;background:' + RED + '}' +
-    '.uc-crumbs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}' +
-    '.uc-crumb{border:1px solid #e3e6ea;background:#f7f8fa;color:' + NAVY + ';font-size:11px;font-weight:700;text-transform:uppercase;padding:4px 8px;cursor:pointer;letter-spacing:.02em}' +
-    '.uc-crumb:hover{border-color:' + RED + ';color:' + RED + '}' +
-    '.uc-hint{font-size:12px;color:#6b7280;margin-top:5px}.uc-hint.uc-bad{color:' + RED + ';font-weight:600}.uc-hint.uc-good{color:#15803d;font-weight:600}' +
-    '.uc-body input[aria-invalid="true"]{border-color:' + RED + '}' +
-    '.uc-q{font-size:17px;font-weight:700;line-height:1.3;color:' + NAVY + ';margin-bottom:10px}' +
-    '.uc-opts{display:flex;flex-direction:column}' +
-    '.uc-opt{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid #eceef1;padding:11px 2px;cursor:pointer;font-size:14px;font-weight:600;text-transform:uppercase;color:' + NAVY + ';transition:color .3s,padding .3s}' +
-    '.uc-opt svg{width:8px;height:12px;flex:0 0 8px;color:' + RED + '}' +
-    '.uc-opt:hover{color:' + RED + ';padding-left:8px}' +
-    '.uc-body label{display:block;font-size:13px;font-weight:700;color:' + NAVY + ';margin:10px 0 5px}' +
-    '.uc-body input,.uc-body select,.uc-body textarea{width:100%;border:1px solid #dfe3e8;border-radius:0;padding:9px 11px;font-size:15px;color:' + NAVY + ';background:#fff}' +
-    '.uc-body input:focus,.uc-body select:focus,.uc-body textarea:focus{border-color:' + RED + ';outline:0}' +
-    '.uc-body textarea{min-height:64px;resize:vertical}' +
-    '.uc-times{border:0;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px}' +
-    '.uc-times legend{font-size:13px;font-weight:700;color:' + NAVY + ';margin-bottom:5px;padding:0;float:none;width:100%}' +
-    '.uc-body .uc-chip{position:relative;display:inline-flex;margin:0;font-weight:600;font-size:13px;text-transform:uppercase;cursor:pointer}' +
-    '.uc-chip input{position:absolute;opacity:0;width:1px;height:1px}' +
-    '.uc-chip span{display:inline-block;border:1px solid #dfe3e8;padding:7px 14px;color:' + NAVY + ';transition:all .2s}' +
-    '.uc-chip:hover span{border-color:' + RED + '}' +
-    '.uc-chip input:checked+span{background:' + RED + ';border-color:' + RED + ';color:#fff}' +
-    '.uc-chip input:focus-visible+span{outline:3px solid ' + RED + ';outline-offset:2px}' +
-    '.uc-err{color:' + RED + ';font-size:13px;font-weight:600;margin-top:8px}' +
-    '.uc-main{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:14px;border:0;border-radius:0;padding:7px 8px 7px 18px;background:' + RED + ';color:#fff;font-weight:600;font-size:15px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 10%);transition:background .4s}' +
+    '.uc-head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:' + NAVY + ';color:#fff;border-top:3px solid ' + RED + ';flex:0 0 auto}' +
+    '.uc-ava{position:relative;width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center}' +
+    '.uc-ava img{width:34px;height:34px;border-radius:50%;object-fit:contain}' +
+    '.uc-ava::after{content:"";position:absolute;right:0;bottom:1px;width:11px;height:11px;border-radius:50%;background:#22c55e;border:2px solid ' + NAVY + '}' +
+    '.uc-head b{display:block;font-size:16px;font-weight:700;line-height:1.2}' +
+    '.uc-head small{display:block;font-size:12px;opacity:.82;margin-top:3px}' +
+    '.uc-hbtn{background:transparent;border:0;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.85;flex:0 0 34px}' +
+    '.uc-hbtn:hover{opacity:1;background:rgb(255 255 255 / 10%)}.uc-hbtn svg{width:18px;height:18px}' +
+    '.uc-hgap{margin-left:auto}' +
+    '.uc-log{flex:1 1 auto;overflow-y:auto;padding:16px 14px 10px;background:#f3f5f8;display:flex;flex-direction:column;gap:4px;font-size:14.5px;line-height:1.45;scroll-behavior:smooth}' +
+    '.uc-row{display:flex;align-items:flex-end;gap:8px;animation:uc-in .22s ease-out both}' +
+    '.uc-row.uc-me{justify-content:flex-end}' +
+    '.uc-row.uc-gap{margin-top:8px}' +
+    '.uc-av{width:26px;height:26px;flex:0 0 26px;border-radius:50%;background:#fff;border:1px solid #e3e7ec;display:flex;align-items:center;justify-content:center;overflow:hidden}' +
+    '.uc-av img{width:20px;height:20px;object-fit:contain}.uc-av.uc-blank{visibility:hidden}' +
+    '.uc-bub{max-width:80%;padding:9px 13px;border-radius:18px;white-space:pre-wrap;word-wrap:break-word}' +
+    '.uc-bot .uc-bub{background:#fff;color:' + NAVY + ';border-bottom-left-radius:5px;box-shadow:0 1px 2px rgb(4 30 55 / 8%)}' +
+    '.uc-me .uc-bub{background:' + NAVY + ';color:#fff;border-bottom-right-radius:5px}' +
+    '.uc-tick{display:inline-block;width:15px;height:10px;margin-left:6px;vertical-align:-1px;color:#7dd3fc}' +
+    '.uc-dots{display:inline-flex;gap:4px;padding:3px 0}.uc-dots i{width:7px;height:7px;border-radius:50%;background:#9aa4b2;animation:uc-dot 1.1s infinite ease-in-out}' +
+    '.uc-dots i:nth-child(2){animation-delay:.15s}.uc-dots i:nth-child(3){animation-delay:.3s}' +
+    '@keyframes uc-dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}' +
+    '@keyframes uc-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}' +
+    '.uc-replies{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;margin:8px 0 2px 34px;animation:uc-in .22s ease-out both}' +
+    '.uc-reply{border:1.5px solid ' + RED + ';background:#fff;color:' + RED + ';border-radius:18px;padding:7px 13px;font-size:13.5px;font-weight:600;line-height:1.3;cursor:pointer;text-align:left;transition:background .15s,color .15s}' +
+    '.uc-reply:hover,.uc-reply[aria-pressed="true"]{background:' + RED + ';color:#fff}' +
+    '.uc-reply.uc-go{background:' + NAVY + ';border-color:' + NAVY + ';color:#fff}.uc-reply.uc-go:hover{background:' + RED + ';border-color:' + RED + '}' +
+    '.uc-card{margin:4px 0 0 34px;background:#fff;border-left:3px solid ' + RED + ';border-radius:4px 12px 12px 4px;padding:10px 12px;font-size:13px;line-height:1.55;white-space:pre-wrap;color:' + NAVY + ';box-shadow:0 1px 2px rgb(4 30 55 / 8%);animation:uc-in .22s ease-out both}' +
+    '.uc-dock{flex:0 0 auto;border-top:1px solid #e6e9ee;background:#fff;padding:10px 12px 12px}' +
+    '.uc-hint{font-size:12px;color:#6b7280;margin:0 4px 6px;min-height:16px}.uc-hint.uc-bad{color:' + RED + ';font-weight:600}.uc-hint.uc-good{color:#15803d;font-weight:600}' +
+    '.uc-comp{display:flex;align-items:center;gap:8px}' +
+    '.uc-comp input{flex:1 1 auto;min-width:0;border:1px solid #dfe3e8;border-radius:22px;padding:10px 15px;font-size:15px;color:' + NAVY + ';background:#fff}' +
+    '.uc-comp input:focus{border-color:' + NAVY + ';outline:0}.uc-comp input[aria-invalid="true"]{border-color:' + RED + '}' +
+    '.uc-comp input:disabled{background:#f5f6f8;border-color:#eceef1}' +
+    '.uc-sendb{width:42px;height:42px;flex:0 0 42px;border-radius:50%;border:0;background:' + RED + ';color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}' +
+    '.uc-sendb:hover{background:' + NAVY + '}.uc-sendb:disabled{background:#d6dae0;cursor:default}.uc-sendb svg{width:18px;height:18px}' +
+    '.uc-panel button:focus-visible,.uc-panel input:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
+    '.uc-main{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;border-radius:28px;padding:7px 8px 7px 18px;background:' + RED + ';color:#fff;font-weight:600;font-size:15px;text-transform:uppercase;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 10%);transition:background .4s}' +
     '.uc-main:hover{background:' + NAVY + '}' +
     '.uc-main .uc-ic{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:#fff;color:' + RED + ';margin-left:12px;flex:0 0 36px}' +
     '.uc-main .uc-ic svg{width:18px;height:18px}' +
-    '.uc-link{background:transparent;border:0;color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;padding:10px 0 0;cursor:pointer;letter-spacing:.03em}.uc-link:hover{color:' + RED + '}' +
-    '.uc-links{display:flex;justify-content:space-between;gap:10px}' +
-    '.uc-pre{white-space:pre-wrap;background:#f5f6f8;border-left:3px solid ' + RED + ';padding:10px 12px;font-size:13px;line-height:1.55;margin:4px 0 0;color:' + NAVY + '}' +
-    '.uc-note{font-size:12px;color:#6b7280;margin-top:12px;line-height:1.45}' +
+    '.uc-note{font-size:11.5px;color:#6b7280;margin-top:8px;line-height:1.45;text-align:center}' +
     '.uc-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}' +
-    '@media (max-width:480px){.uc-panel{right:12px;left:12px;width:auto;bottom:84px}}' +
+    '@media (max-width:480px){.uc-panel{right:10px;left:10px;width:auto;bottom:84px;height:calc(100vh - 100px);height:calc(100dvh - 100px)}}' +
+    '@media (prefers-reduced-motion:reduce){.uc-row,.uc-replies,.uc-card{animation:none}.uc-dots i{animation:none}.uc-log{scroll-behavior:auto}}' +
     /* erişilebilirlik: aynı dil, küçük ve köşeli */
     '.ua-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:9989;width:34px;height:42px;border:0;border-radius:0 4px 4px 0;background:' + NAVY + ';color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 15%);opacity:.8;border-right:3px solid ' + RED + ';transition:opacity .2s,width .2s}' +
     '.ua-tab:hover,.ua-tab:focus-visible,.ua-tab[aria-expanded="true"]{opacity:1;width:38px}.ua-tab:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
@@ -322,8 +353,21 @@
   };
 
   /* ================================================================ SOHBET */
+  // Canlı destek havası (Ahmet, 28.09.2026: "chat ediliyormuş havası vermeli, premium
+  // müşteri hizmetleri gibi"): asistan baloncukla yazar, önce "yazıyor" görünür;
+  // seçenekler hızlı cevap düğmesi, serbest bilgi alttaki yazma kutusundan alınır.
+  // Akış: nasıl yardımcı olabiliriz → eğitim → kimin için → ad soyad → telefon →
+  // arama zamanı → not → özet ve "Mesaj gönder".
   function buildChat() {
-    var state = { step: 0, topic: null, course: null, who: null, openedAt: 0, lastOpener: null };
+    var AVATAR = '/assets/img/course/logo-avatar.webp';
+    var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // quiet: kendiliğinden açıldıysa ziyaretçi panele dokunana dek odak sayfada kalır.
+    var state, gen = 0, lastSide = null, lastOpener = null, quiet = false;
+
+    function reset() {
+      state = { topic: null, course: null, who: null, name: '', phone: '', times: [], note: '', openedAt: 0 };
+    }
+    reset();
 
     var launch = el('button', { type: 'button', class: 'uc-launch', 'aria-label': T.launcher, 'aria-expanded': 'false', 'aria-controls': 'uc-panel', 'data-uslu-widget': '' });
     launch.innerHTML = ICON_WA;
@@ -331,102 +375,201 @@
     var panel = el('div', { id: 'uc-panel', class: 'uc-panel', role: 'dialog', 'aria-label': T.title, 'data-uslu-widget': '' });
     panel.hidden = true;
     var head = el('div', { class: 'uc-head' });
+    var ava = el('span', { class: 'uc-ava', 'aria-hidden': 'true' });
+    ava.appendChild(el('img', { src: AVATAR, alt: '', width: '34', height: '34' }));
     var headText = el('div');
     headText.appendChild(el('b', null, T.title));
-    var small = el('small');
-    small.appendChild(el('span', { class: 'uc-dot', 'aria-hidden': 'true' }));
-    small.appendChild(document.createTextNode(T.online));
-    headText.appendChild(small);
-    var x = el('button', { type: 'button', class: 'uc-x', 'aria-label': T.close }, '×');
+    headText.appendChild(el('small', null, T.online + ' · ' + T.hours));
+    var again = el('button', { type: 'button', class: 'uc-hbtn uc-hgap', 'aria-label': T.restart, title: T.restart });
+    again.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12a8 8 0 1 0 2.3-5.7M4 4v4h4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var x = el('button', { type: 'button', class: 'uc-hbtn', 'aria-label': T.close, title: T.close });
+    x.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+    head.appendChild(ava);
     head.appendChild(headText);
+    head.appendChild(again);
     head.appendChild(x);
-    var body = el('div', { class: 'uc-body', 'aria-live': 'polite' });
+    var log = el('div', { class: 'uc-log', role: 'log', 'aria-live': 'polite' });
+    var dock = el('div', { class: 'uc-dock' });
     panel.appendChild(head);
-    panel.appendChild(body);
+    panel.appendChild(log);
+    panel.appendChild(dock);
 
     var teaser = el('button', { type: 'button', class: 'uc-teaser', 'data-uslu-widget': '' }, T.teaser);
     teaser.hidden = true;
+
+    var TICK = '<svg class="uc-tick" viewBox="0 0 16 10" aria-hidden="true" focusable="false"><path d="M1 5.5l3 3L10 2M6.5 8.5L13 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12l16-8-6 16-2.5-6.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>';
 
     function label(list, key) {
       for (var i = 0; i < list.length; i++) if (list[i][0] === key) return list[i][1];
       return T.none;
     }
-
-    function focusFirst() {
-      var f = body.querySelector('button, input, select, textarea');
-      if (f) f.focus();
+    function fill(s, map) {
+      return s.replace(/\{(\w)\}/g, function (m, k) { return map[k] != null ? map[k] : m; });
     }
+    function scrollDown() { log.scrollTop = log.scrollHeight; }
+    function focusIn(node) { if (!quiet && !panel.hidden && node && node.focus) node.focus(); }
 
-    var CARET = '<svg viewBox="0 0 8 12" aria-hidden="true" focusable="false"><path d="M1.5 1l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    var SEND = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12l16-8-6 16-2.5-6.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>';
-
-    // Sitenin theme-btn düğmesi: kırmızı, büyük harf, sağda beyaz yuvarlak içinde ikon.
-    function mainButton(text, icon, type) {
-      var b = el('button', { type: type || 'button', class: 'uc-main' });
-      var t = el('span', { class: 'uc-mt' }, text);
-      var ic = el('span', { class: 'uc-ic', 'aria-hidden': 'true' });
-      ic.innerHTML = icon;
-      b.appendChild(t);
-      b.appendChild(ic);
-      b.setLabel = function (v) { t.textContent = v; };
-      return b;
-    }
-
-    var TOTAL = 5;
-    // Başlıklardaki kırmızı etiket + ince ilerleme çizgisi + önceki seçimler + soru.
-    function heading(step, text) {
-      body.appendChild(el('span', { class: 'uc-tag' }, T.stepWord + ' ' + (step + 1) + ' / ' + TOTAL));
-      var bar = el('div', { class: 'uc-bar', 'aria-hidden': 'true' });
-      var fill = el('i');
-      fill.style.width = Math.round(((step + 1) / TOTAL) * 100) + '%';
-      bar.appendChild(fill);
-      body.appendChild(bar);
-      // Önceki cevaplar küçük etiketler: dokununca o adıma döner.
-      var picks = [[0, state.topic, T.topics], [1, state.course, T.courses], [2, state.who, T.who]]
-        .filter(function (x) { return x[0] < step && x[1]; });
-      if (picks.length) {
-        var crumbs = el('div', { class: 'uc-crumbs' });
-        picks.forEach(function (x) {
-          var cb = el('button', { type: 'button', class: 'uc-crumb' }, label(x[2], x[1]));
-          cb.addEventListener('click', function () { render(x[0]); });
-          crumbs.appendChild(cb);
-        });
-        body.appendChild(crumbs);
+    // Baloncuk. Asistanın ardışık mesajlarında logo yalnız ilkinde görünür.
+    function row(side) {
+      var r = el('div', { class: 'uc-row uc-' + side + (lastSide && lastSide !== side ? ' uc-gap' : '') });
+      if (side === 'bot') {
+        var av = el('span', { class: 'uc-av' + (lastSide === 'bot' ? ' uc-blank' : ''), 'aria-hidden': 'true' });
+        av.appendChild(el('img', { src: AVATAR, alt: '', width: '20', height: '20' }));
+        r.appendChild(av);
       }
-      body.appendChild(el('div', { class: 'uc-q' }, text));
+      lastSide = side;
+      return r;
+    }
+    function bubble(side, text) {
+      var r = row(side);
+      var b = el('div', { class: 'uc-bub' }, text);
+      if (side === 'me') b.insertAdjacentHTML('beforeend', TICK);
+      r.appendChild(b);
+      log.appendChild(r);
+      scrollDown();
+      return r;
     }
 
-    function options(list, onPick) {
-      var wrap = el('div', { class: 'uc-opts' });
+    // Asistan yazar: önce "yazıyor", sonra mesaj. Yeniden başlatılırsa eski sıra durur.
+    function say(lines, done) {
+      var g = gen, i = 0;
+      (function next() {
+        if (g !== gen) return;
+        if (i >= lines.length) { if (done) done(); return; }
+        var text = lines[i++];
+        if (REDUCED) { bubble('bot', text); next(); return; }
+        var r = row('bot');
+        var b = el('div', { class: 'uc-bub', 'aria-label': T.typing });
+        b.innerHTML = '<span class="uc-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
+        r.appendChild(b);
+        log.appendChild(r);
+        scrollDown();
+        window.setTimeout(function () {
+          if (g !== gen) return;
+          b.removeAttribute('aria-label');
+          b.textContent = text;
+          scrollDown();
+          next();
+        }, Math.min(1200, 450 + text.length * 11));
+      })();
+    }
+
+    // Alt kutu: seçenek adımlarında kapalı, serbest yanıt adımlarında açık.
+    function idleDock() {
+      dock.textContent = '';
+      dock.appendChild(el('div', { class: 'uc-hint' }));
+      var c = el('div', { class: 'uc-comp' });
+      var inp = el('input', { type: 'text', placeholder: T.pickHint, disabled: '', 'aria-label': T.pickHint });
+      var sb = el('button', { type: 'button', class: 'uc-sendb', disabled: '', 'aria-label': T.sendAria });
+      sb.innerHTML = PLANE;
+      c.appendChild(inp);
+      c.appendChild(sb);
+      dock.appendChild(c);
+    }
+
+    function replies(list, onPick) {
+      idleDock();
+      var wrap = el('div', { class: 'uc-replies' });
       list.forEach(function (item) {
-        var b = el('button', { type: 'button', class: 'uc-opt' });
-        b.innerHTML = CARET;
-        b.appendChild(el('span', null, item[1]));
-        b.addEventListener('click', function () { onPick(item[0]); });
+        var b = el('button', { type: 'button', class: 'uc-reply' }, item[1]);
+        b.addEventListener('click', function () {
+          wrap.remove();
+          bubble('me', item[1]);
+          onPick(item[0]);
+        });
         wrap.appendChild(b);
       });
-      return wrap;
+      log.appendChild(wrap);
+      scrollDown();
+      focusIn(wrap.querySelector('button'));
     }
 
-    function backLink(to) {
-      var b = el('button', { type: 'button', class: 'uc-link' }, '← ' + T.back);
-      b.addEventListener('click', function () { render(to); });
-      return b;
+    function multi(list, onDone) {
+      idleDock();
+      var wrap = el('div', { class: 'uc-replies' });
+      var picked = [];
+      list.forEach(function (t) {
+        var b = el('button', { type: 'button', class: 'uc-reply', 'aria-pressed': 'false' }, t);
+        b.addEventListener('click', function () {
+          var i = picked.indexOf(t);
+          if (i >= 0) picked.splice(i, 1); else picked.push(t);
+          b.setAttribute('aria-pressed', i >= 0 ? 'false' : 'true');
+          go.textContent = picked.length ? T.cont + ' →' : T.anyTime;
+        });
+        wrap.appendChild(b);
+      });
+      var go = el('button', { type: 'button', class: 'uc-reply uc-go' }, T.anyTime);
+      go.addEventListener('click', function () {
+        var chosen = list.filter(function (t) { return picked.indexOf(t) >= 0; });
+        wrap.remove();
+        bubble('me', chosen.length ? chosen.join(', ') : T.anyTime);
+        onDone(chosen);
+      });
+      wrap.appendChild(go);
+      log.appendChild(wrap);
+      scrollDown();
+      focusIn(wrap.querySelector('button'));
     }
 
-    function message(data) {
-      var lines = [
-        T.intro,
-        T.request + ': ' + label(T.topics, state.topic),
-        T.course + ': ' + label(T.courses, state.course),
-        T.lWho + ': ' + label(T.who, state.who),
-        T.lName + ': ' + data.name,
-        T.lPhone + ': ' + data.phone
-      ];
-      if (data.time) lines.push(T.lTime + ': ' + data.time);
-      if (data.note) lines.push(T.lNote + ': ' + data.note);
-      return lines.join('\n');
+    // Serbest yanıt: cfg = { ph, type, mode, hint(v)->[metin, sınıf], format(v), check(v)->hata|null, skip }
+    function ask(cfg, onOk) {
+      var skipWrap = null;
+      dock.textContent = '';
+      var hint = el('div', { class: 'uc-hint', id: 'uc-hint' });
+      var f = el('form', { class: 'uc-comp', novalidate: '' });
+      var hp = el('input', { type: 'text', name: 'website', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'uc-hp' });
+      var inp = el('input', { id: cfg.id, type: cfg.type || 'text', placeholder: cfg.ph, maxlength: String(cfg.max || 80), autocomplete: cfg.ac || 'off', 'aria-label': cfg.ph, 'aria-describedby': 'uc-hint' });
+      if (cfg.mode) inp.setAttribute('inputmode', cfg.mode);
+      var sb = el('button', { type: 'submit', class: 'uc-sendb', 'aria-label': T.sendAria });
+      sb.innerHTML = PLANE;
+      f.appendChild(hp);
+      f.appendChild(inp);
+      f.appendChild(sb);
+      function paint() {
+        if (cfg.format) inp.value = cfg.format(inp.value);
+        var h = cfg.hint ? cfg.hint(inp.value) : ['', ''];
+        hint.textContent = h[0];
+        hint.className = 'uc-hint' + (h[1] ? ' ' + h[1] : '');
+        inp.removeAttribute('aria-invalid');
+      }
+      inp.addEventListener('input', paint);
+      paint();
+      f.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        if (hp.value) return; // bot
+        var v = inp.value.replace(/\s+/g, ' ').trim();
+        var problem = cfg.check ? cfg.check(v) : null;
+        if (problem) {
+          hint.textContent = problem;
+          hint.className = 'uc-hint uc-bad';
+          inp.setAttribute('aria-invalid', 'true');
+          inp.focus();
+          return;
+        }
+        if (!v && cfg.skip) return;
+        if (skipWrap) skipWrap.remove();
+        idleDock();
+        bubble('me', cfg.show ? cfg.show(v) : v);
+        onOk(v);
+      });
+      dock.appendChild(hint);
+      dock.appendChild(f);
+      if (cfg.skip) {
+        var wrap = skipWrap = el('div', { class: 'uc-replies' });
+        var s = el('button', { type: 'button', class: 'uc-reply' }, cfg.skip);
+        s.addEventListener('click', function () {
+          wrap.remove();
+          idleDock();
+          bubble('me', cfg.skip);
+          onOk('');
+        });
+        wrap.appendChild(s);
+        log.appendChild(wrap);
+        scrollDown();
+      }
+      scrollDown();
+      focusIn(inp);
     }
 
     // Telefon: 0 ile başlayan 11 hane (Ahmet, 28.09.2026). +90 ile yazılırsa 0'a çevrilir;
@@ -445,146 +588,175 @@
       if (d.length !== 11) return T.phoneLen.replace('{n}', String(d.length));
       return null;
     }
-    // Ad soyad: en az iki kelime, yalnız harf (Türkçe dahil).
+    // Ad soyad: en az iki kelime, yalnız harf (Türkçe dahil). Baş harfler büyütülür.
     var NAME_OK = /^[\p{L}'’.\-]{2,}(?: [\p{L}'’.\-]{2,})+$/u;
     function nameProblem(v) {
       if (/[\d_@#$%^&*()+=<>?!/\\|{}\[\]]/.test(v)) return T.nameChars;
       return NAME_OK.test(v) ? null : T.nameErr;
     }
-
-    var form = { name: '', phone: '', time: '', note: '' };
-
-    function render(step) {
-      state.step = step;
-      body.textContent = '';
-      if (step === 0) {
-        heading(0, T.helpQ);
-        body.appendChild(options(T.topics, function (k) { state.topic = k; render(1); }));
-      } else if (step === 1) {
-        heading(1, T.courseQ);
-        body.appendChild(options(T.courses, function (k) { state.course = k; render(2); }));
-        body.appendChild(backLink(0));
-      } else if (step === 2) {
-        heading(2, T.whoQ);
-        body.appendChild(options(T.who, function (k) { state.who = k; state.openedAt = Date.now(); render(3); }));
-        body.appendChild(backLink(1));
-      } else if (step === 3) {
-        heading(3, T.contact);
-        var f = el('form', { novalidate: '' });
-        var hp = el('input', { type: 'text', name: 'website', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true', class: 'uc-hp' });
-        f.appendChild(hp);
-        f.appendChild(el('label', { for: 'uc-name' }, state.who && state.who !== 'kendim' ? T.nameOther : T.name));
-        var nm = el('input', { id: 'uc-name', type: 'text', autocomplete: 'name', maxlength: '80', placeholder: T.namePh, required: '', 'aria-describedby': 'uc-err' });
-        nm.value = form.name;
-        f.appendChild(nm);
-        f.appendChild(el('label', { for: 'uc-phone' }, T.phone));
-        var ph = el('input', { id: 'uc-phone', type: 'tel', autocomplete: 'tel-national', inputmode: 'numeric', maxlength: '14', placeholder: T.phonePh, required: '', 'aria-describedby': 'uc-phone-hint' });
-        ph.value = form.phone;
-        f.appendChild(ph);
-        var hint = el('div', { id: 'uc-phone-hint', class: 'uc-hint' });
-        f.appendChild(hint);
-        function updatePhone() {
-          var d = phoneDigits(ph.value);
-          ph.value = phoneFormat(d);
-          var bad = d.length > 0 && d.charAt(0) !== '0';
-          hint.textContent = bad ? T.phoneStart : T.phoneHint + ' · ' + d.length + '/11';
-          hint.className = 'uc-hint' + (bad ? ' uc-bad' : d.length === 11 ? ' uc-good' : '');
-        }
-        ph.addEventListener('input', updatePhone);
-        updatePhone();
-        // Birden fazla seçilebilir (Ahmet, 28.09.2026); hiçbiri seçilmezse mesaja yazılmaz.
-        var fs = el('fieldset', { class: 'uc-times' });
-        fs.appendChild(el('legend', null, T.time));
-        var chosen = form.time ? form.time.split(', ') : [];
-        var boxes = T.times.map(function (t, i) {
-          var lab = el('label', { class: 'uc-chip' });
-          var cb = el('input', { type: 'checkbox', value: t, id: 'uc-time-' + i });
-          cb.checked = chosen.indexOf(t) >= 0;
-          lab.appendChild(cb);
-          lab.appendChild(el('span', null, t));
-          fs.appendChild(lab);
-          return cb;
-        });
-        f.appendChild(fs);
-        f.appendChild(el('label', { for: 'uc-note' }, T.note));
-        var nt = el('textarea', { id: 'uc-note', maxlength: '300', placeholder: T.notePh });
-        nt.value = form.note;
-        f.appendChild(nt);
-        var err = el('div', { id: 'uc-err', class: 'uc-err', role: 'alert' });
-        f.appendChild(err);
-        f.appendChild(mainButton(T.cont, ARROW, 'submit'));
-        f.addEventListener('submit', function (ev) {
-          ev.preventDefault();
-          if (hp.value) return; // bot
-          var name = nm.value.replace(/\s+/g, ' ').trim();
-          var nProb = nameProblem(name);
-          if (nProb) { err.textContent = nProb; nm.setAttribute('aria-invalid', 'true'); nm.focus(); return; }
-          nm.removeAttribute('aria-invalid');
-          var d = phoneDigits(ph.value);
-          var pProb = phoneProblem(d);
-          if (pProb) { err.textContent = pProb; ph.setAttribute('aria-invalid', 'true'); ph.focus(); return; }
-          ph.removeAttribute('aria-invalid');
-          if (Date.now() - state.openedAt < 1500) { err.textContent = T.spamErr; return; }
-          form.name = name;
-          form.phone = phoneFormat(d);
-          form.time = boxes.filter(function (b) { return b.checked; }).map(function (b) { return b.value; }).join(', ');
-          form.note = nt.value.replace(/\s+/g, ' ').trim().slice(0, 300);
-          render(4);
-        });
-        body.appendChild(f);
-        body.appendChild(backLink(2));
-      } else if (step === 4) {
-        var text = message(form);
-        heading(4, T.summary);
-        body.appendChild(el('div', { class: 'uc-pre' }, text));
-        var send = mainButton(T.send, SEND);
-        send.addEventListener('click', function () {
-          window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
-          send.setLabel(T.sent);
-        });
-        body.appendChild(send);
-        var again = el('button', { type: 'button', class: 'uc-link' }, T.again);
-        again.addEventListener('click', function () {
-          state.course = null; state.topic = null; state.who = null;
-          form.name = form.phone = form.time = form.note = '';
-          render(0);
-        });
-        var links = el('div', { class: 'uc-links' });
-        links.appendChild(backLink(3));
-        links.appendChild(again);
-        body.appendChild(links);
-        body.appendChild(el('div', { class: 'uc-note' }, T.privacy));
-      }
-      if (!panel.hidden) focusFirst();
+    function titleCase(v) {
+      var loc = EN ? 'en' : 'tr';
+      return v.split(' ').map(function (w) {
+        return w.charAt(0).toLocaleUpperCase(loc) + w.slice(1).toLocaleLowerCase(loc);
+      }).join(' ');
     }
 
+    function message() {
+      var lines = [
+        T.intro,
+        T.request + ': ' + label(T.topics, state.topic),
+        T.course + ': ' + label(T.courses, state.course),
+        T.lWho + ': ' + label(T.who, state.who),
+        T.lName + ': ' + state.name,
+        T.lPhone + ': ' + state.phone
+      ];
+      if (state.times.length) lines.push(T.lTime + ': ' + state.times.join(', '));
+      if (state.note) lines.push(T.lNote + ': ' + state.note);
+      return lines.join('\n');
+    }
+
+    function greeting() {
+      var h = new Date().getHours();
+      return fill(T.welcome, { g: T.greet[h < 11 ? 0 : h < 18 ? 1 : 2] });
+    }
+
+    /* ---- akış ---- */
+    function stepTopic() {
+      say([greeting(), T.helpQ], function () {
+        replies(T.topics, function (k) { state.topic = k; stepCourse(true); });
+      });
+    }
+    function stepCourse(withAck) {
+      say((withAck ? [T.ack[state.topic]] : []).concat(T.courseQ), function () {
+        replies(T.courses, function (k) { state.course = k; stepWho(); });
+      });
+    }
+    function stepWho(pre) {
+      say((pre || []).concat(T.whoQ), function () {
+        replies(T.who, function (k) {
+          state.who = k;
+          state.openedAt = Date.now();
+          stepName();
+        });
+      });
+    }
+    function stepName() {
+      var self = state.who === 'kendim';
+      say([self ? T.whoAckSelf : T.whoAckOther, self ? T.nameQ : T.nameQOther], function () {
+        ask({ id: 'uc-name', ph: T.namePh, ac: 'name', max: 80, check: nameProblem, show: titleCase }, function (v) {
+          state.name = titleCase(v);
+          stepPhone();
+        });
+      });
+    }
+    function stepPhone() {
+      say([fill(T.phoneQ, { n: state.name.split(' ')[0] })], function () {
+        ask({
+          id: 'uc-phone', ph: T.phonePh, type: 'tel', mode: 'numeric', ac: 'tel-national', max: 14,
+          format: function (v) { return phoneFormat(phoneDigits(v)); },
+          hint: function (v) {
+            var d = phoneDigits(v);
+            if (d.length && d.charAt(0) !== '0') return [T.phoneStart, 'uc-bad'];
+            return [T.phoneHint + ' · ' + d.length + '/11', d.length === 11 ? 'uc-good' : ''];
+          },
+          check: function (v) {
+            var p = phoneProblem(phoneDigits(v));
+            if (!p && Date.now() - state.openedAt < 1500) return T.spamErr;
+            return p;
+          },
+          show: function (v) { return phoneFormat(phoneDigits(v)); }
+        }, function (v) {
+          state.phone = phoneFormat(phoneDigits(v));
+          stepTime();
+        });
+      });
+    }
+    function stepTime() {
+      say([T.timeQ], function () {
+        multi(T.times, function (chosen) { state.times = chosen; stepNote(); });
+      });
+    }
+    function stepNote() {
+      say([T.noteQ], function () {
+        ask({ id: 'uc-note', ph: T.notePh, max: 300, skip: T.noNote }, function (v) {
+          state.note = v.slice(0, 300);
+          stepSummary();
+        });
+      });
+    }
+    function stepSummary() {
+      var text = message();
+      say([fill(T.summary, { n: state.name.split(' ')[0] })], function () {
+        log.appendChild(el('div', { class: 'uc-card' }, text));
+        scrollDown();
+        dock.textContent = '';
+        var b = el('button', { type: 'button', class: 'uc-main' });
+        var bt = el('span', null, T.send);
+        var ic = el('span', { class: 'uc-ic', 'aria-hidden': 'true' });
+        ic.innerHTML = PLANE;
+        b.appendChild(bt);
+        b.appendChild(ic);
+        var told = false;
+        b.addEventListener('click', function () {
+          window.open('https://wa.me/' + PHONE + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+          bt.textContent = T.sent;
+          if (!told) { told = true; say([T.after]); }
+        });
+        dock.appendChild(b);
+        dock.appendChild(el('div', { class: 'uc-note' }, T.privacy));
+        scrollDown();
+        focusIn(b);
+      });
+    }
+
+    function restart(course) {
+      gen++;
+      reset();
+      log.textContent = '';
+      lastSide = null;
+      idleDock();
+      if (course) {
+        // Kurs kartındaki "Teklif al": talep ve kurs belli, "kimin için" sorusundan devam.
+        state.topic = 'teklif';
+        state.course = course;
+        say([greeting()], function () {
+          bubble('me', label(T.topics, 'teklif'));
+          bubble('me', label(T.courses, course));
+          stepWho([T.ack.teklif]);
+        });
+      } else {
+        stepTopic();
+      }
+    }
+
+    var started = false;
     function open(opts) {
       teaser.hidden = true;
       store.set('uc-seen', '1', true);
-      if (opts && opts.course) {
-        // Kurs kartındaki "Teklif al": talep ve kurs belli, "kimin için" sorusundan devam.
-        state.topic = 'teklif';
-        state.course = opts.course;
-        render(2);
-      } else if (panel.hidden) {
-        render(state.step || 0);
-      }
-      state.lastOpener = document.activeElement;
+      quiet = !!(opts && opts.auto);
+      if (!quiet) lastOpener = document.activeElement;
       panel.hidden = false;
       launch.setAttribute('aria-expanded', 'true');
-      focusFirst();
+      if (opts && opts.course) { started = true; restart(opts.course); }
+      else if (!started) { started = true; restart(); }
+      else {
+        var f = dock.querySelector('input:not([disabled]), button') || log.querySelector('.uc-replies button');
+        focusIn(f);
+      }
     }
 
     function close() {
       panel.hidden = true;
       launch.setAttribute('aria-expanded', 'false');
-      if (state.lastOpener && state.lastOpener.focus) state.lastOpener.focus();
+      if (lastOpener && lastOpener.focus) lastOpener.focus();
     }
 
     launch.addEventListener('click', function () { panel.hidden ? open() : close(); });
     x.addEventListener('click', close);
+    again.addEventListener('click', function () { restart(); });
     teaser.addEventListener('click', function () { open(); });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    panel.addEventListener('pointerdown', function () { quiet = false; });
 
     // "Teklif al" düğmeleri: data-uslu-quote="<kurs anahtarı>"
     document.addEventListener('click', function (e) {
@@ -604,12 +776,11 @@
       window.setTimeout(function () {
         if (store.get('uc-seen', true) || !panel.hidden) return;
         store.set('uc-seen', '1', true);
-        if (window.matchMedia && window.matchMedia('(min-width: 768px)').matches) open();
+        if (window.matchMedia && window.matchMedia('(min-width: 768px)').matches) open({ auto: true });
         else teaser.hidden = false;
       }, 30000);
     }
   }
-
   /* ======================================================= ERİŞİLEBİLİRLİK */
   function buildA11y() {
     var KEY = 'ua-prefs';
