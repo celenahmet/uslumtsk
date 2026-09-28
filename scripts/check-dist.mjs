@@ -6,10 +6,13 @@ for(const file of files){
  if (/\.(php|sql|env)$/i.test(file)||/\/(blog|privacy|node_modules|\.git|scripts)\//.test(file))throw new Error(`Non-public file: ${file}`);
  if(!file.endsWith('.html'))continue;
  const html=fs.readFileSync(file,'utf8');
- for(const match of html.matchAll(/(?:href|src|data-background)=["'](\/[^"'#?]*)["']/g)) {
+ for(const match of html.matchAll(/(?:href|src|data-background)=["'](\/[^"'#?]*)(?:\?[^"'#]*)?["']/g)) {
   const target=path.join('dist',decodeURI(match[1]));
   if(!fs.existsSync(target))throw new Error(`${file}: missing exported link ${match[1]}`);
  }
+ // Every local stylesheet/script must carry the version stamp (see export-site.mjs).
+ const stale=[...html.matchAll(/(?:src|href)=["'](\/assets\/[^"'#?]+\.(?:css|js))["']/g)].map(m=>m[1]);
+ if(stale.length)throw new Error(`${file}: unversioned asset ${stale[0]}`);
 }
 if(!fs.existsSync('dist/404.html'))throw new Error('Missing custom 404');
 if(fs.readFileSync('dist/robots.txt','utf8').includes('/blog/'))throw new Error('Blog still in robots');
