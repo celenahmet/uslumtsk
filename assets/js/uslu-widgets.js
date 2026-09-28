@@ -24,7 +24,7 @@
 
   var T = EN
     ? {
-        launcher: 'Chat with us',
+        launcher: 'Live chat',
         title: 'Uslu Driving School',
         online: 'Online',
         hours: 'Open 7 days',
@@ -86,7 +86,9 @@
         again: 'New request',
         privacy: 'Your request is sent to our school by email so that we can reply.',
         privacyLink: 'Privacy notice (KVKK)',
-        teaser: 'Would you like a quote?',
+        teaser: 'Hi! How can we help you?',
+        teaserSub: 'Live chat · Online',
+        teaserClose: 'Dismiss',
         course: 'Course',
         request: 'Request',
         lWho: 'Course is for',
@@ -122,7 +124,7 @@
         times: [['sabah', 'Morning'], ['ogle', 'Afternoon'], ['aksam', 'Evening']]
       }
     : {
-        launcher: 'Bize yazın',
+        launcher: 'Canlı destek',
         title: 'Uslu Sürücü Kursu',
         online: 'Çevrimiçi',
         hours: 'Haftanın 7 günü açığız',
@@ -184,7 +186,9 @@
         again: 'Yeni talep',
         privacy: 'Talebiniz, size yanıt verebilmemiz için kursumuza e-postayla iletilir.',
         privacyLink: 'KVKK Aydınlatma Metni',
-        teaser: 'Teklif almak ister misiniz?',
+        teaser: 'Merhaba! Size nasıl yardımcı olabiliriz?',
+        teaserSub: 'Canlı destek · Çevrimiçi',
+        teaserClose: 'Kapat',
         course: 'İlgilendiğim eğitim',
         request: 'Talebim',
         lWho: 'Eğitim kimin için',
@@ -268,10 +272,22 @@
     '[data-uslu-widget] button,[data-uslu-widget] input,[data-uslu-widget] select,[data-uslu-widget] textarea{font-family:inherit}' +
     '#scroll-top{bottom:92px!important;right:24px!important}' +
     /* sohbet: canlı destek görünümü; sitenin lacivert/kırmızı dili, baloncuklar yuvarlak */
-    '.uc-launch{position:fixed;right:20px;bottom:20px;z-index:9990;width:58px;height:58px;border-radius:50%;border:0;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgb(0 0 0 / 20%);cursor:pointer;transition:transform .2s}' +
-    '.uc-launch:hover{transform:translateY(-2px)}.uc-launch:focus-visible{outline:3px solid ' + RED + ';outline-offset:3px}' +
-    '.uc-launch svg{width:30px;height:30px}' +
-    '.uc-teaser{position:fixed;right:88px;bottom:30px;z-index:9990;background:#fff;color:' + NAVY + ';border:0;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:14px;font-weight:600;box-shadow:0 6px 30px rgb(4 30 55 / 18%);cursor:pointer;max-width:220px;text-align:left}' +
+    /* açma düğmesi: sitenin kırmızısı, sohbet balonu, çevrimiçi noktası, okunmamış rozeti */
+    '.uc-launch{position:fixed;right:20px;bottom:20px;z-index:9990;width:60px;height:60px;border-radius:50%;border:0;background:' + RED + ';color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgb(203 22 67 / 32%);cursor:pointer;transition:transform .2s,background .2s}' +
+    '.uc-launch:hover{transform:translateY(-2px);background:' + NAVY + '}.uc-launch:focus-visible{outline:3px solid ' + NAVY + ';outline-offset:3px}' +
+    '.uc-launch svg{width:28px;height:28px}' +
+    '.uc-launch::after{content:"";position:absolute;right:3px;bottom:5px;width:13px;height:13px;border-radius:50%;background:#22c55e;border:2px solid #fff}' +
+    '.uc-launch[aria-expanded="true"]::after{display:none}' +
+    '.uc-badge{position:absolute;top:-3px;right:-3px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:#fff;color:' + RED + ';font-size:12px;font-weight:800;line-height:21px;text-align:center;box-shadow:0 2px 6px rgb(0 0 0 / 18%)}' +
+    '.uc-launch.uc-bump{animation:uc-bump .9s ease-in-out 2}' +
+    '@keyframes uc-bump{0%,100%{transform:none}25%{transform:translateY(-6px)}50%{transform:none}75%{transform:translateY(-3px)}}' +
+    '.uc-teaser{position:fixed;right:92px;bottom:26px;z-index:9990;display:flex;align-items:flex-start;gap:6px;background:#fff;color:' + NAVY + ';border-radius:16px 16px 4px 16px;padding:11px 8px 11px 14px;box-shadow:0 8px 32px rgb(4 30 55 / 20%);max-width:250px;animation:uc-in .3s ease-out both}' +
+    '.uc-teaser[hidden]{display:none}' +
+    '.uc-tmsg{background:transparent;border:0;padding:0;text-align:left;cursor:pointer;color:inherit;font:inherit}' +
+    '.uc-tmsg b{display:block;font-size:14px;font-weight:700;line-height:1.35}.uc-tmsg small{display:block;font-size:12px;color:#6b7280;margin-top:3px}' +
+    '.uc-tx{flex:0 0 22px;width:22px;height:22px;border:0;border-radius:50%;background:transparent;color:#9aa4b2;cursor:pointer;font-size:16px;line-height:1}.uc-tx:hover{background:#f3f5f8;color:' + NAVY + '}' +
+    '.uc-teaser button:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
+    '@media (max-width:480px){.uc-teaser{right:86px;max-width:calc(100vw - 110px)}}' +
     '.uc-panel{position:fixed;right:20px;bottom:90px;z-index:9991;width:370px;max-width:calc(100vw - 24px);height:min(620px,calc(100vh - 112px));display:flex;flex-direction:column;background:#fff;color:' + NAVY + ';border-radius:16px;box-shadow:0 12px 48px rgb(4 30 55 / 28%);overflow:hidden}' +
     '.uc-panel[hidden]{display:none}' +
     '.uc-head{display:flex;align-items:center;gap:12px;padding:14px 14px 14px 16px;background:' + NAVY + ';color:#fff;border-top:3px solid ' + RED + ';flex:0 0 auto}' +
@@ -372,7 +388,7 @@
     'html.ua-images body>:not([data-uslu-widget]) img,html.ua-images body>:not([data-uslu-widget]) video{visibility:hidden!important}html.ua-images body>:not([data-uslu-widget]) *{background-image:none!important}' +
     'html.ua-motion *,html.ua-motion *::before,html.ua-motion *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}' +
     'html.ua-cursor,html.ua-cursor *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2740%27 height=%2740%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M4 2l16 9-7 2-3 7z%27 fill=%27%23000%27 stroke=%27%23fff%27 stroke-width=%271.5%27/%3E%3C/svg%3E") 4 2,auto!important}' +
-    '@media (prefers-reduced-motion:reduce){.uc-launch,.ua-tab{transition:none}}';
+    '@media (prefers-reduced-motion:reduce){.uc-launch,.ua-tab{transition:none}.uc-launch.uc-bump,.uc-teaser{animation:none}}';
 
   function injectStyle() {
     var s = document.createElement('style');
@@ -397,6 +413,8 @@
     }
   };
 
+  var ICON_CHAT =
+    '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.2 3.6c-.5.4-1.3.1-1.3-.6V16A2.5 2.5 0 0 1 4 13.5z" fill="currentColor"/><circle cx="8.5" cy="9.5" r="1.2" fill="' + RED + '"/><circle cx="12" cy="9.5" r="1.2" fill="' + RED + '"/><circle cx="15.5" cy="9.5" r="1.2" fill="' + RED + '"/></svg>';
   var ICON_WA =
     '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.3c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.9-3.9-1.9-6.1C4.9 9.8 9.9 5 16 5s11.1 4.8 11.1 10.8S22.1 26.3 16 26.3zm6.1-8c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.7-1.7-1-.9-1.7-2-1.9-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6-.1-.2-.8-1.8-1-2.5-.3-.7-.5-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.3 1.4 3.5c.2.2 2.4 3.6 5.8 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 2-.8 2.2-1.6.3-.8.3-1.4.2-1.6-.1-.1-.3-.2-.6-.3z"/></svg>';
   var ICON_A11Y =
@@ -437,7 +455,10 @@
     reset();
 
     var launch = el('button', { type: 'button', class: 'uc-launch', 'aria-label': T.launcher, 'aria-expanded': 'false', 'aria-controls': 'uc-panel', 'data-uslu-widget': '' });
-    launch.innerHTML = ICON_WA;
+    launch.innerHTML = ICON_CHAT;
+    var badge = el('span', { class: 'uc-badge', 'aria-hidden': 'true' }, '1');
+    badge.hidden = true;
+    launch.appendChild(badge);
 
     var panel = el('div', { id: 'uc-panel', class: 'uc-panel', role: 'dialog', 'aria-label': T.title, 'data-uslu-widget': '' });
     panel.hidden = true;
@@ -461,7 +482,14 @@
     panel.appendChild(log);
     panel.appendChild(dock);
 
-    var teaser = el('button', { type: 'button', class: 'uc-teaser', 'data-uslu-widget': '' }, T.teaser);
+    // Karşılama baloncuğu: mesaj + kapatma. Dokununca sohbet açılır.
+    var teaser = el('div', { class: 'uc-teaser', role: 'status', 'data-uslu-widget': '' });
+    var tmsg = el('button', { type: 'button', class: 'uc-tmsg' });
+    tmsg.appendChild(el('b', null, T.teaser));
+    tmsg.appendChild(el('small', null, T.teaserSub));
+    var tx = el('button', { type: 'button', class: 'uc-tx', 'aria-label': T.teaserClose }, '×');
+    teaser.appendChild(tmsg);
+    teaser.appendChild(tx);
     teaser.hidden = true;
 
     var TICK = '<svg class="uc-tick" viewBox="0 0 16 10" aria-hidden="true" focusable="false"><path d="M1 5.5l3 3L10 2M6.5 8.5L13 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -934,6 +962,7 @@
     var started = false;
     function open(opts) {
       teaser.hidden = true;
+      badge.hidden = true;
       store.set('uc-seen', '1', true);
       quiet = !!(opts && opts.auto);
       if (!quiet) lastOpener = document.activeElement;
@@ -956,7 +985,12 @@
     launch.addEventListener('click', function () { panel.hidden ? open() : close(); });
     x.addEventListener('click', close);
     againBtn.addEventListener('click', function () { restart(); });
-    teaser.addEventListener('click', function () { open(); });
+    tmsg.addEventListener('click', function () { open(); });
+    tx.addEventListener('click', function () {
+      teaser.hidden = true;
+      badge.hidden = true;
+      store.set('uc-seen', '1', true); // kapatan ziyaretçiye bu oturumda panel kendiliğinden açılmaz
+    });
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     panel.addEventListener('pointerdown', function () { quiet = false; });
 
@@ -972,14 +1006,20 @@
     document.body.appendChild(panel);
     document.body.appendChild(launch);
 
-    // maliaksoy'daki gibi 30 sn sonra kendiliğinden açılır; oturumda bir kez. Dar
-    // ekranda içeriği kapatmasın diye yalnız küçük bir baloncuk gösterilir.
+    // Oturumda bir kez: 8. saniyede karşılama baloncuğu ve "1" rozeti; 30. saniyede
+    // masaüstünde panel kendiliğinden açılır (Ahmet: "30 sn sonra otomatik açılsa").
+    // Telefonda panel ekranı kaplayacağı için yalnız baloncuk kalır (Google da mobilde
+    // içeriği örten açılır pencereyi sıralamada cezalandırıyor).
     if (!store.get('uc-seen', true)) {
       window.setTimeout(function () {
         if (store.get('uc-seen', true) || !panel.hidden) return;
-        store.set('uc-seen', '1', true);
+        teaser.hidden = false;
+        badge.hidden = false;
+        launch.classList.add('uc-bump');
+      }, 8000);
+      window.setTimeout(function () {
+        if (store.get('uc-seen', true) || !panel.hidden) return;
         if (window.matchMedia && window.matchMedia('(min-width: 768px)').matches) open({ auto: true });
-        else teaser.hidden = false;
       }, 30000);
     }
   }
