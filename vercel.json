@@ -1,0 +1,26 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    {"source": "/:path*", "has": [{"type": "host", "value": "www.uslusurucukursu.com"}], "destination": "https://uslusurucukursu.com/:path*", "permanent": true},
+    {"source": "/index/", "destination": "/", "permanent": true},
+    {"source": "/en/index/", "destination": "/en/", "permanent": true},
+    {"source": "/site-haritasi/", "destination": "/sitemap.xml", "permanent": true},
+    {"source": "/en/site-map/", "destination": "/sitemap.xml", "permanent": true},
+    {"source": "/egitmenlerimiz/", "destination": "/hakkimizda/", "permanent": true},
+    {"source": "/en/gallery/genel/", "destination": "/en/gallery/general/", "permanent": true},
+    {"source": "/en/gallery/gcars/", "destination": "/en/gallery/cars/", "permanent": true},
+    {"source": "/en/gallery/gclass/", "destination": "/en/gallery/class/", "permanent": true},
+    {"source": "/en/train/ozel-ab/", "destination": "/en/train/special-ab/", "permanent": true}
+  ],
+  "headers": [
+    {"source": "/assets/:path*", "headers": [{"key": "Cache-Control", "value": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400"}]},
+    {"source": "/:path*", "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}, {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"}]},
+    {"source": "/qr/:path*", "headers": [{"key": "X-Robots-Tag", "value": "noindex, follow"}]},
+    {"source": "/en/qr/:path*", "headers": [{"key": "X-Robots-Tag", "value": "noindex, follow"}]}
+  ]
+}

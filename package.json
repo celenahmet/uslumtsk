@@ -1,0 +1,13 @@
+{
+  "name": "uslu-surucu-kursu",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/export-site.mjs && node scripts/check-dist.mjs",
+    "check": "python3 scripts/check-site.py",
+    "build:assets": "node scripts/build-css.mjs && python3 scripts/subset-fonts.py && node scripts/critical-css.mjs"
+  },
+  "devDependencies": {
+    "clean-css": "5.3.3",
+    "purgecss": "8.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+blog/
+privacy/
+en/privacy/
+bilm/
+c/
+index/
+en/index/
+.git/
+.venv/
+node_modules/
+docs/
+.DS_Store
