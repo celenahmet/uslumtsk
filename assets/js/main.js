@@ -70,16 +70,6 @@
         top.addEventListener('click',event=>{event.preventDefault();scrollTo({top:0,behavior:reducedMotion?'instant':'smooth'});});
     }
     document.querySelectorAll('#date').forEach(el=>{el.textContent=new Date().getFullYear();});
-    const chat=document.createElement('button');
-    chat.className='chat-launcher';chat.type='button';chat.textContent=english?'Live chat':'Canlı destek';
-    chat.addEventListener('click',()=>{
-        chat.disabled=true;chat.textContent=english?'Connecting…':'Bağlanıyor…';
-        window.Tawk_API=window.Tawk_API||{};window.Tawk_LoadStart=new Date();
-        window.Tawk_API.onLoad=()=>{window.Tawk_API.maximize();chat.remove();};
-        load('https://embed.tawk.to/675549772480f5b4f5aa5f64/1ieiidv7n').catch(()=>{
-            chat.disabled=false;chat.textContent=english?'Call: +90 532 068 56 47':'Arayın: 0532 068 56 47';
-            chat.onclick=()=>{location.href='tel:+905320685647';};
-        });
-    },{once:true});
-    document.body.appendChild(chat);
+    // Tawk.to canlı destek kaldırıldı (28.09.2026): yerine WhatsApp teklif asistanı,
+    // /assets/js/uslu-widgets.js.
 })();
