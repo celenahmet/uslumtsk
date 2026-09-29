@@ -254,6 +254,18 @@ function sample(range) {
 }
 
 /* ------------------------------------------------------------------ e-posta */
+// Apple Mail gibi istemciler koyu temayı desteklediğini bildirmeyen e-postanın renklerini kendisi
+// ters çevirir (lacivert başlık açık maviye döner). Destek bildirilir, koyu renkler burada verilir.
+const DARK_CSS = '@media (prefers-color-scheme: dark){' +
+  '.dk-page{background:#121417!important}' +
+  '.dk-card{background:#1c1f24!important}' +
+  '.dk-head{background:#041e37!important;color:#fff!important}' +
+  '.dk-text{color:#e8ecf1!important}' +
+  '.dk-muted{color:#a3acb9!important}' +
+  '.dk-line{border-color:#343a42!important}' +
+  '.dk-note{background:#3a3000!important;color:#f3d98b!important}' +
+  '.dk-link{color:#ff7a95!important}}';
+
 function render(data, range, opts) {
   const NAVY = '#041e37', RED = '#cb1643', MUTED = '#6b7280', LINE = '#e6e9ee';
   const cf = data.cf, gsc = data.gsc;
@@ -262,19 +274,20 @@ function render(data, range, opts) {
   const firstDay = new Date(range.start.getTime() + TR);
   const lastDay = new Date(range.end.getTime() + TR - 86400000);
   const weekLabel = trDate(firstDay) + ' - ' + trDate(lastDay) + ' ' + lastDay.getUTCFullYear();
+  // Koyu tema: dk-* sınıfları yalnız DARK_CSS'te kullanılır; açık temada satır içi stiller geçerlidir.
   const tile = (value, label, note) =>
-    '<td style="width:33%;padding:14px 10px;text-align:center;border:1px solid ' + LINE + ';background:#fff">' +
-    '<div style="font-size:26px;font-weight:bold;color:' + NAVY + '">' + esc(value) + '</div>' +
-    '<div style="font-size:13px;color:' + NAVY + ';margin-top:2px">' + esc(label) + '</div>' +
-    (note ? '<div style="font-size:12px;color:' + MUTED + ';margin-top:4px">' + esc(note) + '</div>' : '') + '</td>';
-  const h2 = (t) => '<h2 style="font-size:16px;color:' + NAVY + ';margin:26px 0 8px;border-bottom:2px solid ' + RED + ';padding-bottom:6px">' + esc(t) + '</h2>';
+    '<td class="dk-card dk-line" style="width:33%;padding:14px 10px;text-align:center;border:1px solid ' + LINE + ';background:#fff">' +
+    '<div class="dk-text" style="font-size:26px;font-weight:bold;color:' + NAVY + '">' + esc(value) + '</div>' +
+    '<div class="dk-text" style="font-size:13px;color:' + NAVY + ';margin-top:2px">' + esc(label) + '</div>' +
+    (note ? '<div class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin-top:4px">' + esc(note) + '</div>' : '') + '</td>';
+  const h2 = (t) => '<h2 class="dk-text" style="font-size:16px;color:' + NAVY + ';margin:26px 0 8px;border-bottom:2px solid ' + RED + ';padding-bottom:6px">' + esc(t) + '</h2>';
   const list = (rows) => '<table cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
-    rows.map((r) => '<tr><td style="padding:7px 0;border-bottom:1px solid ' + LINE + ';color:' + NAVY + '">' + esc(r[0]) + '</td><td style="padding:7px 0;border-bottom:1px solid ' + LINE + ';text-align:right;color:' + MUTED + ';white-space:nowrap">' + esc(r[1]) + '</td></tr>').join('') + '</table>';
+    rows.map((r) => '<tr><td class="dk-text dk-line" style="padding:7px 0;border-bottom:1px solid ' + LINE + ';color:' + NAVY + '">' + esc(r[0]) + '</td><td class="dk-muted dk-line" style="padding:7px 0;border-bottom:1px solid ' + LINE + ';text-align:right;color:' + MUTED + ';white-space:nowrap">' + esc(r[1]) + '</td></tr>').join('') + '</table>';
 
-  let html = '<div style="font-family:Arial,Helvetica,sans-serif;background:#f3f5f8;padding:20px 0"><div style="max-width:600px;margin:0 auto;background:#fff;border-top:4px solid ' + RED + '">';
-  html += '<div style="background:' + NAVY + ';color:#fff;padding:20px 24px"><div style="font-size:13px;opacity:.8">Uslu Sürücü Kursu</div><div style="font-size:20px;font-weight:bold;margin-top:4px">Web sitenizin haftalık özeti</div><div style="font-size:13px;opacity:.8;margin-top:4px">' + esc(weekLabel) + '</div></div>';
+  let html = '<div class="dk-page" style="font-family:Arial,Helvetica,sans-serif;background:#f3f5f8;padding:20px 0"><div class="dk-card" style="max-width:600px;margin:0 auto;background:#fff;border-top:4px solid ' + RED + '">';
+  html += '<div class="dk-head" style="background:' + NAVY + ';color:#fff;padding:20px 24px"><div style="font-size:13px;opacity:.8">Uslu Sürücü Kursu</div><div style="font-size:20px;font-weight:bold;margin-top:4px">Web sitenizin haftalık özeti</div><div style="font-size:13px;opacity:.8;margin-top:4px">' + esc(weekLabel) + '</div></div>';
   html += '<div style="padding:8px 24px 24px">';
-  if (opts.sample) html += '<p style="background:#fff7d6;border-left:3px solid #d4a300;padding:10px 12px;font-size:13px;color:#6a4b00">Bu bir <b>örnek</b> özettir; rakamlar gerçek değildir. Veri kaynakları bağlandığında bu e-posta sitenizin gerçek rakamlarıyla her pazartesi gelecek.</p>';
+  if (opts.sample) html += '<p class="dk-note" style="background:#fff7d6;border-left:3px solid #d4a300;padding:10px 12px;font-size:13px;color:#6a4b00">Bu bir <b>örnek</b> özettir; rakamlar gerçek değildir. Veri kaynakları bağlandığında bu e-posta sitenizin gerçek rakamlarıyla her pazartesi gelecek.</p>';
 
   const tiles = [];
   const cfNote = cf && (cf.prevVisits == null ? 'sayım 29 Eylül’de başladı' : change(cf.visits, cf.prevVisits));
@@ -284,14 +297,14 @@ function render(data, range, opts) {
   if (tiles.length) html += '<table cellpadding="0" cellspacing="6" style="width:100%;margin-top:14px"><tr>' + tiles.join('') + '</tr></table>';
   if (cf && cf.partial) {
     const a = trDate(new Date(cf.partial.from.getTime() + TR)), b = trDate(new Date(cf.partial.to.getTime() + TR - 1));
-    html += '<p style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">Ziyaret sayımı 29 Eylül’de başladı. Ziyaret rakamları ' + esc(a === b ? a + ' gününü' : a + ' - ' + b + ' arasını') + ' gösterir.</p>';
+    html += '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">Ziyaret sayımı 29 Eylül’de başladı. Ziyaret rakamları ' + esc(a === b ? a + ' gününü' : a + ' - ' + b + ' arasını') + ' gösterir.</p>';
   }
-  if (!cf && !gsc) html += '<p style="font-size:14px;color:' + NAVY + '">Veri kaynakları henüz bağlanmadı. Bu e-posta yalnızca gönderim düzeninin çalıştığını doğrular.</p>';
+  if (!cf && !gsc) html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + '">Veri kaynakları henüz bağlanmadı. Bu e-posta yalnızca gönderim düzeninin çalıştığını doğrular.</p>';
 
   if (gsc && gsc.queries.length) {
     html += h2('İnsanlar sizi Google’da ne yazarak buldu?');
     html += list(gsc.queries.map((q) => [q[0], fmt(q[1]) + ' kez göründünüz · ' + fmt(q[2]) + ' tıklama']));
-    html += '<p style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">“Görünme”, sitenizin Google arama sonuçlarında listelenme sayısıdır. Google’ın verisi 2-3 gün geç geldiği için bu bölüm ' + esc(trDate(gsc.from)) + ' - ' + esc(trDate(gsc.to)) + ' arasını gösterir.' + (gsc.position ? ' Aramalarda ortalama ' + esc(gsc.position.toFixed(1).replace('.', ',')) + '. sıradasınız.' : '') + '</p>';
+    html += '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">“Görünme”, sitenizin Google arama sonuçlarında listelenme sayısıdır. Google’ın verisi 2-3 gün geç geldiği için bu bölüm ' + esc(trDate(gsc.from)) + ' - ' + esc(trDate(gsc.to)) + ' arasını gösterir.' + (gsc.position ? ' Aramalarda ortalama ' + esc(gsc.position.toFixed(1).replace('.', ',')) + '. sıradasınız.' : '') + '</p>';
   }
   if (cf && cf.pages.length) {
     html += h2('En çok bakılan sayfalar');
@@ -301,14 +314,17 @@ function render(data, range, opts) {
     const total = cf.sources.reduce((s, x) => s + x[1], 0) || 1;
     html += h2('Ziyaretçiler nereden geldi?');
     html += list(cf.sources.map((s) => [s[0], '%' + Math.round((s[1] / total) * 100)]));
-    html += '<p style="font-size:14px;color:' + NAVY + ';margin:10px 0 0">Ziyaretçilerin <b>%' + cf.mobilePct + '</b> kadarı siteye telefondan girdi.</p>';
+    html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + ';margin:10px 0 0">Ziyaretçilerin <b>%' + cf.mobilePct + '</b> kadarı siteye telefondan girdi.</p>';
   }
   const tip = TIPS[(isoWeek(range.end) - 1) % TIPS.length];
   html += h2('Bu haftanın önerisi');
-  html += '<p style="font-size:14px;line-height:1.6;color:' + NAVY + ';margin:0">' + esc(tip) + '</p>';
-  html += '<p style="font-size:12px;color:' + MUTED + ';margin:26px 0 0;line-height:1.5">Bu özet her pazartesi otomatik olarak gönderilir. Rakamlar yaklaşık değerlerdir; ziyaretçileri tanımlayan bir kayıt tutulmaz. Sorularınız için bu e-postayı yanıtlamanız yeterli.</p>';
-  html += '<p style="font-size:12px;margin:8px 0 0"><a href="' + SITE + '" style="color:' + RED + '">uslusurucukursu.com</a></p>';
+  html += '<p class="dk-text" style="font-size:14px;line-height:1.6;color:' + NAVY + ';margin:0">' + esc(tip) + '</p>';
+  html += '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:26px 0 0;line-height:1.5">Bu özet her pazartesi otomatik olarak gönderilir. Rakamlar yaklaşık değerlerdir; ziyaretçileri tanımlayan bir kayıt tutulmaz. Sorularınız için bu e-postayı yanıtlamanız yeterli.</p>';
+  html += '<p style="font-size:12px;margin:8px 0 0"><a class="dk-link" href="' + SITE + '" style="color:' + RED + '">uslusurucukursu.com</a></p>';
   html += '</div></div></div>';
+  html = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">' +
+    '<style>:root{color-scheme:light dark;supported-color-schemes:light dark}' + DARK_CSS + '</style></head><body style="margin:0">' + html + '</body></html>';
 
   const text = ['Uslu Sürücü Kursu, web sitenizin haftalık özeti (' + weekLabel + ')', '']
     .concat(opts.sample ? ['ÖRNEK ÖZET: rakamlar gerçek değildir.', ''] : [])
@@ -363,8 +379,8 @@ module.exports = async function handler(req, res) {
   const payload = { from: FROM, to, subject: mail.subject, html: mail.html, text: mail.text };
   if (process.env.REPORT_REPLY_TO) payload.reply_to = process.env.REPORT_REPLY_TO;
   // Cron'un aynı dakikadaki çift tetiklenmesi tek e-posta olur; panodan elle yeniden çalıştırma
-  // (Vercel → Cron Jobs → Run) bir sonraki saatte yeni e-posta gönderir.
-  const idemKey = 'rapor-' + isoDay(range.start) + '-' + new Date().toISOString().slice(0, 13) + (test ? '-test-' + Date.now() : '');
+  // (Vercel → Cron Jobs → Run) bir dakika sonra yeni e-posta gönderir.
+  const idemKey = 'rapor-' + isoDay(range.start) + '-' + new Date().toISOString().slice(0, 16) + (test ? '-test-' + Date.now() : '');
   const r = await fetchJson('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', 'Idempotency-Key': idemKey },
