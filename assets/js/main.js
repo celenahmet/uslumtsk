@@ -71,7 +71,25 @@
     nearViewport(document.querySelectorAll('[data-background]'), el=>{el.style.backgroundImage=`url("${el.dataset.background}")`;});
     // Tanıtım videosu: kapak ve video adresi bölüme yaklaşınca verilir; preload="none" olduğu için
     // video dosyası yalnız oynatılınca iner, sayfanın açılışına yük bindirmez.
-    nearViewport(document.querySelectorAll('video[data-src]'), video=>{if(video.dataset.poster)video.poster=video.dataset.poster;video.src=video.dataset.src;});
+    // Araç tanıtım videosu: önizleme kareleri bölüme yaklaşınca iner ve yalnız görünürken döner;
+    // video YALNIZ oynat'a basınca oluşturulur, öncesinde hiç istek atılmaz.
+    document.querySelectorAll('.video-frame[data-video-src]').forEach(frame=>{
+        const stage=frame.closest('.video-stage')||frame;
+        nearViewport([stage], ()=>stage.querySelectorAll('img[data-src]').forEach(img=>{img.src=img.dataset.src;}));
+        if ('IntersectionObserver' in window) new IntersectionObserver(entries=>entries.forEach(entry=>frame.classList.toggle('is-visible', entry.isIntersecting))).observe(frame);
+        else frame.classList.add('is-visible');
+        frame.querySelector('.video-play')?.addEventListener('click', ()=>{
+            const video=document.createElement('video');
+            video.src=frame.dataset.videoSrc; video.controls=true; video.playsInline=true; video.preload='auto';
+            video.setAttribute('aria-label', frame.dataset.videoLabel||'');
+            const first=frame.querySelector('.video-preview img');
+            if (first && first.currentSrc) video.poster=first.currentSrc;
+            frame.querySelector('.video-screen').appendChild(video);
+            frame.classList.add('is-playing');
+            video.play().catch(()=>{});
+            video.focus({preventScroll:true});
+        }, {once:true});
+    });
     const top = document.getElementById('scroll-top');
     if (top) {
         const update=()=>{top.style.display=scrollY>100?'inline-block':'none';};

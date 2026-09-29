@@ -3951,13 +3951,59 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .guide-hub.is-searching .guide-hub-top,.guide-hub.is-searching .guide-hub-quick{display:none}
 .guide-hub [hidden]{display:none!important}
 @media (max-width:575.98px){.guide-search button span{display:none}.guide-search button{padding:0 18px}}
-/* Araç tanıtım videosu (ana sayfa ve galeri). Kapak ve video bölüme yaklaşınca verilir, video yalnız oynatılınca iner (main.js). */
-.video-area{background:#f4f6f9}
-.video-area-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,340px);gap:56px;align-items:center;max-width:980px;margin:0 auto}
-.video-area-text p{font-size:17px;line-height:1.7;color:#4b5563;margin:14px 0 24px}
-.video-area-links{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
-.video-area-ig{font-weight:700;color:#cb1643;text-decoration:underline}
-.video-area-ig:hover{color:#041e37}
-.video-frame{width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#041e37;box-shadow:0 18px 40px rgb(4 30 55 / 22%)}
-.video-frame video{display:block;width:100%;height:100%;object-fit:cover;background:#041e37}
-@media (max-width:991.98px){.video-area-grid{grid-template-columns:minmax(0,1fr);gap:32px}.video-area-text{text-align:center}.video-area-links{justify-content:center}.video-frame{max-width:340px;margin:0 auto}}
+/* Araç tanıtım videosu (ana sayfa ve galeri). Ahmet 30.09: "premium olsun; video ilk başta
+   yüklenmesin, play'e basınca yüklensin; ön izleme animasyonlu, içinden karelerle".
+   Önizleme: videonun 6 karesi (~140 KB) bölüme yaklaşınca iner, görünür alandayken yumuşak geçişle
+   döner (her kare 3 sn, hafif yakınlaşma). Video (5,9 MB) YALNIZ oynat'a basınca oluşturulur (main.js).
+   Hareket azaltma tercihinde yalnız ilk kare durur. Dekoratif gradyan ve parıltı yok. */
+.video-area{position:relative;overflow:hidden;background:#041e37;color:#fff}
+.video-area-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:64px;align-items:center;max-width:1040px;margin:0 auto}
+.video-area .site-title{color:#fff}
+.video-area .site-title span{color:#ff5c7a}
+.video-area .site-title-tagline{color:#ff8da1}
+.video-area-text p{font-size:17px;line-height:1.7;color:#c9d5e3;margin:16px 0 22px}
+.video-area-facts{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 30px;padding:0;list-style:none}
+.video-area-facts li{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border:1px solid rgb(255 255 255 / 16%);border-radius:999px;background:rgb(255 255 255 / 6%);font-size:14px;font-weight:600;color:#eaf0f7}
+.video-area-facts svg{width:16px;height:16px;flex:none;color:#ff8da1}
+.video-area-links{display:flex;flex-wrap:wrap;align-items:center;gap:14px 16px}
+.video-area-ig{display:inline-flex;align-items:center;gap:9px;min-height:50px;padding:0 22px;border:1px solid rgb(255 255 255 / 30%);border-radius:8px;font-weight:700;color:#fff;transition:background .2s,border-color .2s}
+.video-area-ig svg{width:18px;height:18px}
+.video-area-ig:hover,.video-area-ig:focus-visible{color:#fff;background:rgb(255 255 255 / 10%);border-color:#fff}
+.video-stage{position:relative;display:grid;place-items:center;width:100%;padding:34px 0}
+.video-stage::before,.video-stage::after{content:"";position:absolute;top:50%;left:50%;aspect-ratio:1;border-radius:50%;border:1px solid rgb(255 255 255 / 9%);transform:translate(-50%,-50%);pointer-events:none}
+.video-stage::before{width:104%}
+.video-stage::after{width:78%;border-color:rgb(255 255 255 / 13%)}
+.video-stage-card{position:absolute;top:50%;width:40%;aspect-ratio:9/16;border:5px solid #0c2a48;border-radius:22px;overflow:hidden;background:#0c2a48;box-shadow:0 22px 44px rgb(0 0 0 / 40%);opacity:.6}
+.video-stage-card img{width:100%;height:100%;object-fit:cover}
+.video-stage-card-a{left:0;transform:translateY(-44%) rotate(-9deg)}
+.video-stage-card-b{right:0;transform:translateY(-56%) rotate(8deg)}
+.video-frame{position:relative;z-index:1;width:min(300px,68%);aspect-ratio:9/16;padding:9px;border-radius:40px;background:#08131f;box-shadow:0 34px 70px rgb(0 0 0 / 50%),inset 0 0 0 1px rgb(255 255 255 / 12%)}
+.video-screen{position:relative;width:100%;height:100%;border-radius:31px;overflow:hidden;background:#0c2a48;isolation:isolate}
+.video-screen::before{content:"";position:absolute;z-index:3;top:10px;left:50%;width:30%;height:20px;border-radius:12px;background:#08131f;transform:translateX(-50%)}
+.video-preview img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:video-kare-ilk 18s linear infinite paused}
+.video-preview img+img{opacity:0;animation-name:video-kare}
+.video-preview img:nth-child(2){animation-delay:3s}
+.video-preview img:nth-child(3){animation-delay:6s}
+.video-preview img:nth-child(4){animation-delay:9s}
+.video-preview img:nth-child(5){animation-delay:12s}
+.video-preview img:nth-child(6){animation-delay:15s}
+.video-frame.is-visible .video-preview img{animation-play-state:running}
+@keyframes video-kare-ilk{0%{transform:scale(1)}20%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes video-kare{0%{opacity:0;transform:scale(1)}4%{opacity:1}20.5%{opacity:1;transform:scale(1.08)}24%{opacity:0;transform:scale(1.08)}100%{opacity:0;transform:scale(1)}}
+.video-play{position:absolute;z-index:4;top:50%;left:50%;display:grid;place-items:center;width:88px;height:88px;padding:0;border:0;border-radius:50%;background:#fff;color:#cb1643;cursor:pointer;box-shadow:0 14px 34px rgb(0 0 0 / 38%);transform:translate(-50%,-50%);transition:transform .25s ease,background .25s ease}
+.video-play::before,.video-play::after{content:"";position:absolute;inset:0;border:2px solid rgb(255 255 255 / 80%);border-radius:50%;animation:video-halka 2.6s ease-out infinite;pointer-events:none}
+.video-play::after{animation-delay:1.3s}
+.video-play svg{width:32px;height:32px;margin-left:5px}
+.video-play:hover{transform:translate(-50%,-50%) scale(1.07)}
+.video-play:focus-visible{outline:3px solid #ff8da1;outline-offset:6px}
+@keyframes video-halka{0%{opacity:.85;transform:scale(1)}100%{opacity:0;transform:scale(1.8)}}
+.video-bar{position:absolute;z-index:3;left:12px;right:12px;bottom:12px;display:flex;align-items:center;gap:9px;padding:11px 14px;border-radius:16px;background:rgb(4 30 55 / 78%);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:13px;font-weight:700;color:#fff}
+.video-bar-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#ff5c7a}
+.video-bar-title{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.video-bar-time{flex:none;padding:3px 8px;border-radius:999px;background:rgb(255 255 255 / 14%);font-size:12px}
+.video-noscript{position:absolute;z-index:5;inset:auto 12px 70px;padding:10px;border-radius:10px;background:#fff;text-align:center;font-weight:700}
+.video-screen video{position:absolute;z-index:6;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.video-frame.is-playing .video-play,.video-frame.is-playing .video-bar,.video-frame.is-playing .video-screen::before{display:none}
+@media (prefers-reduced-motion:reduce){.video-preview img{animation:none}.video-preview img+img{display:none}.video-play::before,.video-play::after{animation:none;opacity:0}}
+@media (max-width:991.98px){.video-area-grid{grid-template-columns:minmax(0,1fr);gap:28px}.video-area-text{text-align:center}.video-area-facts,.video-area-links{justify-content:center}.video-stage{max-width:440px;margin:0 auto}}
+@media (max-width:575.98px){.video-frame{width:min(270px,70%);border-radius:34px;padding:8px}.video-screen{border-radius:27px}.video-play{width:76px;height:76px}.video-play svg{width:28px;height:28px}.video-stage-card{width:38%;border-radius:18px}}
