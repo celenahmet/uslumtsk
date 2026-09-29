@@ -3833,3 +3833,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .guide-text p a,.guide-text li a{display:inline}
 @media (max-width:767.98px){.guide-area.py-120{padding-top:50px;padding-bottom:70px}}
 @media (max-width:575.98px){.guide-cta{padding:22px 18px}.guide-table table{font-size:14.5px}.guide-table th,.guide-table td{padding:8px 9px}}
+
+/* Mobil menu: sabit 200px yukseklik son ogeleri kesiyordu; ekrana gore uzar, gerekirse kayar */
+/* Masaustu menu: EHLiYET REHBERi eklenince 1200-1399 arasinda ogeler iki satira kiriliyordu */
+@media all and (min-width:992px){.navbar .nav-item .nav-link{white-space:nowrap;margin-right:16px;font-size:15px}.header-nav-right{margin-left:18px}.navbar .header-btn .theme-btn{white-space:nowrap}}
+@media all and (max-width:991px){.navbar-collapse{max-height:calc(100vh - 80px);max-height:calc(100dvh - 80px);box-shadow:0 14px 24px rgba(4,30,55,.14)}}
