@@ -86,6 +86,24 @@
             if (first && first.currentSrc) video.poster=first.currentSrc;
             frame.querySelector('.video-screen').appendChild(video);
             frame.classList.add('is-playing');
+            // Oynarken arka planda yarış hissi: hız çizgileri (Ahmet 30.09). Yalnız video oynarken akar.
+            const area=frame.closest('.video-area');
+            if (area && !area.querySelector('.video-race') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const race=document.createElement('div');
+                race.className='video-race'; race.setAttribute('aria-hidden','true');
+                for (let i=0;i<16;i++) {
+                    const line=document.createElement('span');
+                    if (i%4===1) line.className='is-red';
+                    line.style.top=(4+i*6)+'%';
+                    line.style.width=(70+(i*53)%190)+'px';
+                    line.style.animationDuration=(0.7+((i*37)%9)/10)+'s';
+                    line.style.animationDelay=(-((i*29)%10)/10)+'s';
+                    race.appendChild(line);
+                }
+                area.prepend(race);
+            }
+            video.addEventListener('play', ()=>area?.classList.add('is-racing'));
+            ['pause','ended'].forEach(name=>video.addEventListener(name, ()=>area?.classList.remove('is-racing')));
             video.play().catch(()=>{});
             video.focus({preventScroll:true});
         }, {once:true});
