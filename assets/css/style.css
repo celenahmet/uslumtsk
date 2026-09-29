@@ -3887,3 +3887,12 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .home-guide-new img{width:110px;height:auto;flex:0 0 110px}
 @media (max-width:991.98px){.home-guide-grid,.home-guide-cats,.home-guide-new{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:575.98px){.home-guide-grid,.home-guide-cats,.home-guide-new{grid-template-columns:1fr}.home-guide-card strong{font-size:18px}}
+
+/* Footer: yapay zeka araclari icin blok (Egitimlerimiz ve Mesai sutunlarinin altinda) */
+.footer-ai{margin-top:6px}
+.footer-ai .footer-widget-title{font-size:24px;margin-bottom:18px}
+.footer-ai p{color:#c9d4e0;font-size:15px;line-height:1.6;margin-bottom:12px}
+.footer-ai-links{display:flex;flex-wrap:wrap;gap:8px 22px;padding:0;margin:0}
+.footer-ai-links li{list-style:none}
+.footer-ai-links a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.footer-ai-links a:hover{color:#cb1643}
