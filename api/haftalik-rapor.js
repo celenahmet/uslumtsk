@@ -20,6 +20,8 @@ const crypto = require('node:crypto');
 
 const FROM = 'Uslu Sürücü Kursu Web Sitesi <rapor@uslusurucukursu.com>';
 const SITE = 'https://uslusurucukursu.com';
+// Ziyaret sayımı (Cloudflare) bu tarihte başladı: öncesi için veri yok, karşılaştırma yapılmaz.
+const CF_START = new Date('2026-09-28T21:00:00Z'); // 29 Eylül 2026, Türkiye gece yarısı
 
 // Sayfa yolları → kurs sahibinin tanıdığı adlar
 const PAGE_NAMES = {
@@ -41,8 +43,14 @@ const PAGE_NAMES = {
   '/galeri/siniflar/': 'Eğitim sınıfları',
   '/e-sinav/': 'e-Sınav uygulaması',
   '/kvkk/': 'KVKK aydınlatma metni',
-  '/en/': 'İngilizce ana sayfa'
+  '/en/': 'İngilizce ana sayfa',
+  '/rehber/': 'Ehliyet Rehberi'
 };
+function pageName(path) {
+  if (PAGE_NAMES[path]) return PAGE_NAMES[path];
+  const m = /^\/rehber\/([a-z0-9-]+)\/$/.exec(path);
+  return m ? 'Rehber: ' + m[1].replace(/-/g, ' ') : path;
+}
 
 // Her hafta sırayla bir öneri (ISO hafta numarasına göre döner).
 const TIPS = [
@@ -116,7 +124,12 @@ async function cloudflare(range) {
       devices: rumPageloadEventsAdaptiveGroups(limit: 5, filter: $f, orderBy: [count_DESC]) { count dimensions { deviceType } }
     } }
   }`;
-  const f = { AND: [{ siteTag: site }, { datetime_geq: range.start.toISOString(), datetime_lt: range.end.toISOString() }] };
+  // Sayımdan önceki günler aralıktan çıkarılır. Hafta tümüyle sayımdan önceyse (ilk özet)
+  // sayımın başladığı günden bu yana olan ziyaretler gösterilir.
+  const start = range.start < CF_START ? CF_START : range.start;
+  const end = range.end > start ? range.end : new Date();
+  const hasPrev = range.prevStart >= CF_START;
+  const f = { AND: [{ siteTag: site }, { datetime_geq: start.toISOString(), datetime_lt: end.toISOString() }] };
   const p = { AND: [{ siteTag: site }, { datetime_geq: range.prevStart.toISOString(), datetime_lt: range.start.toISOString() }] };
   const r = await fetchJson('https://api.cloudflare.com/client/v4/graphql', {
     method: 'POST',
@@ -144,7 +157,8 @@ async function cloudflare(range) {
   const mobile = acc.devices.filter((x) => /mobile|tablet/i.test(x.dimensions.deviceType)).reduce((s, x) => s + x.count, 0);
   return {
     visits: tot.sum.visits,
-    prevVisits: prev.sum.visits,
+    prevVisits: hasPrev ? prev.sum.visits : null,
+    partial: start > range.start || end > range.end ? { from: start, to: end } : null,
     views: tot.count,
     pages: acc.pages.map((x) => [x.dimensions.requestPath, x.count]),
     sources: Object.entries(groups).filter((e) => e[1] > 0).sort((a, b) => b[1] - a[1]),
@@ -198,7 +212,7 @@ async function searchConsole() {
   const [cur, prev, queries] = await Promise.all([
     ask({ startDate: isoDay(start), endDate: isoDay(end) }),
     ask({ startDate: isoDay(pStart), endDate: isoDay(pEnd) }),
-    ask({ startDate: isoDay(start), endDate: isoDay(end), dimensions: ['query'], rowLimit: 5 })
+    ask({ startDate: isoDay(start), endDate: isoDay(end), dimensions: ['query'], rowLimit: 250 })
   ]);
   if (!cur.ok) {
     console.error('rapor: search console durum ' + cur.status);
@@ -214,7 +228,11 @@ async function searchConsole() {
     clicks: c.clicks,
     prevClicks: p.clicks,
     position: c.position,
-    queries: ((queries.ok && queries.body && queries.body.rows) || []).map((x) => [x.keys[0], x.impressions, x.clicks])
+    // En çok tıklanan, eşitlikte en çok görünen 5 arama
+    queries: ((queries.ok && queries.body && queries.body.rows) || [])
+      .map((x) => [x.keys[0], x.impressions, x.clicks])
+      .sort((a, b) => b[2] - a[2] || b[1] - a[1])
+      .slice(0, 5)
   };
 }
 
@@ -259,10 +277,15 @@ function render(data, range, opts) {
   if (opts.sample) html += '<p style="background:#fff7d6;border-left:3px solid #d4a300;padding:10px 12px;font-size:13px;color:#6a4b00">Bu bir <b>örnek</b> özettir; rakamlar gerçek değildir. Veri kaynakları bağlandığında bu e-posta sitenizin gerçek rakamlarıyla her pazartesi gelecek.</p>';
 
   const tiles = [];
-  if (cf) tiles.push(tile(fmt(cf.visits), 'ziyaret', change(cf.visits, cf.prevVisits)));
+  const cfNote = cf && (cf.prevVisits == null ? 'sayım 29 Eylül’de başladı' : change(cf.visits, cf.prevVisits));
+  if (cf) tiles.push(tile(fmt(cf.visits), 'ziyaret', cfNote));
   if (gsc) tiles.push(tile(fmt(gsc.impressions), 'Google’da görünme', change(gsc.impressions, gsc.prevImpressions)));
   if (gsc) tiles.push(tile(fmt(gsc.clicks), 'Google’dan tıklama', change(gsc.clicks, gsc.prevClicks)));
   if (tiles.length) html += '<table cellpadding="0" cellspacing="6" style="width:100%;margin-top:14px"><tr>' + tiles.join('') + '</tr></table>';
+  if (cf && cf.partial) {
+    const a = trDate(new Date(cf.partial.from.getTime() + TR)), b = trDate(new Date(cf.partial.to.getTime() + TR - 1));
+    html += '<p style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">Ziyaret sayımı 29 Eylül’de başladı. Ziyaret rakamları ' + esc(a === b ? a + ' gününü' : a + ' - ' + b + ' arasını') + ' gösterir.</p>';
+  }
   if (!cf && !gsc) html += '<p style="font-size:14px;color:' + NAVY + '">Veri kaynakları henüz bağlanmadı. Bu e-posta yalnızca gönderim düzeninin çalıştığını doğrular.</p>';
 
   if (gsc && gsc.queries.length) {
@@ -272,7 +295,7 @@ function render(data, range, opts) {
   }
   if (cf && cf.pages.length) {
     html += h2('En çok bakılan sayfalar');
-    html += list(cf.pages.slice(0, 5).map((p) => [PAGE_NAMES[p[0]] || p[0], fmt(p[1]) + ' görüntülenme']));
+    html += list(cf.pages.slice(0, 5).map((p) => [pageName(p[0]), fmt(p[1]) + ' görüntülenme']));
   }
   if (cf && cf.sources.length) {
     const total = cf.sources.reduce((s, x) => s + x[1], 0) || 1;
@@ -289,7 +312,7 @@ function render(data, range, opts) {
 
   const text = ['Uslu Sürücü Kursu, web sitenizin haftalık özeti (' + weekLabel + ')', '']
     .concat(opts.sample ? ['ÖRNEK ÖZET: rakamlar gerçek değildir.', ''] : [])
-    .concat(cf ? ['Ziyaret: ' + fmt(cf.visits) + ' (' + change(cf.visits, cf.prevVisits) + ')'] : [])
+    .concat(cf ? ['Ziyaret: ' + fmt(cf.visits) + ' (' + cfNote + ')'] : [])
     .concat(gsc ? ['Google’da görünme: ' + fmt(gsc.impressions), 'Google’dan tıklama: ' + fmt(gsc.clicks)] : [])
     .concat(!cf && !gsc ? ['Veri kaynakları henüz bağlanmadı.'] : [])
     .concat(['', 'Bu haftanın önerisi: ' + tip])
