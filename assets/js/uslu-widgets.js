@@ -789,9 +789,11 @@
       return b;
     }
 
+    // Sabah 05.00-10.59, gün 11.00-17.59, akşam ve gece 18.00-04.59. Gece yarısından sonrası da
+    // akşam selamıdır; 02.22'de "Günaydın" deniyordu (Ahmet 30.09).
     function greeting() {
       var h = new Date().getHours();
-      return fill(T.welcome, { g: T.greet[h < 11 ? 0 : h < 18 ? 1 : 2] });
+      return fill(T.welcome, { g: T.greet[h >= 5 && h < 11 ? 0 : h >= 11 && h < 18 ? 1 : 2] });
     }
 
     /* ---- akış ---- */
