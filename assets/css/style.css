@@ -3801,3 +3801,35 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .reviews-cta-box{max-width:720px;margin:0 auto;text-align:center;color:#041e37}
 .reviews-cta-box h2{font-size:28px;margin-bottom:10px}
 .reviews-cta-box p{font-size:17px;color:#4b5563;margin-bottom:22px}
+
+/* Ehliyet rehberi */
+.guide-meta{color:#6b7280;font-size:14px;margin-bottom:18px}
+.guide-text p{margin-bottom:14px}
+.guide-text h3{font-size:19px;margin:24px 0 8px;color:#041e37}
+.guide-text ul li{list-style:disc}
+.guide-text ol{padding-left:22px;margin-bottom:16px}
+.guide-text ol li{list-style:decimal;margin-bottom:10px}
+.guide-summary{background:#f4f6f9;border-left:4px solid #cb1643;padding:18px 22px;margin:6px 0 28px}
+.legal-text .guide-summary h2{margin:0 0 8px;font-size:19px}
+.guide-summary ul{margin-bottom:0}
+.guide-table{overflow-x:auto;margin:6px 0 20px}
+.guide-table table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5}
+.guide-table th,.guide-table td{border:1px solid #dde2ea;padding:9px 12px;text-align:left;vertical-align:top}
+.guide-table th{background:#041e37;color:#fff;font-weight:600}
+.guide-table tbody tr:nth-child(even) td{background:#f8f9fb}
+.guide-cta{background:#041e37;color:#fff;padding:26px;margin:34px 0 10px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.guide-cta p{color:#fff;margin:0;flex-basis:100%}
+.legal-text .guide-cta .theme-btn{color:#fff;text-decoration:none}
+.legal-text .guide-cta .guide-cta-tel{color:#fff;font-weight:600}
+.guide-sources{font-size:15px}
+.guide-note{color:#6b7280;font-size:14px}
+.guide-related{margin-top:30px;border-top:1px solid #dde2ea;padding-top:6px}
+.legal-text .guide-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:10px 0 30px;padding:0}
+.guide-text .guide-cards li{list-style:none;margin:0}
+.legal-text .guide-cards a{display:block;height:100%;border:1px solid #dde2ea;padding:18px 20px;text-decoration:none;color:#041e37;transition:border-color .2s}
+.legal-text .guide-cards a:hover{border-color:#cb1643}
+.guide-cards strong{display:block;font-size:17.5px;margin-bottom:6px}
+.guide-cards span{display:block;font-size:15px;color:#4b5563;line-height:1.55}
+.guide-text p a,.guide-text li a{display:inline}
+@media (max-width:767.98px){.guide-area.py-120{padding-top:50px;padding-bottom:70px}}
+@media (max-width:575.98px){.guide-cta{padding:22px 18px}.guide-table table{font-size:14.5px}.guide-table th,.guide-table td{padding:8px 9px}}
