@@ -108,8 +108,14 @@
                     +move('vt-grafit','vt-l1','-0.7s','0;0.36;0.66;1')+move('vt-uslu','vt-l2','0s','0;0.30;0.63;1')+move('vt-kirmizi','vt-l3','-0.35s','0;0.34;0.70;1');
                 area.prepend(svg); track=svg; svg.pauseAnimations?.();
             }
-            video.addEventListener('play', ()=>{area?.classList.add('is-racing'); track?.unpauseAnimations?.();});
-            ['pause','ended'].forEach(name=>video.addEventListener(name, ()=>{area?.classList.remove('is-racing'); track?.pauseAnimations?.();}));
+            // Video başlayınca yarış başlar ve video durunca/bitince de sürer (Ahmet 30.09); yalnız bölüm
+            // ekrandan çıkınca bekler, geri gelince kaldığı yerden devam eder.
+            if (area && track) video.addEventListener('play', ()=>{
+                area.classList.add('is-racing'); track.unpauseAnimations?.();
+                if ('IntersectionObserver' in window) new IntersectionObserver(entries=>entries.forEach(entry=>{
+                    if (entry.isIntersecting) track.unpauseAnimations?.(); else track.pauseAnimations?.();
+                })).observe(area);
+            }, {once:true});
             video.play().catch(()=>{});
             video.focus({preventScroll:true});
         }, {once:true});
