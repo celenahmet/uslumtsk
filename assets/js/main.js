@@ -69,6 +69,9 @@
         } catch { /* The unfiltered gallery remains visible. */ }
     });
     nearViewport(document.querySelectorAll('[data-background]'), el=>{el.style.backgroundImage=`url("${el.dataset.background}")`;});
+    // Tanıtım videosu: kapak ve video adresi bölüme yaklaşınca verilir; preload="none" olduğu için
+    // video dosyası yalnız oynatılınca iner, sayfanın açılışına yük bindirmez.
+    nearViewport(document.querySelectorAll('video[data-src]'), video=>{if(video.dataset.poster)video.poster=video.dataset.poster;video.src=video.dataset.src;});
     const top = document.getElementById('scroll-top');
     if (top) {
         const update=()=>{top.style.display=scrollY>100?'inline-block':'none';};

@@ -16,7 +16,7 @@ function copy(file) {
  const dest=path.join(out,file);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(file,dest);
  if (/\.(html|css|js)$/.test(file)) {
   const text=fs.readFileSync(file,'utf8');
-  const refs=[...text.matchAll(/(?:src|href|data-background)=["']([^"'#?]+)["']/g)].map(m=>m[1]);
+  const refs=[...text.matchAll(/(?:src|href|data-background|poster)=["']([^"'#?]+)["']/g)].map(m=>m[1]); // poster: data-poster da eşleşir
   refs.push(...[...text.matchAll(/url\(["']?([^)'"?#]+)["']?\)/g)].map(m=>m[1]));
   // Deferred plugin URLs are explicit, not discoverable as script tags.
   if (file==='assets/js/main.js') refs.push('/assets/js/jquery-3.6.0.min.js','/assets/js/owl.carousel.min.js','/assets/js/jquery.magnific-popup.min.js','/assets/js/isotope.pkgd.min.js');
