@@ -230,6 +230,7 @@
         title: 'Accessibility',
         hint: 'Saved in this browser',
         reset: 'Reset',
+        move: 'Drag to move',
         close: 'Close',
         items: {
           text: 'Larger text',
@@ -249,6 +250,7 @@
         title: 'Erişilebilirlik',
         hint: 'Tercihler bu tarayıcıda saklanır',
         reset: 'Sıfırla',
+        move: 'Sürükleyerek taşıyabilirsiniz',
         close: 'Kapat',
         items: {
           text: 'Yazıyı büyüt',
@@ -364,7 +366,8 @@
     /* erişilebilirlik: aynı dil, küçük ve köşeli */
     '.ua-tab{position:fixed;left:0;top:50%;transform:translateY(-50%);z-index:9989;width:34px;height:42px;border:0;border-radius:0 4px 4px 0;background:' + NAVY + ';color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 24px rgb(0 0 0 / 15%);opacity:.8;border-right:3px solid ' + RED + ';transition:opacity .2s,width .2s}' +
     '.ua-tab:hover,.ua-tab:focus-visible,.ua-tab[aria-expanded="true"]{opacity:1;width:38px}.ua-tab:focus-visible{outline:3px solid ' + RED + ';outline-offset:2px}' +
-    '.ua-tab svg{width:20px;height:20px}' +
+    '.ua-tab svg{width:20px;height:20px;pointer-events:none}.ua-tab{touch-action:none}.ua-tab.ua-drag{opacity:1;cursor:grabbing;transition:none}' +
+    '.ua-tab.ua-right{left:auto;right:0;border-radius:4px 0 0 4px;border-right:0;border-left:3px solid ' + RED + '}.ua-panel.ua-right{left:auto;right:46px}' +
     '.ua-panel{position:fixed;left:46px;top:50%;transform:translateY(-50%);z-index:9989;width:268px;max-width:calc(100vw - 58px);max-height:calc(100vh - 24px);overflow-y:auto;background:#fff;color:' + NAVY + ';box-shadow:0 0 50px 0 rgb(32 32 32 / 22%)}' +
     '.ua-panel[hidden]{display:none}' +
     '.ua-top{display:flex;align-items:flex-start;gap:8px;padding:14px 14px 16px;background:' + NAVY + ';color:#fff;border-top:4px solid ' + RED + '}' +
@@ -1098,7 +1101,75 @@
       tab.setAttribute('aria-expanded', 'false');
       tab.focus();
     }
-    tab.addEventListener('click', function () { panel.hidden ? open() : close(); });
+    /* Taşınabilir düğme: kenar boyunca yukarı/aşağı, bırakıldığı yarıya göre sol ya da sağ
+       kenara yapışır; konum bu tarayıcıda saklanır. Sürükleme bitince gelen tıklama yutulur.
+       Klavye: odaktayken Alt + ok tuşları. */
+    var POS = 'ua-pos';
+    var pos = null;
+    try { pos = JSON.parse(store.get(POS) || 'null'); } catch (e) { pos = null; }
+    tab.title = A.move;
+    function place() {
+      var right = !!(pos && pos.side === 'right');
+      tab.classList.toggle('ua-right', right);
+      panel.classList.toggle('ua-right', right);
+      if (!pos || typeof pos.y !== 'number') { tab.style.top = ''; tab.style.transform = ''; return; }
+      var h = tab.offsetHeight || 42;
+      var y = Math.min(Math.max(pos.y * window.innerHeight, 8), window.innerHeight - h - 8);
+      tab.style.top = y + 'px';
+      tab.style.transform = 'none';
+    }
+    function save() { store.set(POS, JSON.stringify(pos)); }
+    var drag = null, swallow = false;
+    tab.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      var r = tab.getBoundingClientRect();
+      drag = { x: e.clientX, y: e.clientY, top: r.top, moved: false, id: e.pointerId };
+      e.preventDefault();
+    });
+    window.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      var dy = e.clientY - drag.y, dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dy) < 6 && Math.abs(dx) < 6) return;
+      if (!drag.moved) { drag.moved = true; tab.classList.add('ua-drag'); }
+      var h = tab.offsetHeight || 42;
+      var y = Math.min(Math.max(drag.top + dy, 8), window.innerHeight - h - 8);
+      tab.style.top = y + 'px';
+      tab.style.transform = 'none';
+      e.preventDefault();
+    });
+    function endDrag(e) {
+      if (!drag) return;
+      if (drag.moved) {
+        pos = { side: e.clientX > window.innerWidth / 2 ? 'right' : 'left', y: parseFloat(tab.style.top) / window.innerHeight };
+        save();
+        place();
+        swallow = true;
+      }
+      tab.classList.remove('ua-drag');
+      drag = null;
+    }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+    tab.addEventListener('keydown', function (e) {
+      if (!e.altKey || ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].indexOf(e.key) < 0) return;
+      e.preventDefault();
+      var r = tab.getBoundingClientRect();
+      pos = pos || { side: 'left' };
+      if (e.key === 'ArrowLeft') pos.side = 'left';
+      if (e.key === 'ArrowRight') pos.side = 'right';
+      var y = r.top + (e.key === 'ArrowUp' ? -40 : e.key === 'ArrowDown' ? 40 : 0);
+      pos.y = Math.min(Math.max(y, 8), window.innerHeight - r.height - 8) / window.innerHeight;
+      save();
+      place();
+    });
+    window.addEventListener('resize', place);
+    window.addEventListener('pointerdown', function () { swallow = false; }, true);
+    document.addEventListener('click', function (e) {
+      if (swallow) { e.preventDefault(); e.stopPropagation(); swallow = false; }
+    }, true);
+    tab.addEventListener('click', function (e) {
+      panel.hidden ? open() : close();
+    });
     cl.addEventListener('click', close);
     panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
     document.addEventListener('click', function (e) {
@@ -1114,6 +1185,7 @@
     document.body.appendChild(guide);
     document.body.appendChild(panel);
     document.body.appendChild(tab);
+    place();
     apply();
   }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://uslusurucukursu.com/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://uslusurucukursu.com/en/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://uslusurucukursu.com/hakkimizda/</loc><lastmod>2026-09-29</lastmod></url>
@@ -33,25 +33,26 @@
   <url><loc>https://uslusurucukursu.com/galeri/siniflar/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://uslusurucukursu.com/en/gallery/class/</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://uslusurucukursu.com/kvkk/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-nasil-alinir/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-siniflari/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-icin-gerekli-belgeler/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-sinavi/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-masraflari/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/otomatik-vites-ehliyet/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/sinavda-kalirsam/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/b-ehliyetle-motosiklet/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyetim-var-araba-kullanamiyorum/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/sincanda-ehliyet-almak/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-yenileme/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/kayip-ehliyet/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/yurt-disi-ehliyet/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/aday-surucu-belgesi/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-ceza-puani/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/surucu-olur-raporu/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/motosiklet-ehliyeti/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyete-sinif-ekleme/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ozel-gereksinimli-surucu-adaylari/</loc><lastmod>2026-09-29</lastmod></url>
-  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-randevusu/</loc><lastmod>2026-09-29</lastmod></url>
+  <url><loc>https://uslusurucukursu.com/rehber/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-rehberi-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-nasil-alinir/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-nasil-alinir-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ankarada-ehliyet-almak/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ankarada-ehliyet-almak-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-siniflari/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-siniflari-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-icin-gerekli-belgeler/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-icin-gerekli-belgeler-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/surucu-olur-raporu/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/surucu-olur-raporu-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-masraflari/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-masraflari-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-randevusu/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-randevusu-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/sincanda-ehliyet-almak/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/sincanda-ehliyet-almak-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-sinavi/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-sinavi-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/sinavda-kalirsam/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/sinavda-kalirsam-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/otomatik-vites-ehliyet/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/otomatik-vites-ehliyet-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/motosiklet-ehliyeti/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/motosiklet-ehliyeti-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/b-ehliyetle-motosiklet/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/b-ehliyetle-motosiklet-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyete-sinif-ekleme/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyete-sinif-ekleme-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ozel-gereksinimli-surucu-adaylari/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ozel-gereksinimli-surucu-adaylari-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyetim-var-araba-kullanamiyorum/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyetim-var-araba-kullanamiyorum-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-yenileme/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-yenileme-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/kayip-ehliyet/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/kayip-ehliyet-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/aday-surucu-belgesi/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/aday-surucu-belgesi-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/ehliyet-ceza-puani/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/ehliyet-ceza-puani-ankara-sincan.jpg</image:loc></image:image></url>
+  <url><loc>https://uslusurucukursu.com/rehber/yurt-disi-ehliyet/</loc><lastmod>2026-09-29</lastmod><image:image><image:loc>https://uslusurucukursu.com/assets/img/rehber/yurt-disi-ehliyet-ankara-sincan.jpg</image:loc></image:image></url>
 </urlset>

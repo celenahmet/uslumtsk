@@ -3849,3 +3849,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .footer-guide-list .footer-guide-all{color:#cb1643;font-weight:600}
 .footer-guide-list .footer-guide-all:hover{color:#fff}
 @media (max-width:575.98px){.footer-guide-list{gap:8px 18px;font-size:15px}}
+
+/* Rehber gorselleri */
+.guide-cover{margin:4px 0 26px}
+.guide-cover img{display:block;width:100%;height:auto;border-radius:4px}
+.guide-cover figcaption{font-size:14px;color:#6b7280;margin-top:8px;line-height:1.5}
+.legal-text .guide-cards img{display:block;width:100%;height:auto;margin-bottom:12px;border-radius:3px}

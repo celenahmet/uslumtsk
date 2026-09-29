@@ -44,6 +44,7 @@ R = {  # rehber içi bağlantılar
     'ekleme': '/rehber/ehliyete-sinif-ekleme/',
     'ozel': '/rehber/ozel-gereksinimli-surucu-adaylari/',
     'randevu': '/rehber/ehliyet-randevusu/',
+    'ankara': '/rehber/ankarada-ehliyet-almak/',
 }
 
 def a(key, text):
@@ -55,7 +56,7 @@ PAGES = []
 PAGES.append(dict(
     key='nasil',
     title='Ehliyet Nasıl Alınır? 2026 Adım Adım Süreç | Uslu Sürücü Kursu',
-    desc='Sürücü olur raporundan nüfus müdürlüğü başvurusuna kadar ehliyet almanın adımları: kurs kaydı, teorik dersler, e-Sınav, direksiyon eğitimi ve sınavı.',
+    desc='Ankara’da ehliyet nasıl alınır? Sürücü olur raporundan nüfus müdürlüğü başvurusuna kadar adımlar: kurs kaydı, teorik dersler, e-Sınav, direksiyon eğitimi ve sınavı.',
     h1='Ehliyet Nasıl Alınır?',
     crumb='Ehliyet Nasıl Alınır',
     card='Rapordan nüfus müdürlüğüne kadar sekiz adımda tüm süreç.',
@@ -211,7 +212,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='belgeler',
     title='Ehliyet İçin Gerekli Belgeler 2026: Kurs ve Nüfus | Uslu',
-    desc='Sürücü kursu kaydı için gereken belgeler, sürücü olur raporunun nereden alındığı ve nüfus müdürlüğünde ehliyet başvurusunda istenenler. Resmî kaynaklarla.',
+    desc='Ankara’da sürücü kursu kaydı için gereken belgeler, sürücü olur raporunun nereden alındığı ve nüfus müdürlüğünde ehliyet başvurusunda istenenler.',
     h1='Ehliyet İçin Gerekli Belgeler',
     crumb='Gerekli Belgeler',
     card='Kurs kaydı, sürücü olur raporu ve nüfus müdürlüğü başvurusu için liste.',
@@ -285,7 +286,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='sinav',
     title='Ehliyet Sınavı 2026: e-Sınav ve Direksiyon Sınavı | Uslu',
-    desc='Ehliyet e-Sınavı kaç soru, kaç dakika, kaç puanla geçilir? Direksiyon sınavı ne zaman, nerede ve nasıl yapılır? MEB 2026 e-Sınav Kılavuzu ve yönetmeliğe göre.',
+    desc='Ehliyet e-Sınavı kaç soru, kaç dakika, kaç puanla geçilir? Ankara’da e-Sınav ve direksiyon sınavı nerede, nasıl yapılır? MEB 2026 e-Sınav Kılavuzuna göre.',
     h1='Ehliyet Sınavı: e-Sınav ve Direksiyon',
     crumb='Ehliyet Sınavı',
     card='e-Sınav soru sayısı, süre, puan ve direksiyon sınavının aşamaları.',
@@ -364,7 +365,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='masraf',
     title='Ehliyet Masrafları 2026: Harç ve Sınav Ücretleri | Uslu',
-    desc='2026’da ehliyet için ödenen resmî kalemler: B sınıfı harç 6.754,60 TL, değerli kâğıt 1.690 TL, vakıf payı 425 TL, e-Sınav 1.250 TL. Kurs ücreti ayrıca öğrenilir.',
+    desc='Ankara’da ehliyet masrafları 2026: B sınıfı harç 6.754,60 TL, değerli kâğıt 1.690 TL, vakıf payı 425 TL, e-Sınav 1.250 TL. Kurs ücreti ayrıca öğrenilir.',
     h1='Ehliyet Masrafları 2026',
     crumb='Ehliyet Masrafları',
     card='2026 harç, kart bedeli ve e-Sınav ücreti; kalem kalem hesap.',
@@ -690,7 +691,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='yenileme',
     title='Ehliyet Yenileme 2026: Ücret, Belgeler ve Süre | Uslu',
-    desc='Ehliyet kaç yılda yenilenir, 2026 yenileme ücreti ne kadar, hangi belgeler gerekir? Süresi dolan ehliyetle araç kullanmanın cezası ve eski tip belgeler.',
+    desc='Ankara’da ehliyet yenileme: kaç yılda yenilenir, 2026 ücreti ne kadar, hangi belgeler gerekir? Süresi dolan ehliyetin cezası ve eski tip belgeler.',
     h1='Ehliyet Yenileme',
     crumb='Ehliyet Yenileme',
     card='Süresi dolan ehliyet, 2026 yenileme ücreti ve gereken belgeler.',
@@ -919,7 +920,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='rapor',
     title='Sürücü Olur Raporu Nereden Alınır? Şartlar 2026 | Uslu',
-    desc='Sürücü olur raporunu hangi sağlık kuruluşları verir, muayenede nelere bakılır, görme şartı nedir, rapor kaç yıl geçerlidir? Sürücü Sağlık Yönetmeliğine göre.',
+    desc='Ankara’da sürücü olur raporu nereden alınır, muayenede nelere bakılır, görme şartı nedir, rapor kaç yıl geçerlidir? Sürücü Sağlık Yönetmeliğine göre.',
     h1='Sürücü Olur Raporu',
     crumb='Sürücü Olur Raporu',
     card='Raporu kim verir, muayenede nelere bakılır, kaç yıl geçerli.',
@@ -1101,7 +1102,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='randevu',
     title='Ehliyet Randevusu ve Başvurusu: Nüfus Müdürlüğü | Uslu',
-    desc='Ehliyet randevusu nereden alınır, randevuya ne zaman gidilir, vekaletle başvuru olur mu, belge nasıl teslim edilir, başvuru nasıl takip edilir? NVİ bilgileriyle.',
+    desc='Ankara’da ehliyet randevusu nereden alınır, randevuya ne zaman gidilir, vekaletle başvuru olur mu, belge nasıl teslim edilir? NVİ bilgileriyle.',
     h1='Ehliyet Randevusu ve Başvurusu',
     crumb='Ehliyet Randevusu',
     card='Randevu kanalları, başvuru günü, teslim ve takip.',
@@ -1144,14 +1145,60 @@ PAGES.append(dict(
     sources=['nvi_sss'],
 ))
 
+# 21 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='ankara',
+    title='Ankara’da Ehliyet Almak',
+    desc='Ankara’da ehliyet almak isteyenler için adım adım yol: kurs kaydı, Ankara’daki e-Sınav merkezleri, direksiyon sınavı, sağlık raporu ve nüfus müdürlüğü başvurusu.',
+    h1='Ankara’da Ehliyet Almak',
+    crumb='Ankara’da Ehliyet',
+    card='Ankara’da kurs kaydından ehliyet başvurusuna kadar süreç.',
+    lead='Ankara’da ehliyet süreci, Türkiye’nin her yerinde olduğu gibi MEB ve NVİ kurallarıyla yürür; bazı adımlar ise il düzeyinde, Ankara’daki kurumlarda yapılır. Aşağıda hangi adımın nerede yapıldığını ve Ankara’da yaşayanların nelere dikkat etmesi gerektiğini özetledik.',
+    summary=[
+        'Ankara’da bir sürücü kursuna kayıt olan aday, e-Sınav’a Ankara’daki e-Sınav merkezlerinde girer; merkez bilgisi e-Sınav giriş belgesinde yazar.',
+        'Direksiyon sınavı tarihlerini il ve ilçe millî eğitim müdürlükleri belirler; sınav hafta sonları, izin alınmış güzergâhta yapılır.',
+        'Ehliyet başvurusu randevuyla, sertifikanın alındığı yerden bağımsız olarak yetkili nüfus müdürlüklerinden birine yapılır.',
+    ],
+    body='''
+<h2>1. Sağlık raporu ve belgeler</h2>
+<p>Sürücü olur raporunu Ankara’daki aile sağlığı merkezlerinden, Sağlık Bakanlığına ve üniversitelere bağlı hastanelerden ya da muayenehane dışındaki özel sağlık kuruluşlarından alabilirsiniz. Özel tertibatlı araç gerekiyorsa rapor, Ankara İl Sağlık Müdürlüğü bünyesindeki komisyona sevk edilir. Ayrıntılar ''' + a('rapor', 'sürücü olur raporu') + ''' ve ''' + a('belgeler', 'gerekli belgeler') + ''' yazılarımızda.</p>
+
+<h2>2. Kurs kaydı ve dersler</h2>
+<p>Kayıt, MEB’e bağlı bir özel sürücü kursunda yapılır. Teorik dersler bütün sınıflarda 34 saattir; direksiyon dersleri sınıfa göre değişir, B sınıfında akan trafikte en az 14 saattir. Kurs seçerken ders saatlerinin programınıza uyması, direksiyon derslerinin yapıldığı yere ulaşım, öğrenmek istediğiniz vites türü (manuel veya otomatik) ve ödeme koşulları işinizi kolaylaştırır.</p>
+
+<h2>3. e-Sınav</h2>
+<p>MEB’in 2026 kılavuzuna göre adaylar, kayıtlı oldukları kursun bulunduğu ildeki e-Sınav merkezlerinde sınava girer. Ankara’daki bir kursa kayıtlı adaylar Ankara’daki merkezlerde sınava girer. Sınav 50 soru ve 45 dakikadır, 70 puan başarılı sayılır. Ayrıntılar ''' + a('sinav', 'ehliyet sınavı') + ''' yazımızda.</p>
+
+<h2>4. Direksiyon sınavı</h2>
+<p>Sınav tarihlerini il veya ilçe millî eğitim müdürlükleri belirler. Sınav, izin alınmış güzergâhta ve akan trafikte, hafta sonları 07.00 ile 21.00 arasında yapılır ve aday başına en az 40 dakika sürer.</p>
+
+<h2>5. Ehliyet başvurusu</h2>
+<p>Sınavları geçince sertifikanız e-Devlet’te görünür. Ehliyet için randevu.nvi.gov.tr, e-Devlet, NVİ Mobil, Nüfusmatik veya Alo 199 üzerinden randevu alırsınız. Başvuru, sertifikanın alındığı yerden bağımsız olarak yetkilendirilen nüfus müdürlüklerinden birine yapılabilir; randevu ekranında Ankara’daki müdürlükleri seçebilirsiniz. Belge PTT ile ücretsiz olarak adresinize gönderilir. Ayrıntılar ''' + a('randevu', 'ehliyet randevusu') + ''' yazımızda.</p>
+
+<h2>Ankara Sincan’da Uslu Sürücü Kursu</h2>
+<p>Kursumuz Ankara’nın Sincan ilçesinde, Atatürk Mah. Atatürk Cd. No:2/17 (2. Noterin üst katı) adresindedir. <a href="/egitim/manuel-b/">B sınıfı manuel</a> ve <a href="/egitim/otomatik-b/">otomatik</a> ehliyet, <a href="/egitim/motor-a1/">A1</a> ve <a href="/egitim/motor-a2/">A2 motosiklet</a> eğitimleri ile <a href="/egitim/ozel/">özel direksiyon dersi</a> veriyoruz. Direksiyon derslerimiz OSB Törekent parkurunda yapılır. Sincan’daki adımlar için ''' + a('sincan', 'Sincan’da ehliyet almak') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Ankara’da e-Sınav nerede yapılır?',
+         'MEB kılavuzuna göre adaylar kayıtlı oldukları kursun bulunduğu ildeki e-Sınav merkezlerinde sınava girer. Ankara’daki bir kursa kayıtlı adaylar Ankara’daki merkezlerde sınava girer; merkez, bina ve salon bilgisi e-Sınav giriş belgesinde yazar.'),
+        ('Ankara’da ehliyet başvurusu nereye yapılır?',
+         'Randevu alınarak yetkilendirilen nüfus müdürlüklerinden birine yapılır. Başvuru, sertifikanın alındığı yerden bağımsızdır; randevu ekranında Ankara’daki müdürlükler seçilebilir.'),
+        ('Ankara’da ehliyet kursu ücretleri ne kadar?',
+         'Kurs ücretleri kursa ve seçilen eğitime göre değişir. Resmî kalemler ise her yerde aynıdır: 2026’da B sınıfı için nüfus müdürlüğüne toplam 8.869,60 TL, her e-Sınav oturumu için 1.250 TL ödenir.'),
+        ('Uslu Sürücü Kursu Ankara’nın neresinde?',
+         'Ankara Sincan’da, Atatürk Mah. Atatürk Cd. No:2/17 (2. Noterin üst katı), 06936 Sincan/Ankara adresindedir.'),
+    ],
+    sources=['esinav', 'mtsk', 'saglik', 'nvi_sss', 'nvi_ucret'],
+))
+
 # Gruplar: merkez sayfadaki bölümler ve "diğer yazılar" bağlantıları buna göre.
 GROUPS = [
-    ('Ehliyet almak', ['nasil', 'siniflar', 'belgeler', 'rapor', 'masraf', 'randevu', 'sincan']),
+    ('Ehliyet almak', ['nasil', 'ankara', 'siniflar', 'belgeler', 'rapor', 'masraf', 'randevu', 'sincan']),
     ('Eğitim ve sınavlar', ['sinav', 'kalirsam', 'otomatik', 'motosiklet', 'motor', 'ekleme', 'ozel', 'korku']),
     ('Ehliyet aldıktan sonra', ['yenileme', 'kayip', 'aday', 'ceza', 'yurtdisi']),
 ]
 # Footer'daki "Rehber" bölümünde görünen yazılar (tümü için merkez sayfa bağlantısı ayrıca var).
-FOOTER = ['nasil', 'belgeler', 'sinav', 'masraf', 'siniflar', 'rapor', 'yenileme', 'motosiklet', 'kalirsam', 'sincan']
+FOOTER = ['ankara', 'nasil', 'belgeler', 'sinav', 'masraf', 'siniflar', 'rapor', 'yenileme', 'motosiklet', 'kalirsam', 'sincan']
 
 
 HUB = dict(

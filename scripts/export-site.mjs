@@ -29,6 +29,8 @@ function copy(file) {
 }
 const pages=[...fs.readFileSync('sitemap.xml','utf8').matchAll(/<loc>https:\/\/uslusurucukursu\.com([^<]*)<\/loc>/g)].map(m=>m[1].replace(/^\//,'')+'index.html');
 for (const file of [...pages,'robots.txt','llms.txt','sitemap.xml','assets/img/og/uslu-og.jpg','8112ebbbc2e42aa3bdf1fc9431c1158a.txt','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
+// Rehber paylaşım görselleri (og:image, görsel site haritası) sayfada src olarak geçmez.
+for (const f of fs.existsSync('assets/img/rehber')?fs.readdirSync('assets/img/rehber'):[]) if (f.endsWith('.jpg')) copy(path.join('assets/img/rehber',f));
 for (const dir of ['qr','en/qr','e-sinav','en/e-sinav','whatsapp','galeri','en/gallery']) {
  // Public redirect tools are intentional; gallery content is already in sitemap.
  const candidate=path.join(dir,'index.html');if(fs.existsSync(candidate))copy(candidate);

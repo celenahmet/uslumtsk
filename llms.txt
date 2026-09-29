@@ -32,11 +32,12 @@ Uslu Driving School is a driving school in Sincan, Ankara, Türkiye. An English 
 - Fiyat: eğitim programına göre değişir; telefonla ya da sitedeki asistandan teklif alınır.
 - Adres tarifi: 2. Noterin üst katı, Atatürk Caddesi, Sincan.
 
-## Ehliyet Rehberi (resmî kaynaklı bilgi bankası)
+## Ehliyet Rehberi (Ankara ve Sincan için resmî kaynaklı bilgi bankası)
 
 Tüm yazılar 29.09.2026 tarihli resmî metinlere dayanır: MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği, MEB 2026 e-Sınav Kılavuzu, Karayolları Trafik Yönetmeliği, Sürücü Sağlık Yönetmeliği ve NVİ.
 
 - [Ehliyet Rehberi ana sayfası](https://uslusurucukursu.com/rehber/)
+- [Ankara'da ehliyet almak](https://uslusurucukursu.com/rehber/ankarada-ehliyet-almak/): Ankara'da kurs kaydı, Ankara'daki e-Sınav merkezleri, direksiyon sınavı, sağlık raporu ve nüfus müdürlüğü başvurusu; Uslu Sürücü Kursu Ankara Sincan'da.
 - [Ehliyet nasıl alınır?](https://uslusurucukursu.com/rehber/ehliyet-nasil-alinir/): sürücü olur raporu, kurs kaydı, 34 saat teorik ders, e-Sınav, direksiyon eğitimi ve sınavı, nüfus müdürlüğü başvurusu.
 - [Ehliyet sınıfları ve yaş sınırları](https://uslusurucukursu.com/rehber/ehliyet-siniflari/): B için 18, A1 için 16, A2 için 18, A için 20, C ve D1 için 21, D için 24 yaş; sınıfa göre en az direksiyon ders saatleri.
 - [Ehliyet için gerekli belgeler](https://uslusurucukursu.com/rehber/ehliyet-icin-gerekli-belgeler/): kurs kaydı ve nüfus müdürlüğü başvurusunda istenenler, sürücü olur raporunun alındığı yerler.
