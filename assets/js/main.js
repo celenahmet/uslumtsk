@@ -28,8 +28,14 @@
         try {
             const $ = await plugin('owl.carousel.min.js');
             const partner = el.classList.contains('partner-slider');
-            $(el).owlCarousel({loop: false, margin: partner ? 50 : 30, nav: false, dots: !partner, autoplay: false,
-                responsive: {0: {items: partner ? 2 : 1}, 600: {items: 3}, 1000: {items: partner ? 6 : 3}}});
+            // Logo şeridi eskisi gibi sürekli döner (Uslu + MEB ikişer ikişer, 6 logo);
+            // "hareketi azalt" tercihinde dönmez.
+            const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            $(el).owlCarousel(partner
+                ? {loop: true, margin: 50, nav: false, dots: false, autoplay: !still, autoplayTimeout: 2500,
+                   autoplayHoverPause: true, smartSpeed: 800, responsive: {0: {items: 2}, 600: {items: 3}, 1000: {items: 4}}}
+                : {loop: false, margin: 30, nav: false, dots: true, autoplay: false,
+                   responsive: {0: {items: 1}, 600: {items: 3}, 1000: {items: 3}}});
             el.querySelectorAll('.owl-dot').forEach((button,i) => button.setAttribute('aria-label', english ? `Review group ${i+1}` : `Yorum grubu ${i+1}`));
         } catch {el.style.overflowX = 'auto';}
     });

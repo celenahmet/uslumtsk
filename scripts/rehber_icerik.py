@@ -667,10 +667,10 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='sincan',
     title='Sincan’da Ehliyet Almak: Kayıt, Ders ve Sınav | Uslu',
-    desc='Sincan’da ehliyet almak isteyenler için adım adım yol: kursa kayıt, teorik dersler, Ankara’daki e-Sınav, OSB Törekent parkurunda direksiyon dersi ve başvuru.',
-    h1='Sincan’da Ehliyet Nasıl Alınır?',
-    crumb='Sincan’da Ehliyet',
-    card='Sincan’da kayıttan ehliyet başvurusuna kadar hangi adım nerede yapılır.',
+    desc='Ehliyet almak için gerekli adımlar: sağlık raporu, kurs kaydı, teorik ders, e-Sınav, direksiyon dersi ve sınavı, başvuru. Sincan’da her adım nerede yapılır.',
+    h1='Ehliyet Almak İçin Gerekli Adımlar',
+    crumb='Gerekli Adımlar',
+    card='Kayıttan ehliyete kadar her adım ve Sincan’da nerede yapıldığı.',
     lead='Sincan’da oturuyor ya da çalışıyorsanız ehliyet sürecinin adımlarını büyük ölçüde ilçe içinde tamamlayabilirsiniz. Aşağıda her adımın nerede yapıldığını ve Uslu Sürücü Kursu’nda nasıl işlediğini özetledik.',
     summary=[
         'Kayıt ve teorik dersler: Atatürk Mah. Atatürk Cd. No:2/17 (2. Noterin üst katı), Sincan.',
@@ -1206,7 +1206,7 @@ PAGES.append(dict(
 <p>Sınavları geçince sertifikanız e-Devlet’te görünür. Ehliyet için randevu.nvi.gov.tr, e-Devlet, NVİ Mobil, Nüfusmatik veya Alo 199 üzerinden randevu alırsınız. Başvuru, sertifikanın alındığı yerden bağımsız olarak yetkilendirilen nüfus müdürlüklerinden birine yapılabilir; randevu ekranında Ankara’daki müdürlükleri seçebilirsiniz. Belge PTT ile ücretsiz olarak adresinize gönderilir. Ayrıntılar ''' + a('randevu', 'ehliyet randevusu') + ''' yazımızda.</p>
 
 <h2>Ankara Sincan’da Uslu Sürücü Kursu</h2>
-<p>Kursumuz Ankara’nın Sincan ilçesinde, Atatürk Mah. Atatürk Cd. No:2/17 (2. Noterin üst katı) adresindedir. <a href="/egitim/manuel-b/">B sınıfı manuel</a> ve <a href="/egitim/otomatik-b/">otomatik</a> ehliyet, <a href="/egitim/motor-a1/">A1</a> ve <a href="/egitim/motor-a2/">A2 motosiklet</a> eğitimleri ile <a href="/egitim/ozel/">özel direksiyon dersi</a> veriyoruz. Direksiyon derslerimiz OSB Törekent parkurunda yapılır. Sincan’daki adımlar için ''' + a('sincan', 'Sincan’da ehliyet almak') + ''' yazımıza bakın.</p>
+<p>Kursumuz Ankara’nın Sincan ilçesinde, Atatürk Mah. Atatürk Cd. No:2/17 (2. Noterin üst katı) adresindedir. <a href="/egitim/manuel-b/">B sınıfı manuel</a> ve <a href="/egitim/otomatik-b/">otomatik</a> ehliyet, <a href="/egitim/motor-a1/">A1</a> ve <a href="/egitim/motor-a2/">A2 motosiklet</a> eğitimleri ile <a href="/egitim/ozel/">özel direksiyon dersi</a> veriyoruz. Direksiyon derslerimiz OSB Törekent parkurunda yapılır. Sincan’daki adımlar için ''' + a('sincan', 'ehliyet almak için gerekli adımlar') + ''' yazımıza bakın.</p>
 ''',
     faq=[
         ('Ankara’da e-Sınav nerede yapılır?',
