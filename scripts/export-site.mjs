@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { minify } from 'terser';
 const out=path.resolve('dist');
 fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});
 const copied=new Set();
@@ -27,7 +28,7 @@ function copy(file) {
  }
 }
 const pages=[...fs.readFileSync('sitemap.xml','utf8').matchAll(/<loc>https:\/\/uslusurucukursu\.com([^<]*)<\/loc>/g)].map(m=>m[1].replace(/^\//,'')+'index.html');
-for (const file of [...pages,'robots.txt','llms.txt','sitemap.xml','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
+for (const file of [...pages,'robots.txt','llms.txt','sitemap.xml','assets/img/og/uslu-og.jpg','8112ebbbc2e42aa3bdf1fc9431c1158a.txt','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
 for (const dir of ['qr','en/qr','e-sinav','en/e-sinav','whatsapp','galeri','en/gallery']) {
  // Public redirect tools are intentional; gallery content is already in sitemap.
  const candidate=path.join(dir,'index.html');if(fs.existsSync(candidate))copy(candidate);
@@ -38,6 +39,54 @@ for (const dir of ['qr','en/qr','e-sinav','en/e-sinav','whatsapp','galeri','en/g
 copy('error/404/index.html');
 fs.renameSync(path.join(out,'error/404/index.html'),path.join(out,'404.html'));
 fs.rmSync(path.join(out,'error'),{recursive:true,force:true});
+// Performance (Lighthouse, 29.09.2026): the three savings it still reported.
+// 1) Responsive images: an <img src="/x.webp"> gets srcset/sizes when x-480.webp or
+//    x-800.webp exists beside it (made once with cwebp and committed). Phones then
+//    download a copy close to their screen width instead of the 1024-1100px original.
+// The designed 404 was renamed to 404.html above; every HTML pass reads it there.
+const exportedHtml=()=>[...copied].map(f=>f==='error/404/index.html'?'404.html':f).filter(f=>f.endsWith('.html'));
+const SIZES='(max-width: 767px) 100vw, 50vw';
+let responsive=0;
+for(const file of exportedHtml()){
+ const dest=path.join(out,file);
+ const html=fs.readFileSync(dest,'utf8').replace(/<img\b[^>]*>/g,(tag)=>{
+  if(/\ssrcset=/.test(tag))return tag;
+  const src=/\ssrc="(\/[^"?#]+)\.webp"/.exec(tag);
+  const width=/\swidth="(\d+)"/.exec(tag);
+  if(!src||!width)return tag;
+  const set=[];
+  for(const w of [480,800]){
+   const v=`${src[1]}-${w}.webp`;
+   if(w<Number(width[1])&&fs.existsSync(v.slice(1))){copy(v.slice(1));set.push(`${v} ${w}w`);}
+  }
+  if(!set.length)return tag;
+  set.push(`${src[1]}.webp ${width[1]}w`);
+  responsive++;
+  return tag.replace(/\ssrc="/,` srcset="${set.join(', ')}" sizes="${SIZES}" src="`);
+ });
+ fs.writeFileSync(dest,html);
+}
+if(!responsive)throw new Error('Responsive image step matched nothing');
+// 2) The contact form stylesheet is small and only on two pages: inline it so it no
+//    longer blocks the first paint.
+const formCss=fs.readFileSync('assets/css/iletisim-form.css','utf8').replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s*\n\s*/g,'');
+let inlined=0;
+for(const file of exportedHtml()){
+ const dest=path.join(out,file);
+ const html=fs.readFileSync(dest,'utf8');
+ if(!html.includes('<link href="/assets/css/iletisim-form.css" rel="stylesheet"/>'))continue;
+ fs.writeFileSync(dest,html.replace('<link href="/assets/css/iletisim-form.css" rel="stylesheet"/>',`<style id="iletisim-form-css">${formCss}</style>`));
+ inlined++;
+}
+if(inlined!==2)throw new Error(`Contact form CSS inlined on ${inlined} pages, expected 2`);
+// 3) Our own scripts ship minified (vendor *.min.js already are). Source stays readable.
+for(const file of [...copied]){
+ if(!/^assets\/js\/[^/]+\.js$/.test(file)||file.endsWith('.min.js'))continue;
+ const dest=path.join(out,file);
+ const result=await minify(fs.readFileSync(dest,'utf8'),{compress:true,mangle:true,format:{comments:false}});
+ if(!result.code)throw new Error(`Minify failed: ${file}`);
+ fs.writeFileSync(dest,result.code);
+}
 // Version stamp: /assets css/js get ?v=<content hash> in the exported HTML only, so the
 // one-day browser cache (vercel.json max-age=86400) never serves last release's file.
 const hashes=new Map();

@@ -10,6 +10,12 @@ for(const file of files){
   const target=path.join('dist',decodeURI(match[1]));
   if(!fs.existsSync(target))throw new Error(`${file}: missing exported link ${match[1]}`);
  }
+ for(const match of html.matchAll(/\ssrcset="([^"]+)"/g)){
+  for(const part of match[1].split(',')){
+   const url=part.trim().split(/\s+/)[0];
+   if(url.startsWith('/')&&!fs.existsSync(path.join('dist',decodeURI(url))))throw new Error(`${file}: missing srcset file ${url}`);
+  }
+ }
  // Every local stylesheet/script must carry the version stamp (see export-site.mjs).
  const stale=[...html.matchAll(/(?:src|href)=["'](\/assets\/[^"'#?]+\.(?:css|js))["']/g)].map(m=>m[1]);
  if(stale.length)throw new Error(`${file}: unversioned asset ${stale[0]}`);
