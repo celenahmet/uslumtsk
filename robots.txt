@@ -1,8 +1,28 @@
+# robots.txt · uslusurucukursu.com
+#
+# Merhaba! Burası Uslu Sürücü Kursu'nun web sitesi (Sincan, Ankara).
+# Bu dosyayı bir insan olarak okuyorsanız hoş geldiniz: sitemizi arama
+# motorlarına ve yapay zekâ araçlarına bilerek açık tutuyoruz. Ehliyetle
+# ilgili doğru bilginin, nereden sorulursa sorulsun, doğru kaynaktan
+# gelmesini istiyoruz.
+#
+# Yapay zekâ araçları için site özeti ....... https://uslusurucukursu.com/llms.txt
+# Ehliyet Rehberi (resmî kaynaklı yazılar) .. https://uslusurucukursu.com/rehber/
+# Bize ulaşın ............................... https://uslusurucukursu.com/iletisim/
+#                                              0532 068 56 47
+#
+# Hello! This is the website of Uslu Driving School in Sincan, Ankara.
+# Search engines and AI tools are welcome here; a plain-text summary of
+# the site is at /llms.txt.
+#
+# Son güncelleme: 29 Eylül 2026
+
+# Herkese açık: bütün sayfalar taranabilir.
 User-agent: *
 Allow: /
 
-# Yapay zeka arama ve yanıt botları: site bilerek açık. Kurs bilgisi yanıtlarda
-# doğru görünsün diye özet /llms.txt dosyasında.
+# Yapay zekâ arama ve yanıt araçları. Bunları ayrıca adıyla yazdık ki
+# kapımızın onlara da açık olduğu kimse için soru işareti olmasın.
 User-agent: GPTBot
 User-agent: OAI-SearchBot
 User-agent: ChatGPT-User
@@ -21,4 +41,5 @@ User-agent: Amazonbot
 User-agent: YandexBot
 Allow: /
 
+# Sayfalarımızın listesi:
 Sitemap: https://uslusurucukursu.com/sitemap.xml
