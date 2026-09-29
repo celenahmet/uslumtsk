@@ -3829,12 +3829,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .guide-sources{font-size:15px}
 .guide-note{color:#6b7280;font-size:14px}
 .guide-related{margin-top:30px;border-top:1px solid #dde2ea;padding-top:6px}
-.legal-text .guide-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;margin:10px 0 30px;padding:0}
-.guide-text .guide-cards li{list-style:none;margin:0}
-.legal-text .guide-cards a{display:block;height:100%;border:1px solid #dde2ea;padding:18px 20px;text-decoration:none;color:#041e37;transition:border-color .2s}
-.legal-text .guide-cards a:hover{border-color:#cb1643}
-.guide-cards strong{display:block;font-size:17.5px;margin-bottom:6px}
-.guide-cards span{display:block;font-size:15px;color:#4b5563;line-height:1.55}
 .guide-text p a,.guide-text li a{display:inline}
 @media (max-width:767.98px){.guide-area.py-120{padding-top:50px;padding-bottom:70px}}
 @media (max-width:575.98px){.guide-cta{padding:22px 18px}.guide-table table{font-size:14.5px}.guide-table th,.guide-table td{padding:8px 9px}}
@@ -3859,7 +3853,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .guide-cover{margin:4px 0 26px}
 .guide-cover img{display:block;width:100%;height:auto;border-radius:4px}
 .guide-cover figcaption{font-size:14px;color:#6b7280;margin-top:8px;line-height:1.5}
-.legal-text .guide-cards img{display:block;width:100%;height:auto;margin-bottom:12px;border-radius:3px}
 
 /* Ana sayfa: Ehliyet Rehberi bolumu */
 .home-guide{background:#f4f6f9;padding:80px 0}
@@ -3895,7 +3888,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .home-guide-chips a{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #dfe3e8;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600;color:#041e37;transition:border-color .2s,color .2s}
 .home-guide-chips a:hover{border-color:#cb1643;color:#cb1643}
 .home-guide-chips small{font-size:12px;font-weight:700;color:#6b7280}
-@media (max-width:991.98px){.home-guide-main{grid-template-columns:1fr}}
+@media (max-width:991.98px){.home-guide-main{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:575.98px){.home-guide{padding:60px 0}.home-guide-chips{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;margin:0 -12px;padding:2px 12px}.home-guide-chips::-webkit-scrollbar{display:none}.home-guide-foot{margin-top:22px}.home-guide-top{padding:16px 18px}.home-guide-feature strong{font-size:20px}.home-guide-list strong{font-size:16px}.home-guide-foot .theme-btn{width:100%;text-align:center}}
 
 /* Footer: yapay zeka araclari icin blok (Egitimlerimiz ve Mesai sutunlarinin altinda, sade) */
@@ -3906,3 +3899,55 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 .footer-ai-links li{list-style:none}
 .footer-ai-links a{color:#fff;font-size:14px}
 .footer-ai-links a:hover{color:#cb1643}
+/* Ehliyet Rehberi merkez sayfası (rehber-uret.py) */
+.guide-hub{background:#f4f6f9;padding:70px 0 90px}
+.guide-hub-intro{display:grid;grid-template-columns:7fr 5fr;gap:44px;align-items:center;margin-bottom:50px}
+.guide-hub-intro>div{min-width:0}
+.guide-hub-title{font-size:34px;line-height:1.2;color:#041e37;margin:0 0 12px;text-transform:capitalize}
+.guide-hub-title span{color:#cb1643}
+.guide-hub-intro .guide-meta{margin-bottom:10px}
+.guide-hub .guide-meta,.guide-hub .guide-note{color:#555e6b}
+.guide-hub-lead{font-size:18px;line-height:1.7;color:#374151;margin:0 0 22px}
+.guide-hub-chips{justify-content:flex-start}
+.guide-hub-cover img{display:block;width:100%;height:auto;border-radius:4px;box-shadow:0 12px 32px rgb(4 30 55 / 18%)}
+.guide-hub-h{font-size:24px;color:#041e37;margin:0 0 18px}
+.guide-hub-featured{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:50px}
+.guide-hub-group{background:#fff;border-top:3px solid #cb1643;box-shadow:0 3px 24px rgb(0 0 0 / 6%);padding:24px 28px 10px;margin-bottom:24px}
+.guide-hub-group-head{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.guide-hub-group h2{font-size:22px;color:#041e37;margin:0;scroll-margin-top:110px}
+.guide-hub-group-head span{font-size:14px;font-weight:600;color:#6b7280}
+.guide-hub-list{display:grid;grid-template-columns:1fr 1fr;column-gap:40px;list-style:none;margin:0;padding:0}
+.guide-hub-list li{border-bottom:1px solid #eef0f3}
+.guide-hub-list li:last-child{border-bottom:0}
+@media (min-width:768px){.guide-hub-list li:nth-last-child(2):nth-child(odd){border-bottom:0}}
+.guide-hub-list a{display:flex;align-items:center;gap:14px;padding:13px 0;color:#041e37}
+.guide-hub-list a::after{content:"";flex:0 0 8px;width:8px;height:8px;margin:0 4px 0 auto;border-top:2px solid #9aa3af;border-right:2px solid #9aa3af;transform:rotate(45deg);transition:border-color .2s}
+.guide-hub-list strong{display:block;font-size:17px;font-weight:600;line-height:1.35;transition:color .2s}
+.guide-hub-list small{display:block;font-size:14px;color:#6b7280;line-height:1.45;margin-top:3px}
+.guide-hub-list a:hover strong{color:#cb1643}
+.guide-hub-list a:hover::after{border-color:#cb1643}
+.guide-hub-quick{margin-top:50px}
+.guide-hub-qa{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.guide-hub-qa>div{background:#fff;box-shadow:0 3px 24px rgb(0 0 0 / 6%);padding:20px 22px}
+.guide-hub-qa h3{font-size:17px;line-height:1.35;color:#041e37;margin:0 0 8px}
+.guide-hub-qa p{font-size:15px;line-height:1.6;color:#4b5563;margin:0}
+.guide-hub-qa a{color:#cb1643;font-weight:600;white-space:nowrap}
+.guide-hub-end{display:grid;grid-template-columns:7fr 5fr;gap:44px;align-items:start;max-width:none;margin:56px 0 0}
+.guide-hub-end>div{min-width:0}
+.guide-hub-end h2{font-size:24px;margin-top:0}
+.guide-hub-end .guide-cta{margin:0}
+@media (max-width:991.98px){.guide-hub-intro,.guide-hub-end{grid-template-columns:minmax(0,1fr);gap:28px}.guide-hub-featured,.guide-hub-qa{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:767.98px){.guide-hub{padding:44px 0 60px}.guide-hub-title{font-size:27px}.guide-hub-featured,.guide-hub-qa,.guide-hub-list{grid-template-columns:minmax(0,1fr)}.guide-hub-group{padding:18px 18px 6px}.guide-hub-lead{font-size:17px}.guide-hub-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -12px;padding:2px 12px}.guide-hub-chips::-webkit-scrollbar{display:none}}
+/* Rehber araması: merkez sayfada süzer, ana sayfadan ?q= ile gelir (rehber-arama.js) */
+.guide-search{display:flex;max-width:560px;background:#fff;border:2px solid #dfe3e8;border-radius:999px;overflow:hidden;margin:0 0 18px;transition:border-color .2s}
+.guide-search:focus-within{border-color:#cb1643}
+.guide-search input{flex:1;min-width:0;border:0;outline:0;background:transparent;padding:12px 20px;font-size:16px;color:#041e37}
+.guide-search input::placeholder{color:#8a93a0}
+.guide-search button{display:flex;align-items:center;gap:8px;border:0;background:#cb1643;color:#fff;padding:0 22px;font-size:15px;font-weight:700;cursor:pointer}
+.guide-search button:hover{background:#a8102f}
+.home-guide .guide-search{margin:22px auto 0}
+.guide-search-info{font-size:16px;font-weight:600;color:#041e37;margin:0 0 20px}
+.guide-search-info a{color:#cb1643;text-decoration:underline}
+.guide-hub.is-searching .guide-hub-top,.guide-hub.is-searching .guide-hub-quick{display:none}
+.guide-hub [hidden]{display:none!important}
+@media (max-width:575.98px){.guide-search button span{display:none}.guide-search button{padding:0 18px}}

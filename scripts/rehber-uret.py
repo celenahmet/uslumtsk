@@ -187,20 +187,41 @@ for p in PAGES:
     open(path, 'w', encoding='utf-8').write(out)
     written.append(path)
 
-# Merkez sayfa
-def cards_for(keys):
-    return ''.join('<li><a href="%s"><img alt="%s" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/><strong>%s</strong><span>%s</span></a></li>'
-                   % (R[k], html.escape(img_alt(BY_KEY[k]['h1'])), img_base(k), BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys)
-cards = ''.join('<h2 id="%s">%s</h2>\n<ul class="guide-cards">%s</ul>\n' % (group_id(name), name, cards_for(keys)) for name, keys in GROUPS)
-quick = ''.join('<h3>%s</h3>\n<p>%s <a href="%s">Ayrıntılar</a></p>\n' % (q, ans, R[k]) for q, ans, k in HUB['quick'])
+SEARCH_FORM = ('<form action="/rehber/" class="guide-search" id="guide-search" method="get" role="search">'
+               '<input aria-label="Rehberde ara" autocomplete="off" maxlength="100" name="q" placeholder="Örneğin: ehliyet yenileme" type="search"/>'
+               '<button aria-label="Ara" type="submit"><svg aria-hidden="true" height="18" viewBox="0 0 24 24" width="18"><circle cx="11" cy="11" fill="none" r="7" stroke="currentColor" stroke-width="2.4"/>'
+               '<path d="M20 20l-4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.4"/></svg><span>Ara</span></button></form>')
+
+# Merkez sayfa: tam genişlik. Üstte açıklama + kategori düğmeleri ve kapak, sonra en çok aranan 3 yazı,
+# her kategori için iki sütunlu soru listesi (data-ara: aramanın da baktığı SSS soruları), kısa cevaplar; en altta solda kaynaklar, sağda iletişim.
+esc_attr = lambda t: html.escape(t, quote=True)
+hub_chips = ''.join('<a href="#%s">%s <small>%d</small></a>' % (group_id(name), name, len(keys)) for name, keys in GROUPS)
+hub_featured = ''.join(
+    '<a class="home-guide-feature" href="%s"><img alt="%s" decoding="async" height="630" loading="lazy" src="/assets/img/rehber/%s.webp" width="1200"/>'
+    '<span class="home-guide-body"><span class="home-guide-cat">%s</span><strong>%s</strong><span class="home-guide-text">%s</span></span></a>'
+    % (R[k], esc_attr(img_alt(BY_KEY[k]['h1'])), img_base(k), GROUP_OF[k], BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in HOME_FEATURED[:3])
+hub_groups = ''.join(
+    '<section class="guide-hub-group"><div class="guide-hub-group-head"><h2 id="%s">%s</h2><span>%d yazı</span></div><ul class="guide-hub-list">%s</ul></section>\n'
+    % (group_id(name), name, len(keys),
+       ''.join('<li data-ara="%s"><a href="%s"><span><strong>%s</strong><small>%s</small></span></a></li>'
+               % (esc_attr(' '.join(q for q, _ in BY_KEY[k]['faq'])), R[k], BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys))
+    for name, keys in GROUPS)
+quick = ''.join('<div><h3>%s</h3>\n<p>%s <a href="%s">Ayrıntılar</a></p></div>\n' % (q, ans, R[k]) for q, ans, k in HUB['quick'])
 main = (breadcrumb_html(HUB['h1'], [('Ehliyet Rehberi', '/rehber/')]) +
-        '<div class="guide-area py-120">\n<div class="container">\n<div class="legal-text guide-text">\n'
+        '<div class="guide-hub">\n<div class="container">\n'
+        '<div class="guide-hub-intro"><div>'
+        '<h2 class="guide-hub-title">Aradığınız sorunun <span>cevabı burada</span></h2>\n'
         '<p class="guide-meta">Son güncelleme: %s · Hazırlayan: Ankara Sincan Uslu Sürücü Kursu</p>\n' % DATE_TR +
-        cover_html('hub', HUB['h1'], 'Ankara ve Sincan’da ehliyet almak isteyenler için resmî kaynaklı %d yazı.' % len(PAGES)) +
-        '<p class="legal-lead">%s</p>\n' % HUB['lead'] +
-        cards +
-        '<h2>Kısa cevaplar</h2>\n' + quick + CTA + sources_html(HUB['sources']) +
-        '</div>\n</div>\n</div>\n')
+        '<p class="guide-hub-lead">%s</p>\n' % HUB['lead'] + SEARCH_FORM + '\n' +
+        '<nav aria-label="Rehber kategorileri" class="home-guide-chips guide-hub-chips">%s</nav></div>\n' % hub_chips +
+        '<div class="guide-hub-cover"><img alt="%s" decoding="async" height="630" src="/assets/img/rehber/%s.webp" width="1200"/></div></div>\n'
+        % (esc_attr(img_alt(HUB['h1'])), img_base('hub')) +
+        '<section class="guide-hub-top"><h2 class="guide-hub-h">En çok aranan sorular</h2>\n<div class="guide-hub-featured">%s</div></section>\n' % hub_featured +
+        '<p aria-live="polite" class="guide-search-info" hidden id="guide-search-info"></p>\n' +
+        hub_groups +
+        '<section class="guide-hub-quick"><h2 class="guide-hub-h">Kısa cevaplar</h2>\n<div class="guide-hub-qa">\n%s</div></section>\n' % quick +
+        '<div class="legal-text guide-text guide-hub-end">\n<div>' + sources_html(HUB['sources']) + '</div>\n' + CTA + '</div>\n'
+        '</div>\n</div>\n<script defer src="/assets/js/rehber-arama.js"></script>\n')
 nodes = [
     {"@type": "CollectionPage", "@id": HUB_URL + "#webpage", "url": HUB_URL, "name": HUB['h1'] + SUFFIX, "description": HUB['desc'],
      "image": image_obj('hub', HUB['h1']), "spatialCoverage": PLACE,
@@ -238,11 +259,11 @@ def home_section():
     return (HOME_START + '\n<section aria-labelledby="home-guide-title" class="home-guide"><div class="container">'
             '<div class="site-heading text-center"><span class="site-title-tagline">Ehliyet Rehberi</span>'
             '<h2 class="site-title" id="home-guide-title">Aradığınız sorunun <span>cevabı burada</span></h2>'
-            '<p class="home-guide-lead">Ehliyetle ilgili %d soruya resmî kaynaklara dayanan kısa cevaplar.</p></div>'
+            '<p class="home-guide-lead">Ehliyetle ilgili %d soruya resmî kaynaklara dayanan kısa cevaplar.</p>%s</div>'
             '<div class="home-guide-main">%s<div class="home-guide-top"><h3 class="home-guide-sub">En çok aranan sorular</h3><ol class="home-guide-list">%s</ol></div></div>'
             '<div class="home-guide-foot"><nav aria-label="Rehber kategorileri" class="home-guide-chips">%s</nav>'
             '<a class="theme-btn" href="/rehber/">%d sorunun tümü <i aria-hidden="true" class="far fa-arrow-right"></i></a></div>'
-            '</div></section>\n' % (len(PAGES), feature, top, chips, len(PAGES)) + HOME_END)
+            '</div></section>\n' % (len(PAGES), SEARCH_FORM, feature, top, chips, len(PAGES)) + HOME_END)
 
 def sync_home():
     # Bölüm eğitmenlerin (son team-area) altında durur; yeri değişirse eskisi kaldırılıp yeniden eklenir.
