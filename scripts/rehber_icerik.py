@@ -2445,3 +2445,6 @@ HUB = dict(
     ],
     sources=['mtsk', 'esinav', 'kty', 'saglik', 'nvi_sss', 'nvi_ucret'],
 )
+
+# Ana sayfadaki "Rehber" bölümü: en çok aranan konular (görselli kartlar).
+HOME_FEATURED = ['nasil', 'masraf', 'sinav', 'yenileme', 'alkol', 'hiz']

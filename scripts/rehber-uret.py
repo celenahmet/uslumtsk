@@ -6,13 +6,19 @@ FAQPage yapısal verisi birlikte güncellenir. Sonra `npm run build` ve check.
 """
 import re, json, sys, os, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rehber_icerik import PAGES, HUB, SRC, R, GROUPS, FOOTER
+from rehber_icerik import PAGES, HUB, SRC, R, GROUPS, FOOTER, HOME_FEATURED
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/'
 BASE = 'https://uslusurucukursu.com'
 BY_KEY = {p['key']: p for p in PAGES}
 SUFFIX = ' - Ankara Sincan Uslu Sürücü Kursu'
 ORDER = [k for _, ks in GROUPS for k in ks]
+
+def group_id(name):
+    tr = str.maketrans('çğıöşüÇĞİÖŞÜ', 'cgiosuCGIOSU')
+    return re.sub(r'[^a-z0-9]+', '-', name.translate(tr).lower()).strip('-')
+
+GROUP_OF = {k: name for name, ks in GROUPS for k in ks}
 
 def img_base(key):
     # Görsel dosya adı arama odaklı: <yazı>-ankara-sincan (scripts/rehber-gorsel.mjs ile aynı kural)
@@ -185,7 +191,7 @@ for p in PAGES:
 def cards_for(keys):
     return ''.join('<li><a href="%s"><img alt="%s" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/><strong>%s</strong><span>%s</span></a></li>'
                    % (R[k], html.escape(img_alt(BY_KEY[k]['h1'])), img_base(k), BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys)
-cards = ''.join('<h2>%s</h2>\n<ul class="guide-cards">%s</ul>\n' % (name, cards_for(keys)) for name, keys in GROUPS)
+cards = ''.join('<h2 id="%s">%s</h2>\n<ul class="guide-cards">%s</ul>\n' % (group_id(name), name, cards_for(keys)) for name, keys in GROUPS)
 quick = ''.join('<h3>%s</h3>\n<p>%s <a href="%s">Ayrıntılar</a></p>\n' % (q, ans, R[k]) for q, ans, k in HUB['quick'])
 main = (breadcrumb_html(HUB['h1'], [('Ehliyet Rehberi', '/rehber/')]) +
         '<div class="guide-area py-120">\n<div class="container">\n<div class="legal-text guide-text">\n'
@@ -216,4 +222,46 @@ for path in written:
     d = re.search(r'<meta content="([^"]*)" name="description"', s).group(1)
     print('%-58s title=%2d desc=%3d' % (path.replace(ROOT, ''), len(html.unescape(t)), len(html.unescape(d))))
 
+HOME_START, HOME_END = '<!-- rehber home -->', '<!-- rehber home end -->'
+
+def home_section():
+    esc = lambda t: html.escape(t, quote=True)
+    def card(k):
+        p = BY_KEY[k]
+        return ('<a class="home-guide-card" href="%s"><img alt="%s" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/>'
+                '<span class="home-guide-body"><span class="home-guide-cat">%s</span><strong>%s</strong><span class="home-guide-text">%s</span></span></a>'
+                % (R[k], esc(img_alt(p['h1'])), img_base(k), GROUP_OF[k], p['h1'], p['card']))
+    featured = ''.join(card(k) for k in HOME_FEATURED)
+    cats = ''
+    for name, ks in GROUPS:
+        gid = group_id(name)
+        lis = ''.join('<li><a href="%s">%s</a></li>' % (R[k], BY_KEY[k]['h1']) for k in ks[:4])
+        cats += ('<div class="home-guide-catbox"><h4><a href="/rehber/#%s">%s</a> <small>%d yazı</small></h4><ul>%s</ul>'
+                 '<a class="home-guide-more" href="/rehber/#%s">Tümünü gör</a></div>' % (gid, name, len(ks), lis, gid))
+    newest = [p['key'] for p in reversed(PAGES) if p['key'] not in HOME_FEATURED][:6]
+    news = ''.join('<li><a href="%s"><img alt="" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/><span>%s</span></a></li>'
+                   % (R[k], img_base(k), BY_KEY[k]['h1']) for k in newest)
+    return (HOME_START + '\n<section aria-labelledby="home-guide-title" class="home-guide py-120"><div class="container">'
+            '<div class="site-heading text-center"><span class="site-title-tagline">Ehliyet Rehberi</span>'
+            '<h2 class="site-title" id="home-guide-title">Aradığınız sorunun <span>cevabı burada</span></h2>'
+            '<p class="home-guide-lead">Ehliyetle ilgili %d soruya resmî kaynaklara dayanan kısa cevaplar: belgeler, sınavlar, 2026 masrafları, ehliyet sınıfları ve trafik cezaları.</p></div>'
+            '<h3 class="home-guide-sub">En çok aranan sorular</h3><div class="home-guide-grid">%s</div>'
+            '<h3 class="home-guide-sub">Kategoriler</h3><div class="home-guide-cats">%s</div>'
+            '<h3 class="home-guide-sub">En yeni eklenenler</h3><ul class="home-guide-new">%s</ul>'
+            '<div class="text-center mt-5"><a class="theme-btn" href="/rehber/">Tüm rehber yazıları <i aria-hidden="true" class="far fa-arrow-right"></i></a></div>'
+            '</div></section>\n' % (len(PAGES), featured, cats, news) + HOME_END)
+
+def sync_home():
+    path = ROOT + 'index.html'
+    h = open(path, encoding='utf-8').read()
+    if HOME_START in h:
+        h = re.sub(re.escape(HOME_START) + '.*?' + re.escape(HOME_END), lambda m: home_section(), h, count=1, flags=re.S)
+    else:
+        anchor = '<!-- course area end -->'
+        assert h.count(anchor) == 1
+        h = h.replace(anchor, anchor + '\n' + home_section())
+    assert h.count(HOME_START) == 1
+    open(path, 'w', encoding='utf-8').write(h)
+
+sync_home()
 sync_sitemap()
