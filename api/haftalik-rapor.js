@@ -334,9 +334,10 @@ module.exports = async function handler(req, res) {
     res.statusCode = 401;
     return res.end('yetkisiz');
   }
-  const q = req.query || {};
-  const test = q.test === '1';
-  const useSample = test && q.ornek === '1';
+  // req.query Vercel'in eski url.parse() yolunu tetikliyor (DEP0169 uyarısı); WHATWG URL ile okunur.
+  const q = new URL(req.url || '/', SITE).searchParams;
+  const test = q.get('test') === '1';
+  const useSample = test && q.get('ornek') === '1';
   const key = process.env.RESEND_API_KEY;
   const to = String((test ? process.env.REPORT_TEST_TO : process.env.REPORT_TO) || '').split(',').map((s) => s.trim()).filter(Boolean);
   if (!key || !to.length) {
