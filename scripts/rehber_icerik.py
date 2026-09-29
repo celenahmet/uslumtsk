@@ -17,7 +17,8 @@ SRC = {
     'adli': ('e-Devlet: Adli Sicil Kaydı Sorgulama', 'https://www.turkiye.gov.tr/adli-sicil-kaydi'),
     'esinav_site': ('MEB e-Sınav Bilgi Sistemi', 'https://esinav.meb.gov.tr/'),
     'ktk': ('2918 sayılı Karayolları Trafik Kanunu (mevzuat.gov.tr, PDF)',
-            'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.2918.pdf'),
+            'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.2918.pdf'),    'kabahat': ('5326 sayılı Kabahatler Kanunu (mevzuat.gov.tr, PDF)',
+                'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5326.pdf'),
 }
 
 def ext(label, url):
@@ -45,6 +46,35 @@ R = {  # rehber içi bağlantılar
     'ozel': '/rehber/ozel-gereksinimli-surucu-adaylari/',
     'randevu': '/rehber/ehliyet-randevusu/',
     'ankara': '/rehber/ankarada-ehliyet-almak/',
+    'kayitdonemi': '/rehber/surucu-kursu-kayit-donemleri/',
+    'devamsizlik': '/rehber/surucu-kursu-devamsizlik/',
+    'nakil': '/rehber/surucu-kursu-degistirme/',
+    'direksiyon': '/rehber/direksiyon-dersi/',
+    'kbelgesi': '/rehber/k-sinifi-surucu-aday-belgesi/',
+    'sertifika': '/rehber/surucu-sertifikasi/',
+    'esinavkural': '/rehber/e-sinav-kurallari/',
+    'esinavitiraz': '/rehber/e-sinav-sonucu-itiraz/',
+    'geripark': '/rehber/direksiyon-sinavi-geri-park/',
+    'motorsinav': '/rehber/motosiklet-direksiyon-sinavi/',
+    'mazeret': '/rehber/ehliyet-sinavi-mazeret/',
+    'yas16': '/rehber/16-yasinda-ehliyet/',
+    'romork': '/rehber/b-ehliyetle-romork/',
+    'kamyon': '/rehber/kamyon-ehliyeti/',
+    'otobus': '/rehber/otobus-ehliyeti/',
+    'traktor': '/rehber/traktor-ehliyeti/',
+    'ismakinesi': '/rehber/is-makinesi-ehliyeti/',
+    'sabika': '/rehber/sabika-kaydi-ehliyet/',
+    'diploma': '/rehber/diplomasiz-ehliyet/',
+    'yabanci': '/rehber/yabancilar-icin-ehliyet/',
+    'fotograf': '/rehber/ehliyet-fotografi/',
+    'psikoteknik': '/rehber/psikoteknik-degerlendirme/',
+    'alkol': '/rehber/alkollu-arac-kullanma-cezasi/',
+    'hiz': '/rehber/hiz-siniri-cezasi/',
+    'kirmizi': '/rehber/kirmizi-isik-cezasi/',
+    'telefon': '/rehber/arac-kullanirken-telefon-cezasi/',
+    'ehliyetsiz': '/rehber/ehliyetsiz-arac-kullanma-cezasi/',
+    'kaza': '/rehber/trafik-kazasinda-ne-yapilmali/',
+    'itiraz': '/rehber/trafik-cezasina-itiraz/',
 }
 
 def a(key, text):
@@ -200,7 +230,7 @@ PAGES.append(dict(
          'B sınıfı ehliyetle otomobil ve kamyonet kullanılır. Karayolları Trafik Yönetmeliği m.85’e göre B sahipleri M (moped), B1 (dört tekerlekli motosiklet) ve F (traktör) sınıfı araçları da kullanabilir.'),
         ('Kamyon ehliyeti için kaç yaşında olmak gerekir?',
          'C1 sınıfı (3.500-7.500 kg kamyon) için 18, C sınıfı için 21 yaşını bitirmiş olmak ve en az B sınıfı ehliyete sahip olmak gerekir.'),
-        ('Otobüs ehliyeti kaç yaşında alınır?',
+        ('Minibüs ve otobüs ehliyeti kaç yaşında alınır?',
          'Minibüs için D1 sınıfında 21, otobüs için D sınıfında 24 yaş şartı vardır; her ikisi için de en az B sınıfı ehliyet gerekir.'),
         ('A sınıfı motosiklet ehliyeti için A2 şart mı?',
          'A sınıfı için en az iki yıllık A2 ehliyeti gerekir. 24 yaşını doldurmuş adaylarda bu deneyim şartı aranmaz.'),
@@ -272,7 +302,7 @@ PAGES.append(dict(
     faq=[
         ('Ehliyet kursuna kayıt için hangi belgeler gerekir?',
          'T.C. kimlik kartı, diploma veya öğrenim belgesi, son altı ayda çekilmiş biyometrik fotoğraf, sürücü olur raporu ve ehliyete engel sabıka kaydı olmadığını gösteren barkodlu adli sicil belgesi gerekir. 18 yaşını doldurmamış adaylardan veli veya vasi izni de istenir.'),
-        ('Sürücü olur raporu nereden alınır?',
+        ('Sürücü olur raporunu kimler verir?',
          'Aile sağlığı merkezleri, Sağlık Bakanlığına ve üniversitelere bağlı sağlık tesisleri ile muayenehaneler dışındaki özel sağlık kuruluşlarındaki hekimler sürücü olur raporu düzenleyebilir.'),
         ('Diplomamı kaybettim, kursa kayıt olabilir miyim?',
          'Evet. Yönetmelik diploma yerine geçen belgeyi ya da bir kamu kurumundan alınan öğrenim durumu belgesini de kabul eder.'),
@@ -1061,7 +1091,7 @@ PAGES.append(dict(
 PAGES.append(dict(
     key='ozel',
     title='Engelli Sürücü Adayları: Rapor, Araç ve Sınav | Uslu',
-    desc='Özel tertibatlı araç gereken sürücü adaylarında sağlık raporu komisyonu, özel tertibat kodu, eğitim ve sınav aracı. Sürücü Sağlık Yönetmeliği ve MEB yönetmeliğine göre.',
+    desc='Özel tertibatlı araç gereken sürücü adaylarında sağlık raporu komisyonu, özel tertibat kodu, eğitim ve sınav aracı. Yönetmeliklere göre adım adım.',
     h1='Engelli Bireyler Nasıl Ehliyet Alır?',
     crumb='Özel Gereksinimli Adaylar',
     card='Özel tertibat raporu, komisyon süreci, eğitim ve sınav aracı.',
@@ -1191,11 +1221,1210 @@ PAGES.append(dict(
     sources=['esinav', 'mtsk', 'saglik', 'nvi_sss', 'nvi_ucret'],
 ))
 
+# ── Parti 3a: kurs, dersler, sınavlar ─────────────────────────────
+PAGES.append(dict(
+    key='kayitdonemi',
+    title='', desc='Sürücü kursu dönemleri ne zaman başlar, kayıt ne zamana kadar yapılır, teorik dersler günde kaç saat? Ankara’da kursa kayıt için MEB yönetmeliğindeki kurallar.',
+    h1='Sürücü Kursuna Ne Zaman Kayıt Olunur?', crumb='Kayıt Dönemleri',
+    card='Eğitim dönemleri, grup açılışı ve kayıt tarihleri.',
+    lead='Sürücü kurslarında eğitim aylık dönemler hâlinde yürür. Ne zaman kayıt olmanız gerektiği bu dönemlere bağlıdır. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 12 ve 16. maddelerine dayanır.',
+    summary=[
+        'Eğitim dönemleri her ayın ilk on günü içinde, kursun belirlediği tarihlerde başlar.',
+        'Bir dönemde en fazla üç farklı tarihte grup açılabilir; kayıt, grubun başlama tarihinden önce yapılır.',
+        'Teorik dersler günde en az 2, en çok 6 saat yapılır.',
+    ],
+    body='''
+<h2>Dönemler ve gruplar</h2>
+<p>Eğitim dönemleri her ayın ilk on günü içinde kurslarca belirlenen tarihlerde başlatılır. Bir dönemde, kurs kontenjanını aşmamak şartıyla üç farklı tarihte grup açılabilir. Ayın onuncu günü hafta sonuna ya da resmî tatile denk gelirse, izleyen ilk iş günü bitimine kadar yeni grup açılmaz ancak açılmış gruplara kayıt yapılabilir (m.16/7). Kursiyerin kaydı, eğitim dönemine ait grup başlama tarihlerinden önce yapılır (m.12/2).</p>
+
+<h2>Ders düzeni</h2>
+<ul>
+<li>Teorik dersler günde en az 2, en çok 6 saat yapılır.</li>
+<li>Direksiyon dersleri her kursiyer için ayrı ayrı ve günde en fazla 2 saat yapılır (m.16/4).</li>
+<li>Bir dönemde bir direksiyon eğitim ve sınav aracı için en fazla 12 kursiyer kaydedilir (m.16/8).</li>
+<li>Kursun teorik ders çalışma planı, dönem başlamadan önce sisteme girilir (m.12/4).</li>
+</ul>
+
+<h2>Derslerden muaf olabilir misiniz?</h2>
+<p>Üniversite, yüksekokul, lise ve dengi okullarda zorunlu trafik ve çevre, ilk yardım ve araç tekniği derslerinden başarılı olduğunu belgeleyenler, belgeledikleri derslerden; geçerli ilk yardımcı sertifikası olanlar ilk yardım dersinden, isterlerse eğitime alınmaz ve yalnız sınava girerler (m.16/2).</p>
+
+<h2>Kayıtta dikkat</h2>
+<p>Kayıtta çekilen fotoğraf ve girilen bilgiler size onaylatılır; fotoğrafı veya bilgileri hatalı girilen kursiyerde o dönem düzeltme yapılmaz (m.12/1). Gerekli belgeler için ''' + a('belgeler', 'ehliyet için gerekli belgeler') + ''' yazımıza bakın. Ankara Sincan’daki kursumuzda dönem ve grup tarihlerini öğrenmek için <a href="/iletisim/">bize ulaşabilirsiniz</a>.</p>
+''',
+    faq=[
+        ('Sürücü kursu dönemleri ne zaman başlar?',
+         'MEB yönetmeliğine göre eğitim dönemleri her ayın ilk on günü içinde, kursların belirlediği tarihlerde başlar; bir dönemde en fazla üç farklı tarihte grup açılabilir.'),
+        ('Ayın ortasında sürücü kursuna kayıt olunur mu?',
+         'Kayıt, grubun başlama tarihinden önce yapılır. Ayın onuncu gününden sonra yeni grup açılmadığı için kayıt genellikle bir sonraki dönemin grubuna yapılır.'),
+        ('İlk yardım sertifikam varsa ilk yardım dersine girmem gerekir mi?',
+         'Geçerli ilk yardımcı sertifikası olanlar isterlerse ilk yardım dersinden eğitime alınmaz, yalnız sınava girerler.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='devamsizlik',
+    title='', desc='Sürücü kursunda devamsızlık hakkı var mı? Teorik derslerin beşte birinden fazlasına girmeyenin kaydı silinir; direksiyon dersinde telafi. MEB yönetmeliğine göre.',
+    h1='Sürücü Kursunda Devamsızlık Hakkı Var mı?', crumb='Devamsızlık',
+    card='Teorik ve direksiyon derslerinde devam zorunluluğu ve telafi.',
+    lead='Sürücü kursunda derslere devam esastır. Yönetmelik teorik ve direksiyon dersleri için ayrı devam kuralları koyar. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 14. maddesine dayanır.',
+    summary=[
+        'Teorik derslerin toplam saatinin beşte birinden fazlasına katılmayan kursiyerin kaydı silinir.',
+        'Direksiyon derslerinin beşte biri veya daha azına katılamayana bir defaya mahsus telafi programı uygulanır.',
+        'Direksiyon telafi derslerinin ücreti kursiyerden alınır.',
+    ],
+    body='''
+<h2>Teorik dersler</h2>
+<p>Teorik derslerin toplam saati 34’tür (trafik ve çevre 16, ilk yardım 8, araç tekniği 6, trafik adabı 4). Bu sürenin beşte birinden fazlasına devam etmeyen kursiyerin kaydı silinir. Eğitim personelinin izinli veya raporlu olması ve millî eğitim müdürlüğünün mazereti uygun görmesi hâlinde o günkü ders için telafi eğitimi yapılır (m.14/2).</p>
+
+<h2>Direksiyon dersleri</h2>
+<p>Direksiyon eğitimi ders saatinin beşte birine veya daha azına devam etmeyenler için, bir defaya mahsus ve kursiyerin durumu da gözetilerek, o dönemde kurs müdürünün uygun göreceği bir zamanda devam etmediği süre kadar telafi programı uygulanır. Telafi derslerinin ücreti kursiyerden alınır (m.14/2). Direksiyon telafi programına da devam etmeyen kursiyer için yönetmelikte ayrıca hükümler vardır; bu durumda kursunuza danışın.</p>
+
+<h2>Pratik öneri</h2>
+<p>Dönem başlamadan ders programını isteyin ve devam edemeyeceğiniz günleri önceden planlayın. Ders saatleri için ''' + a('kayitdonemi', 'sürücü kursu kayıt dönemleri') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Sürücü kursunda kaç saat devamsızlık hakkı var?',
+         'Teorik derslerin toplam saatinin beşte birinden fazlasına devam etmeyen kursiyerin kaydı silinir. 34 saatlik teorik eğitimde bu sınır 6,8 saattir.'),
+        ('Direksiyon dersini kaçırırsam ne olur?',
+         'Direksiyon ders saatinin beşte biri veya daha azına devam edemeyenlere bir defaya mahsus telafi programı uygulanır; telafi derslerinin ücreti kursiyerden alınır.'),
+        ('Öğretmen gelmezse ders telafi edilir mi?',
+         'Eğitim personelinin izinli veya raporlu olması ve millî eğitim müdürlüğünün mazereti uygun görmesi hâlinde o günkü ders için telafi eğitimi yapılır.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='nakil',
+    title='', desc='Sürücü kursu değiştirilebilir mi? Kurs kapanırsa il içinde nakil, direksiyon sınavında kalanlar için ikinci dört hakta başka kursa geçiş. MEB yönetmeliğine göre.',
+    h1='Sürücü Kursu Değiştirilebilir mi?', crumb='Kurs Değiştirme',
+    card='Başka kursa nakil hangi durumlarda yapılır.',
+    lead='Sürücü kursuna kayıt olduktan sonra başka kursa geçiş (nakil) her durumda serbest değildir; yönetmelik nakli belirli durumlara bağlar. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 13 ve 15. maddelerine dayanır.',
+    summary=[
+        'Kurs kapanırsa ya da kapatılırsa kayıtlı kursiyerler il sınırları içinde başka kurslara nakledilir.',
+        'Teorik sınavı geçip direksiyon sınavının ilk dört hakkından birinde veya birkaçında başarısız olan kursiyer, isterse ikinci dört hak için başka kursa nakil olabilir.',
+        'Nakil işlemlerini nakil yapılacak il millî eğitim müdürlüğü yürütür.',
+    ],
+    body='''
+<h2>Kurs kapanırsa</h2>
+<p>Kurucusunun başvurusu ya da inceleme sonucunda kapatılacak veya kapatılan kurslarda kayıtlı kursiyerler, il sınırları içinde başka kurslara nakledilir (m.13/1).</p>
+
+<h2>Direksiyon sınavında başarısız olanlar</h2>
+<p>Teorik sınavı geçip direksiyon sınavının ilk dört hakkından biri, birkaçı ya da tamamı sonunda başarısız olan kursiyer, isterse kalan haklarından vazgeçer. Sertifika sınıfı için belirlenen direksiyon ders saati kadar eğitim almak ve ikinci dört sınav hakkını kullanmak üzere, uygun direksiyon ve sınav aracı bulunan başka bir kursa nakil olabilir. Bu kursiyerler, kayıtlı oldukları dönemden sonraki döneme, naklini istedikleri kursun kontenjanına dahil edilerek kaydedilir. İşlemleri nakil yapılacak il millî eğitim müdürlüğü yürütür (m.13/2).</p>
+<p>Vites türünü değiştiren kursiyerler de istemeleri hâlinde bu kurala göre başka kursa nakil isteyebilir (m.15/6). Sınav hakları için ''' + a('kalirsam', 'ehliyet sınavında kalınca ne olur') + ''' yazımıza bakın.</p>
+
+<h2>Diğer durumlarda</h2>
+<p>Yönetmelik nakli bu iki durumda düzenler. Kursunuzu değiştirmeyi düşünüyorsanız, kayıtlı olduğunuz kursa ve il ya da ilçe millî eğitim müdürlüğüne durumunuzu danışın.</p>
+''',
+    faq=[
+        ('Kayıt olduğum sürücü kursunu değiştirebilir miyim?',
+         'Yönetmelik nakli iki durumda düzenler: kursun kapanması ve direksiyon sınavının ilk dört hakkında başarısız olan kursiyerin ikinci dört hak için başka kursa geçmesi.'),
+        ('Direksiyon sınavında kaldım, başka kursa geçebilir miyim?',
+         'Evet. Teorik sınavı geçip direksiyon sınavının ilk dört hakkından birinde veya birkaçında başarısız olan kursiyer, kalan haklarından vazgeçerek ikinci dört hak için başka kursa nakil olabilir.'),
+        ('Nakil işlemini kim yapar?',
+         'Nakil işlemlerini nakil yapılacak il millî eğitim müdürlüğü yürütür.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='direksiyon',
+    title='', desc='Direksiyon dersi kaç saat, günde kaç saat ders alınır, gece dersi zorunlu mu? B sınıfında en az 14 saat. Ankara’da direksiyon eğitimi kuralları.',
+    h1='Direksiyon Dersi Kaç Saat, Nasıl İşler?', crumb='Direksiyon Dersi',
+    card='Ders saatleri, gece sürüşü, ek ders ve emniyet kemeri eğitimi.',
+    lead='Direksiyon eğitimi, e-Sınav’ı geçtikten sonra başlar ve sınıfa göre belirlenen en az ders saatiyle yürür. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 6, 7, 12, 14, 16 ve 16/A maddelerine dayanır.',
+    summary=[
+        'Direksiyon dersleri teorik sınavı geçen kursiyerlerle başlar; önce eğitim alanında veya simülatörde en az 2 saat ders verilir.',
+        'B sınıfında akan trafikte en az 14 saat ders alınır, bunun en az 2 saati gece sürüşüdür.',
+        'Direksiyon dersi günde en fazla 2 saat yapılır; kendini yeterli görmeyen kursiyer ek ders alabilir.',
+    ],
+    body='''
+<h2>Ders akışı</h2>
+<ul>
+<li>Direksiyon eğitimine başlamadan önce bütün adaylara emniyet kemeri simülasyon eğitimi verilir (m.16/A).</li>
+<li>Önce eğitim alanında veya simülatörde en az 2 saat ders verilir; usta öğretici adayın trafiğe hazır olduğuna karar verince akan trafikte devam edilir (m.7/1).</li>
+<li>Akan trafikteki en az ders saati sınıfa göre değişir: B 14, A1 ve A2 12, C 20, D 14 saattir. Tüm sınıflar için ''' + a('siniflar', 'ehliyet sınıfları') + ''' yazımıza bakın.</li>
+<li>Çoğu sınıfta en az 2 saat gece sürüşü zorunludur; sağlık raporunda gece kısıtı olanlara gece dersi verilmez (m.7/3).</li>
+<li>Dersler her kursiyer için ayrı ayrı ve günde en fazla 2 saat yapılır (m.16/4).</li>
+</ul>
+
+<h2>K sınıfı sürücü aday belgesi</h2>
+<p>Akan trafikte ders başladığı tarihten itibaren 6 ay geçerli K sınıfı sürücü aday belgesi düzenlenir; bu belge eğitim ve sınavda kullanılır (m.6/3). Ayrıntılar ''' + a('kbelgesi', 'K sınıfı sürücü aday belgesi') + ''' yazımızda.</p>
+
+<h2>Ek ders ve vites seçimi</h2>
+<p>Direksiyon dersleri sonunda kendini yeterli görmeyen kursiyer isterse akan trafikte ek ders alır ve o yıl ilan edilen ders ücretini öder (m.7/4). e-Sınav’ı geçen kursiyer, direksiyon ders planlaması yapılmadan önce yazılı başvuruyla aynı sınıfın manuel ya da otomatik seçeneğine geçebilir (m.12/5).</p>
+
+<h2>Ankara Sincan’da</h2>
+<p>Kursumuzun direksiyon dersleri OSB Törekent parkurunda yapılır; ardından akan trafikte devam edilir.</p>
+''',
+    faq=[
+        ('B sınıfı ehliyet için kaç saat direksiyon dersi alınır?',
+         'Eğitim alanında veya simülatörde en az 2 saatin ardından akan trafikte en az 14 saat direksiyon dersi alınır; bunun en az 2 saati gece sürüşüdür.'),
+        ('Günde kaç saat direksiyon dersi alınabilir?',
+         'MEB yönetmeliğine göre direksiyon dersleri her kursiyer için günde en fazla 2 saat yapılır.'),
+        ('Direksiyon dersi yetmezse ek ders alınır mı?',
+         'Evet. Kendini yeterli görmeyen kursiyer isterse akan trafikte ek ders alır ve o yıl ilan edilen ders ücretini öder.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='kbelgesi',
+    title='', desc='K sınıfı sürücü aday belgesi nedir, ne zaman verilir, kaç ay geçerlidir, bu belgeyle tek başına araç kullanılır mı? Yönetmeliklere göre.',
+    h1='K Sınıfı Sürücü Aday Belgesi Nedir?', crumb='K Belgesi',
+    card='Eğitim ve sınavda kullanılan aday belgesi ve geçerlilik süresi.',
+    lead='Sürücü kursunda direksiyon eğitimi alan adaylar için K sınıfı sürücü aday belgesi düzenlenir. Bu belge bir ehliyet değildir; yalnız eğitim ve sınav içindir.',
+    summary=[
+        'K sınıfı sürücü aday belgesi, araç sürmeyi öğrenen adaylara eğitim ve sınavda kullanmak üzere verilir.',
+        'Belgeyi kurs müdürlüğü düzenler; akan trafikte direksiyon dersinin başladığı tarihten itibaren 6 ay geçerlidir.',
+        'Karayolunda tek başına araç kullanmak için ehliyet (sürücü belgesi) gerekir.',
+    ],
+    body='''
+<h2>Belge ne işe yarar?</h2>
+<p>Karayolları Trafik Yönetmeliği’ne göre K sınıfı sürücü aday belgesi, yönetmelikteki şartlara göre araç sürmeyi öğrenen adaylara eğitim ve sınavda kullanmak üzere verilir (m.75). MEB yönetmeliğine göre bu belgeyi kurs müdürlüğü düzenler ve belge, akan trafikte direksiyon eğitiminin başladığı tarihten itibaren 6 ay geçerlidir (m.6/3).</p>
+
+<h2>Belgeyle tek başına araç kullanılır mı?</h2>
+<p>Hayır. Belge yalnız eğitim ve sınav için verilir. Karayolunda araç kullanmak için ehliyet gerekir; sınavları geçtikten sonra alınan sertifika da tek başına araç kullanma yetkisi vermez. Ehliyet için nüfus müdürlüğüne başvurulur. Ayrıntılar ''' + a('sertifika', 'sürücü sertifikası') + ''' ve ''' + a('randevu', 'ehliyet randevusu') + ''' yazılarımızda.</p>
+
+<h2>6 ay dolarsa</h2>
+<p>Direksiyon derslerinin teorik sınavı geçtiğiniz tarihten itibaren 90 gün içinde tamamlanacak şekilde planlanması öngörülür (m.15). Süreyle ilgili sorunuz olursa kursunuza danışın; ders planı için ''' + a('direksiyon', 'direksiyon dersi') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('K sınıfı sürücü aday belgesi kaç ay geçerlidir?',
+         'MEB yönetmeliğine göre akan trafikte direksiyon eğitiminin başladığı tarihten itibaren 6 ay geçerlidir.'),
+        ('K belgesiyle tek başına araç kullanılır mı?',
+         'Hayır. K sınıfı sürücü aday belgesi yalnız eğitim ve sınavda kullanılmak üzere verilir.'),
+        ('K belgesini kim verir?',
+         'Belgeyi kursiyerin kayıtlı olduğu kursun müdürlüğü düzenler.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_sss'],
+))
+
+PAGES.append(dict(
+    key='sertifika',
+    title='', desc='Sürücü sertifikası nedir, nereden alınır, süresi var mı, sertifikayla araç kullanılır mı? e-Devlet ve NVİ bilgileriyle sertifikadan ehliyete.',
+    h1='Sürücü Sertifikası Nedir, Ne İşe Yarar?', crumb='Sürücü Sertifikası',
+    card='Sınav sonrası sertifika, e-Devlet ve ehliyete dönüşüm.',
+    lead='Sürücü kursundaki sınavları geçen aday önce motorlu taşıt sürücüsü sertifikası alır; ehliyet (sürücü belgesi) bu sertifikaya dayanarak nüfus müdürlüğünde düzenlenir. Bilgiler MEB yönetmeliğinin 37 ve 38. maddelerine ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Sertifika elektronik olarak düzenlenir ve e-Devlet üzerinden görülür.',
+        '09.07.2022 ve sonrasında alınan sertifikalarda süre sınırı yoktur.',
+        'Sertifika, ehliyetle değiştirilmedikçe karayolunda araç kullanma yetkisi vermez.',
+    ],
+    body='''
+<h2>Sertifika nasıl düzenlenir?</h2>
+<p>Sertifika, sertifika almaya hak kazanılan son sınav tarihi yazılarak elektronik ortamda düzenlenir ve e-Devlet üzerinden erişilir (m.37). Sertifika bilgileri, imza, fotoğraf ve sağlık raporu, ehliyetin düzenlenmesine esas olmak üzere elektronik olarak Nüfus ve Vatandaşlık İşleri Genel Müdürlüğüne iletilir. Sertifikanın iptali kursun bağlı olduğu il millî eğitim müdürlüğünce yapılır (m.38).</p>
+
+<h2>Süresi var mı?</h2>
+<p>NVİ’ye göre 09.07.2022 ve sonrasında alınan sürücü sertifikalarında süre sınırlaması yoktur.</p>
+
+<h2>Sertifikayla araç kullanılır mı?</h2>
+<p>Hayır. NVİ’ye göre sürücü sertifikası ehliyetle değiştirilmedikçe karayolunda araç kullanma yetkisi vermez. Ehliyet için randevu alıp nüfus müdürlüğüne başvurmanız, harç, değerli kâğıt bedeli ve vakıf payını ödemeniz gerekir. Ayrıntılar ''' + a('randevu', 'ehliyet randevusu') + ''' ve ''' + a('masraf', 'ehliyet masrafları') + ''' yazılarımızda.</p>
+
+<h2>B ehliyetle A1 yetkisi</h2>
+<p>B ehliyeti en az iki yıllık olanların aldığı A1 sertifikası, ehliyete ayrıca işlenmeden sistem kayıtlarına eklenir. Ayrıntılar ''' + a('motor', 'B ehliyetle motosiklet') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('Sürücü sertifikası nereden alınır?',
+         'Sınavları geçen adayın sertifikası elektronik olarak düzenlenir ve e-Devlet üzerinden görülür.'),
+        ('Sürücü sertifikasının süresi var mı?',
+         'NVİ’ye göre 09.07.2022 ve sonrasında alınan sertifikalarda süre sınırlaması yoktur.'),
+        ('Sertifikayla araç kullanabilir miyim?',
+         'Hayır. Sertifika, nüfus müdürlüğünde ehliyetle değiştirilmedikçe karayolunda araç kullanma yetkisi vermez.'),
+    ],
+    sources=['mtsk', 'nvi_sss'],
+))
+
+PAGES.append(dict(
+    key='esinavkural',
+    title='', desc='e-Sınava girerken yanınızda ne olmalı, binaya neler alınmaz, geç kalırsanız ne olur, kopyanın yaptırımı nedir? MEB 2026 e-Sınav Kılavuzuna göre.',
+    h1='e-Sınava Girerken Nelere Dikkat Edilmeli?', crumb='e-Sınav Kuralları',
+    card='Sınav günü belgeler, yasak eşyalar, geç kalma ve kopya kuralları.',
+    lead='e-Sınav’da kurallara uyulmadığında sınav iptal edilebilir. Aşağıdaki bilgiler MEB’in 2026 Motorlu Taşıt Sürücü Kursiyerleri e-Sınav Kılavuzuna dayanır.',
+    summary=[
+        'Sınav saatinden en geç 30 dakika önce salonda olun; e-Sınav giriş belgesi ve geçerli kimlik belgesi olmadan sınava alınmazsınız.',
+        'Sınav başladıktan sonra 15 dakika içinde gelen aday sınava alınır ama ek süre verilmez; 15 dakikadan sonra gelen alınmaz.',
+        'Kopya çeken ya da yerine başkasını sokan adayın sınavı iptal edilir ve 2 yıl MEB sınavlarına giremez.',
+    ],
+    body='''
+<h2>Yanınızda olması gerekenler</h2>
+<ul>
+<li>e-Sınav giriş belgesi. T.C. kimlik kartıyla gelen adayların giriş belgesinde imza ve mühür aranmaz.</li>
+<li>Geçerli kimlik belgesi: süresi dolmamış T.C. kimlik kartı ya da pasaport; yabancılar için kılavuzda sayılan belgeler.</li>
+</ul>
+
+<h2>Sınav binasına alınmayanlar</h2>
+<p>Cep telefonu, her türlü saat, çanta, cüzdan, anahtarlık, elektronik anahtar, kulaklık, takılar, kitap ve not, yiyecek ve içecek sınav binasına alınmaz. Doktor raporuyla belirlenen cihaz ve ilaçlar, anahtarlıksız basit anahtar, ulaşım kartı, kâğıt para, alyans, şeffaf şişede su ve şeffaf numaralı gözlük istisnadır.</p>
+
+<h2>Sınav sırasında</h2>
+<ul>
+<li>Kimlik kontrolüyle salona alınan aday sınav başlayana kadar dışarı çıkamaz; kendi isteğiyle çıkan tekrar alınmaz ve sınavı iptal edilir.</li>
+<li>Sınav başladıktan sonra ilk 15 dakika içinde gelen aday alınır ama ek süre verilmez; 15 dakikadan sonra gelen alınmaz. Sınavın ilk 15 dakikasında salondan çıkılamaz.</li>
+<li>Kopya çekmek, kopyaya teşebbüs etmek ya da yerine başkasını sokmak sınavın iptaline yol açar ve aday, sınav tarihinden itibaren 2 yıl boyunca MEB Ölçme, Değerlendirme ve Sınav Hizmetleri Genel Müdürlüğünün hiçbir sınavına başvuramaz.</li>
+</ul>
+<p>Sınavın yapısı ve puanlama için ''' + a('sinav', 'ehliyet sınavı') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('e-Sınava giderken yanımda ne olmalı?',
+         'e-Sınav giriş belgesi ve süresi dolmamış T.C. kimlik kartı ya da pasaport gibi geçerli bir kimlik belgesi olmalıdır.'),
+        ('e-Sınava geç kalırsam ne olur?',
+         'Sınav başladıktan sonra ilk 15 dakika içinde gelen aday sınava alınır ama ek süre verilmez; 15 dakikadan sonra gelen aday salona alınmaz.'),
+        ('e-Sınava telefonla girilir mi?',
+         'Hayır. Cep telefonu, saat, çanta ve elektronik cihazlar sınav binasına alınmaz.'),
+    ],
+    sources=['esinav'],
+))
+
+PAGES.append(dict(
+    key='esinavitiraz',
+    title='', desc='e-Sınav sonucu nereden öğrenilir, sorulara ve sonuca itiraz nasıl yapılır, itiraz ücreti ve süresi nedir? MEB 2026 e-Sınav Kılavuzuna göre.',
+    h1='e-Sınav Sonucuna İtiraz Edilir mi?', crumb='e-Sınav İtirazı',
+    card='Sonuç öğrenme, 5 günlük itiraz süresi ve itiraz ücreti.',
+    lead='e-Sınav’ın sonucu sınav biter bitmez açıklanır. Sonuca ya da sorulara itiraz etmek mümkündür ama süre kısadır. Bilgiler MEB’in 2026 e-Sınav Kılavuzuna dayanır.',
+    summary=[
+        'Sonuç, sınav merkezindeki sonuç ekranından ya da oturum bittikten sonra esinav.meb.gov.tr adresinden öğrenilir; ayrıca tebligat yapılmaz.',
+        'Sorulara ve sonuca itiraz, sonucun yayımlanmasından itibaren 5 takvim günü içinde, 75 TL itiraz ücreti ödenerek e-İtiraz Modülünden yapılır.',
+        'İtiraz, 10 günlük dava açma süresini durdurmaz.',
+    ],
+    body='''
+<h2>Sonuç nasıl öğrenilir?</h2>
+<p>Sonuç, sınav merkezindeki sonuç açıklama cihazından ya da oturum bittikten sonra esinav.meb.gov.tr adresinden öğrenilir; adaylara ayrıca tebligat yapılmaz. Sınav soruları ve cevapları yayımlanmaz. 70 ve üzeri puan başarılıdır.</p>
+
+<h2>İtiraz nasıl yapılır?</h2>
+<ul>
+<li>Sınav sonucuna ve sorulara itiraz, sonucun yayımlanmasından itibaren 5 takvim günü içinde yapılır.</li>
+<li>Kendi T.C. kimlik numaranızla Ziraat Bankası, Vakıfbank veya Halkbank üzerinden KDV dahil 75 TL itiraz ücreti yatırılır ve başvuru e-İtiraz Modülünden (eitiraz.meb.gov.tr) yapılır.</li>
+<li>Sınavın uygulanışına ilişkin itirazlar dilekçeyle il veya ilçe millî eğitim müdürlüğüne şahsen yapılır.</li>
+<li>Süre dışında itiraz yapılamaz.</li>
+</ul>
+<p>İtiraz, sonucun yayımlanmasıyla başlayan 10 günlük dava açma süresini durdurmaz. İptal edilen sorular değerlendirme dışı bırakılır ve puan geçerli sorular üzerinden yeniden hesaplanır.</p>
+
+<h2>Kaldıysanız</h2>
+<p>e-Sınav’da kalan aday, kursa yeniden devam etmeden ve yalnız sınav ücretini ödeyerek üç kez daha sınava girebilir. Ayrıntılar ''' + a('kalirsam', 'ehliyet sınavında kalınca ne olur') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('e-Sınav sonucu ne zaman açıklanır?',
+         'Sonuç sınav bitince açıklanır; sınav merkezindeki sonuç ekranından ya da oturum bittikten sonra esinav.meb.gov.tr adresinden öğrenilir.'),
+        ('e-Sınav sonucuna itiraz ücreti ne kadar?',
+         '2026 kılavuzuna göre itiraz ücreti KDV dahil 75 TL’dir; itiraz, sonucun yayımlanmasından itibaren 5 takvim günü içinde e-İtiraz Modülünden yapılır.'),
+        ('İtiraz dava açma süresini durdurur mu?',
+         'Hayır. Kılavuza göre itiraz, sonucun yayımlanmasıyla başlayan 10 günlük dava açma süresini durdurmaz.'),
+    ],
+    sources=['esinav', 'esinav_site'],
+))
+
+PAGES.append(dict(
+    key='geripark',
+    title='', desc='Direksiyon sınavında geri park nasıl yapılır, kaç hamle hakkı var, park alanı ne kadar? B sınıfı sınavında park, geri gitme ve dönüş aşamaları.',
+    h1='Direksiyon Sınavında Geri Park Nasıl Yapılır?', crumb='Geri Park',
+    card='Park alanı ölçüleri, hamle hakları ve diğer manevralar.',
+    lead='B sınıfı direksiyon sınavının en çok merak edilen aşaması koniler arasına geri parktır. Yönetmelik bu aşamayı ölçüleriyle tarif eder. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 34. maddesine dayanır.',
+    summary=[
+        'Araç, en az 100 cm yüksekliğindeki konilerin arasına geri geri ve tek hamlede girilerek park edilir; giremeyene bir hak daha verilir.',
+        'Koniler arasına giren araç en fazla iki hamlede, konilere ve kaldırıma değmeden, ön tekerler düz ve kaldırıma paralel park edilir.',
+        'Park bitince “Park işlemini tamamladım.” denir; değerlendirme bundan sonra yapılır.',
+    ],
+    body='''
+<h2>Park alanı</h2>
+<p>Park alanının boyu, park edecek aracın bir buçuk katı; eni ise aracın genişliğinden 50 cm fazladır. Alan kaldırımdan 50 cm açıkta yatay çizgiyle belirlenir; konilerin yerleri dikey çizgilerle işaretlenir. Hatchback ve sedan gibi farklı uzunluktaki araçlar için ayrı park alanları düzenlenir.</p>
+
+<h2>Geri park adımları</h2>
+<ol>
+<li>Aracı geriye doğru, tek hamlede koniler arasına sokun. Giremezseniz bu hamleyi yeniden yapmak için bir hak daha verilir.</li>
+<li>Koniler arasına giren aracı en fazla iki hamlede, kaldırıma ve konilere değmeden, ön tekerleri düz konuma getirerek kaldırıma paralel park edin.</li>
+<li>Park bitince “Park işlemini tamamladım.” deyin; komisyon değerlendirmeyi bundan sonra yapar.</li>
+</ol>
+
+<h2>Parktan sonraki manevralar</h2>
+<ul>
+<li>İçten içe en fazla 3,5 metre genişliğindeki şeritte, lastikleri çizgiye veya kaldırıma değdirmeden 25 metre geri gitme.</li>
+<li>Geri giderken sağa (L) dönüş; tek hamlede ve çizgi, kaldırım veya konilere değmeden. Bitince “Dönüş işlemini tamamladım.” denir.</li>
+<li>Dar alanda en fazla üç hamlede geri dönüş.</li>
+<li>Güzergâhta yol için belirlenen azami hıza ulaşma ve 30 km/s hızla giderken komutla ani fren.</li>
+</ul>
+<p>Sınavın tamamı için ''' + a('sinav', 'ehliyet sınavı') + ''' yazımıza bakın. Ankara Sincan’daki kursumuzda direksiyon dersleri OSB Törekent parkurunda yapılır.</p>
+''',
+    faq=[
+        ('Direksiyon sınavında geri parkta kaç hak var?',
+         'Koniler arasına tek hamlede girilmesi istenir; giremeyen adaya bu hamleyi yeniden yapması için bir hak daha verilir. Girdikten sonra araç en fazla iki hamlede park edilir.'),
+        ('Park alanı ne kadar büyük?',
+         'Park alanının boyu aracın bir buçuk katı, eni ise aracın genişliğinden 50 cm fazladır.'),
+        ('Park bitince ne söylenir?',
+         'Aday “Park işlemini tamamladım.” der; komisyon değerlendirmeyi bundan sonra yapar.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='motorsinav',
+    title='', desc='Motosiklet direksiyon sınavında neler istenir? Slalom, sekiz çizme, denge çizgisi, U dönüşü, hız ve ani fren. MEB yönetmeliğine göre A1, A2 ve A sınavı.',
+    h1='Motosiklet Direksiyon Sınavı Nasıl Yapılır?', crumb='Motosiklet Sınavı',
+    card='Slalom, sekiz, denge çizgisi, U dönüşü ve ani fren.',
+    lead='M, A1, A2, A ve B1 sınıflarının direksiyon sınavı önce kapalı bir sınav alanında, sonra trafikte yapılır. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 35. maddesine dayanır.',
+    summary=[
+        'Sınav alanında araç bilgisi soruları, dokuz koni arasında slalom, sekiz çizme, denge çizgisi ve dar alanda U dönüşü istenir.',
+        'A1, A2 ve A sınıflarında 30 metrede 40 km/s hıza ulaşıp sonraki 30 metrede durmak gerekir; M sınıfında bu hız 25 km/s’tir.',
+        'Alanda başarılı olan adayın sınavı güzergâhta, trafikte devam eder.',
+    ],
+    body='''
+<h2>Sınav alanındaki aşamalar</h2>
+<ol>
+<li>Araç bilgisini ölçen sorular.</li>
+<li>Motoru çalıştırıp hareket etme.</li>
+<li>Sağdan başlayarak dokuz koni arasında slalom.</li>
+<li>Yedi metre çapındaki iki çember içinde sekiz çizme (B1 hariç).</li>
+<li>20 metre uzunluğunda, 20 cm genişliğindeki denge çizgisi üzerinden geçiş (B1 hariç).</li>
+<li>6 metre genişliğinde, 8 metre uzunluğundaki alanda, tekerlekler dışarı çıkmadan ve konilere değmeden U dönüşü (B1 hariç).</li>
+<li>30 metrede M sınıfı için 25 km/s, A1, A2, A ve B1 için 40 km/s hıza ulaşıp sonraki 30 metrede yavaşlayarak durma.</li>
+<li>20 km/s hızdayken 1 metre genişliğindeki engele en fazla 3 metre kala şeritten ayrılıp engelin yanındaki 100 cm’lik bölümden geçme ve şeride dönme (B1 hariç).</li>
+<li>20 km/s hızdayken ani fren.</li>
+</ol>
+<p>Sınav alanındaki değerlendirmeler tek seferde tamamlanır. Alanda başarılı olan adayın sınavı güzergâhta, akan trafikte devam eder ve değerlendirme formundaki trafikte sürüş becerilerine göre değerlendirilir.</p>
+
+<h2>Hazırlık</h2>
+<p>Motosiklet sınıflarının yaş ve ders saatleri için ''' + a('motosiklet', 'motosiklet ehliyeti') + ''' yazımıza bakın. Kursumuzda <a href="/egitim/motor-a1/">A1</a> ve <a href="/egitim/motor-a2/">A2 motosiklet</a> eğitimleri verilir.</p>
+''',
+    faq=[
+        ('Motor ehliyeti sınavında neler yapılır?',
+         'Sınav alanında slalom, sekiz çizme, denge çizgisi, dar alanda U dönüşü, hızlanıp durma, engelden kaçınma ve ani fren istenir; ardından trafikte sürüş değerlendirilir.'),
+        ('Motosiklet sınavında sekiz çizme var mı?',
+         'Evet. Yedi metre çapındaki iki çember içinde sekiz çizilir; B1 sınıfında bu aşama yoktur.'),
+        ('Motosiklet sınavında hangi hıza çıkılır?',
+         'A1, A2 ve A sınıflarında 30 metrede 40 km/s hıza ulaşılıp sonraki 30 metrede durulur; M sınıfında bu hız 25 km/s’tir.'),
+    ],
+    sources=['mtsk'],
+))
+
+PAGES.append(dict(
+    key='mazeret',
+    title='', desc='Ehliyet sınavı günü hastalanırsanız, askere giderseniz ya da hamileyseniz ne olur? e-Sınav randevusu değiştirme ve mazeret belgeleri.',
+    h1='Ehliyet Sınavına Giremezsem Ne Olur?', crumb='Sınav Mazereti',
+    card='Hastalık, askerlik, hamilelik ve randevu değişikliği.',
+    lead='Ehliyet sınavına girememek her zaman hak kaybı demek değildir; yönetmelik mazeret durumlarını ayrıca düzenler. Bilgiler MEB yönetmeliğinin 15. maddesine ve 2026 e-Sınav Kılavuzuna dayanır.',
+    summary=[
+        'Randevu alınan e-Sınav’a gelinmezse bir sınav hakkı kullanılmış sayılır.',
+        'Belgeli mazereti olan aday, sınavdan en az 24 saat önce il veya ilçe millî eğitim müdürlüğüne başvurarak randevusunu değiştirebilir.',
+        'Hastalık raporu 2 iş günü, afet veya yakın kaybı gibi durumların belgesi 10 gün içinde kursa verilmelidir.',
+    ],
+    body='''
+<h2>e-Sınav randevusu</h2>
+<p>Randevusu onaylanan aday belirlenen gün ve saatte sınava girmek zorundadır; girmezse bir sınav hakkını kullanmış sayılır ve ücret iadesi isteyemez. Mazeretini belgeleyen aday, sınav saatinden en az 24 saat önce il veya ilçe millî eğitim müdürlüğüne başvurarak randevusunu değiştirebilir.</p>
+
+<h2>Mazeret türleri</h2>
+<ul>
+<li><strong>Hastalık:</strong> sınav günü sınava girecek durumda olmadığını sağlık kuruluşundan alacağı raporla belgeleyen aday, raporu en geç 2 iş günü içinde kursa teslim eder.</li>
+<li><strong>Afet, yakınların ağır hastalığı veya ölümü, ülkeyi temsil:</strong> resmî makamdan alınan belge 10 gün içinde kursa teslim edilir.</li>
+<li>Bu iki durumda mazereti kabul edilen aday, dört dönem sınav hakkını tamamlayıp başarılı olamazsa bir defaya mahsus mazeret sınavına girebilir.</li>
+<li><strong>Askerlik:</strong> belgeleriyle kursa yazılı bildirim yapılır; terhisten itibaren 10 gün içinde başvurulursa kalan haklar ilçedeki ilk sınavdan itibaren kullandırılır.</li>
+<li><strong>Hamilelik veya doğum:</strong> doktor raporuyla 10 gün içinde yazılı bildirim yapılır; kalan haklar rapor süresi bitince kullandırılır.</li>
+<li><strong>Uzun süren tedavi:</strong> sağlık kurulu raporuyla belgelenir; tedavi bitince 10 gün içinde başvurulursa kalan haklar kullandırılır.</li>
+</ul>
+<p>Askerlik, hamilelik ve uzun tedavi durumlarında kayıt millî eğitim müdürlüğünce dondurulur (m.15/3). Sınav hakları için ''' + a('kalirsam', 'ehliyet sınavında kalınca ne olur') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('e-Sınav randevusunu değiştirebilir miyim?',
+         'Belgelenmiş mazeretiniz varsa sınav saatinden en az 24 saat önce il veya ilçe millî eğitim müdürlüğüne başvurarak değiştirebilirsiniz.'),
+        ('Sınav günü hastalanırsam hakkım yanar mı?',
+         'Sağlık kuruluşundan aldığınız raporu en geç 2 iş günü içinde kursa teslim ederseniz mazeretiniz değerlendirilir; kabul edilirse haklarınızı tamamladıktan sonra bir defaya mahsus mazeret sınavına girebilirsiniz.'),
+        ('Askere gidersem kursum ne olur?',
+         'Belgeleriyle kursa yazılı bildirim yaparsanız kaydınız dondurulur; terhisten itibaren 10 gün içinde başvurursanız kalan sınav haklarınız kullandırılır.'),
+    ],
+    sources=['mtsk', 'esinav'],
+))
+
+# ── Parti 3b: sınıflar, şartlar, psikoteknik ───────────────────────
+PAGES.append(dict(
+    key='yas16',
+    title='', desc='16 yaşında hangi ehliyet alınır? M (moped), A1 motosiklet ve B1 sınıfı; veli izni, ders saatleri ve 18 yaş şartı olan sınıflar.',
+    h1='16 Yaşında Hangi Ehliyet Alınır?', crumb='16 Yaşında Ehliyet',
+    card='M, A1 ve B1 sınıfları, veli izni ve ders saatleri.',
+    lead='Otomobil ehliyeti için 18 yaş beklemek gerekir, ama bazı sınıflar 16 yaşında alınabilir. Bilgiler Karayolları Trafik Yönetmeliği’nin 75 ve 76. maddeleri ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        '16 yaşını bitirenler M, A1 ve B1 sınıfı ehliyet alabilir.',
+        '18 yaşını doldurmamış adaylardan kurs kaydında veli veya vasi muvafakatnamesi istenir.',
+        'Otomobil (B) ve A2 motosiklet için 18 yaş gerekir.',
+    ],
+    body='''
+<h2>16 yaşında alınabilen sınıflar</h2>
+<ul>
+<li><strong>M:</strong> iki, üç ve dört tekerlekli motorlu bisikletler (moped).</li>
+<li><strong>A1:</strong> silindir hacmi 125 cm³’ü, gücü 11 kW’ı geçmeyen motosikletler ve gücü 15 kW’ı geçmeyen üç tekerlekli motosikletler.</li>
+<li><strong>B1:</strong> net motor gücü 15 kW’ı, net ağırlığı 400 kg’ı (yük taşımada 550 kg’ı) geçmeyen dört tekerlekli motosikletler.</li>
+</ul>
+<p>Bu üç sınıfta akan trafikte en az 12 saat direksiyon dersi alınır. A1 ehliyetiyle M sınıfı araçlar da kullanılabilir (Karayolları Trafik Yönetmeliği m.85).</p>
+
+<h2>Kayıt için</h2>
+<p>Belgeler diğer adaylarla aynıdır; 18 yaşını doldurmamış kursiyerler için ayrıca veli veya vasi muvafakatnamesi istenir (MTSK Yönetmeliği m.11). Teorik dersler ve e-Sınav tüm sınıflarda aynıdır. Liste için ''' + a('belgeler', 'ehliyet için gerekli belgeler') + ''' yazımıza bakın.</p>
+
+<h2>18 yaşında</h2>
+<p>A2 motosiklet ve B sınıfı otomobil ehliyeti 18 yaşını bitirince alınır. Yaş tablosunun tamamı ''' + a('siniflar', 'ehliyet sınıfları') + ''' yazımızda. Kursumuzda <a href="/egitim/motor-a1/">A1 motosiklet</a> eğitimi verilir.</p>
+''',
+    faq=[
+        ('16 yaşında ehliyet alınır mı?',
+         'Evet. 16 yaşını bitirenler M (moped), A1 (hafif motosiklet) ve B1 (dört tekerlekli motosiklet) sınıfı ehliyet alabilir.'),
+        ('16 yaşında hangi motor kullanılır?',
+         'A1 ehliyetiyle silindir hacmi 125 cm³’ü ve gücü 11 kW’ı geçmeyen motosikletler kullanılır.'),
+        ('18 yaşından küçükler için veli izni gerekir mi?',
+         'Evet. 18 yaşını doldurmamış kursiyerlerden kurs kaydında veli veya vasi muvafakatnamesi istenir.'),
+    ],
+    sources=['kty', 'mtsk'],
+))
+
+PAGES.append(dict(
+    key='romork',
+    title='', desc='B ehliyetle römork çekilir mi? 750 kg’a kadar hafif römork, 4.250 kg birleşik araç kuralı ve BE sınıfı ehliyet. Karayolları Trafik Yönetmeliğine göre.',
+    h1='B Ehliyetle Römork Çekilir mi?', crumb='Römork ve BE',
+    card='Hafif römork sınırı, 4.250 kg kuralı ve BE sınıfı.',
+    lead='Karavan, tekne ya da yük römorku çekmek isteyenlerin en çok sorduğu soru, B ehliyetin yetip yetmeyeceğidir. Cevap römorkun ağırlığına bağlıdır. Bilgiler Karayolları Trafik Yönetmeliği’nin 75, 76 ve 86. maddelerine dayanır.',
+    summary=[
+        'B sınıfı ehliyetle azami yüklü ağırlığı 750 kg’a kadar (750 kg dahil) hafif römork takılabilir.',
+        'Yönetmelikteki eğitimi tamamlayan ya da sınavı geçen B sahibi, azami yüklü ağırlığı 4.250 kg’a kadar birleşik araçları da kullanabilir.',
+        'Daha ağır römorklar için BE sınıfı gerekir: B ehliyeti şarttır, akan trafikte 6 saat ders alınır.',
+    ],
+    body='''
+<h2>Hafif römork</h2>
+<p>B, C, C1, D ve D1 sınıfı ehliyet sahipleri araçlarına azami yüklü ağırlığı 750 kg’a kadar (750 kg dahil) hafif römork takarak kullanabilir (m.86).</p>
+
+<h2>4.250 kg kuralı</h2>
+<p>B sınıfı ehliyet sahibi; tip onayı mevzuatına aykırı olmamak ve MEB yönetmeliğinde belirtilen eğitimi tamamlamak ya da yetenek ve davranış sınavını geçmiş olmak kaydıyla, azami yüklü ağırlığı 4.250 kg’a kadar olan birleşik araçları da kullanabilir (m.75).</p>
+
+<h2>BE sınıfı</h2>
+<p>BE sınıfı; B ehliyetiyle kullanılan araca takılan ve azami yüklü ağırlığı 3.500 kg’ı geçmeyen römork veya yarı römorklu birleşik araçlar için verilir. BE için 18 yaş ve B ehliyeti gerekir (m.76). B sahibinin BE eklemesi için akan trafikte 6 saat direksiyon dersi alınır ve sınav römork takılı araçla yapılır. 2026’da BE harcı 11.271,20 TL’dir. Sınıf ekleme için ''' + a('ekleme', 'ehliyete sınıf ekleme') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('B ehliyetle karavan çekilir mi?',
+         'Azami yüklü ağırlığı 750 kg’a kadar olan hafif römork B ehliyetle çekilebilir. Daha ağır römorklar için 4.250 kg kuralının şartları ya da BE sınıfı gerekir.'),
+        ('BE ehliyeti için kaç saat ders gerekir?',
+         'B ehliyeti olan biri BE için akan trafikte 6 saat direksiyon dersi alır; sınav römork takılı araçla yapılır.'),
+        ('BE ehliyet kaç yaşında alınır?',
+         'BE için 18 yaşını bitirmiş olmak ve B sınıfı ehliyete sahip olmak gerekir.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_ucret'],
+))
+
+PAGES.append(dict(
+    key='kamyon',
+    title='', desc='Kamyon ehliyeti (C ve C1) nasıl alınır? Yaş şartı, B ehliyeti şartı, direksiyon ders saati, sağlık şartı, 5 yıllık geçerlilik ve 2026 harcı.',
+    h1='Kamyon Ehliyeti (C Sınıfı) Nasıl Alınır?', crumb='Kamyon Ehliyeti',
+    card='C ve C1 sınıfı: yaş, ön şart, ders saati ve geçerlilik.',
+    lead='Kamyon ehliyeti iki sınıftan oluşur: orta ağırlıktaki kamyonlar için C1, bütün kamyon ve çekiciler için C. Bilgiler Karayolları Trafik Yönetmeliği ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        'C1: azami yüklü ağırlığı 3.500-7.500 kg arası kamyon ve çekiciler; 18 yaş ve B ehliyeti gerekir.',
+        'C: tüm kamyon ve çekiciler; 21 yaş ve B ehliyeti gerekir.',
+        'C1 ve C ehliyetleri 5 yıl geçerlidir; sağlık muayenesinde ikinci grup şartları uygulanır.',
+    ],
+    body='''
+<h2>Şartlar ve ders saatleri</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Sınıf</th><th>Yaş</th><th>Ön şart</th><th>Akan trafikte ders</th></tr></thead>
+<tbody>
+<tr><td>C1</td><td>18</td><td>B</td><td>10 saat</td></tr>
+<tr><td>C</td><td>21</td><td>B</td><td>20 saat</td></tr>
+<tr><td>CE (römorklu)</td><td>21</td><td>C</td><td>6 saat</td></tr>
+</tbody></table></div>
+<p>Ders saatleri B ehliyeti olanlar için yönetmelikteki tabloya göredir. C ehliyetiyle M, B, B1, C1 ve F sınıfı araçlar da kullanılabilir (Karayolları Trafik Yönetmeliği m.85).</p>
+
+<h2>Sağlık ve geçerlilik</h2>
+<p>C1, C1E, C ve CE sınıfları sağlık muayenesinde ikinci gruptadır; görme şartı daha sıkıdır (Sürücü Sağlık Yönetmeliği m.4-5). Bu sınıflardaki ehliyetler 5 yıl geçerlidir (Karayolları Trafik Yönetmeliği m.87).</p>
+
+<h2>Masraf</h2>
+<p>2026’da C1, C ve CE sınıflarının harcı 11.271,20 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 13.386,20 TL ödenir. Diğer kalemler için ''' + a('masraf', 'ehliyet masrafları') + ''' yazımıza bakın. Kursumuzdaki seçenekler için <a href="/egitim/diger/">büyük araç ehliyetleri</a> sayfamıza bakabilirsiniz.</p>
+''',
+    faq=[
+        ('Kamyon ehliyeti kaç yaşında alınır?',
+         'C1 sınıfı için 18, C sınıfı için 21 yaşını bitirmiş olmak ve en az B sınıfı ehliyete sahip olmak gerekir.'),
+        ('C ehliyeti için kaç saat ders gerekir?',
+         'B ehliyeti olan biri C sınıfı için akan trafikte 20 saat, C1 için 10 saat direksiyon dersi alır.'),
+        ('C ehliyeti kaç yıl geçerlidir?',
+         'C1, C1E, C ve CE sınıfı ehliyetler 5 yıl geçerlidir.'),
+    ],
+    sources=['kty', 'mtsk', 'saglik', 'nvi_ucret'],
+))
+
+PAGES.append(dict(
+    key='otobus',
+    title='', desc='Otobüs ve minibüs ehliyeti (D ve D1) nasıl alınır? Yaş şartı, B ehliyeti şartı, direksiyon ders saati, sağlık şartı ve 5 yıllık geçerlilik.',
+    h1='Otobüs Ehliyeti (D Sınıfı) Nasıl Alınır?', crumb='Otobüs Ehliyeti',
+    card='D ve D1 sınıfı: yaş, ön şart, ders saati ve geçerlilik.',
+    lead='Yolcu taşıyan büyük araçlar için iki sınıf vardır: minibüs için D1, minibüs ve otobüs için D. Bilgiler Karayolları Trafik Yönetmeliği ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        'D1 minibüs için verilir; 21 yaş ve B ehliyeti gerekir.',
+        'D minibüs ve otobüs için verilir; 24 yaş ve B ehliyeti gerekir.',
+        'D1 ve D ehliyetleri 5 yıl geçerlidir; sağlık muayenesinde ikinci grup şartları uygulanır.',
+    ],
+    body='''
+<h2>Şartlar ve ders saatleri</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Sınıf</th><th>Yaş</th><th>Ön şart</th><th>Akan trafikte ders</th></tr></thead>
+<tbody>
+<tr><td>D1</td><td>21</td><td>B</td><td>7 saat</td></tr>
+<tr><td>D</td><td>24</td><td>B</td><td>14 saat</td></tr>
+<tr><td>DE (römorklu)</td><td>24</td><td>D</td><td>6 saat</td></tr>
+</tbody></table></div>
+<p>Ders saatleri B ehliyeti olanlar için yönetmelikteki tabloya göredir. D ehliyetiyle M, B, B1, D1 ve F sınıfı araçlar da kullanılabilir (Karayolları Trafik Yönetmeliği m.85).</p>
+
+<h2>Sağlık ve geçerlilik</h2>
+<p>D1, D1E, D ve DE sınıfları sağlık muayenesinde ikinci gruptadır (Sürücü Sağlık Yönetmeliği m.4-5) ve bu sınıflardaki ehliyetler 5 yıl geçerlidir (Karayolları Trafik Yönetmeliği m.87).</p>
+
+<h2>Masraf</h2>
+<p>2026’da D1, D ve DE sınıflarının harcı 11.271,20 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 13.386,20 TL ödenir. Kursumuzdaki seçenekler için <a href="/egitim/diger/">büyük araç ehliyetleri</a> sayfamıza bakabilirsiniz.</p>
+''',
+    faq=[
+        ('Otobüs ehliyeti kaç yaşında alınır?',
+         'D sınıfı otobüs ehliyeti için 24, D1 sınıfı minibüs ehliyeti için 21 yaşını bitirmiş olmak ve B ehliyetine sahip olmak gerekir.'),
+        ('D ehliyeti için kaç saat ders gerekir?',
+         'B ehliyeti olan biri D sınıfı için akan trafikte 14 saat, D1 için 7 saat direksiyon dersi alır.'),
+        ('D ehliyeti kaç yıl geçerlidir?',
+         'D1, D1E, D ve DE sınıfı ehliyetler 5 yıl geçerlidir.'),
+    ],
+    sources=['kty', 'mtsk', 'saglik', 'nvi_ucret'],
+))
+
+PAGES.append(dict(
+    key='traktor',
+    title='', desc='Traktör ehliyeti (F sınıfı) nasıl alınır? 18 yaş şartı, ders saati, römorklu sınav, B ehliyetin traktörü kapsaması ve 2026 harcı.',
+    h1='Traktör Ehliyeti (F Sınıfı) Nasıl Alınır?', crumb='Traktör Ehliyeti',
+    card='F sınıfı: yaş, ders saati, römorklu sınav ve B ehliyet.',
+    lead='Lastik tekerlekli traktör kullanmak için F sınıfı ehliyet gerekir; ancak B ehliyeti olanlar traktörü de kullanabilir. Bilgiler Karayolları Trafik Yönetmeliği ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        'F sınıfı lastik tekerlekli traktör kullanacaklara verilir; 18 yaş gerekir.',
+        'B sınıfı ehliyet sahipleri F sınıfı araçları da kullanabilir.',
+        'F sınıfında akan trafikte en az 12 saat ders alınır; sınav traktörün katar ağırlığına uygun römorkla yapılır.',
+    ],
+    body='''
+<h2>Şartlar</h2>
+<p>F sınıfı ehliyet lastik tekerlekli traktör kullanacaklara verilir ve 18 yaşını bitirmiş olmak gerekir (Karayolları Trafik Yönetmeliği m.75-76). F ehliyetiyle M sınıfı araçlar da kullanılabilir; B, C ve D sınıfı ehliyet sahipleri ise F sınıfı araçları da kullanabilir (m.85).</p>
+
+<h2>Eğitim ve sınav</h2>
+<p>F sınıfında akan trafikte en az 12 saat direksiyon dersi alınır ve en az 2 saati gece sürüşüdür (MTSK Yönetmeliği m.7). Direksiyon sınavı, sınavın yapılacağı traktörün katar ağırlığına uygun römorkla yapılır (m.36). Yönetmelikteki genel hız sınırı traktörler için yerleşim yeri içinde 20, şehirlerarası çift yönlü yolda 30, bölünmüş yolda 40 km/s’tir; otoyola giremez.</p>
+
+<h2>Masraf</h2>
+<p>2026’da F sınıfı harcı 2.239,90 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 4.354,90 TL ödenir. Diğer kalemler için ''' + a('masraf', 'ehliyet masrafları') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('B ehliyetle traktör kullanılır mı?',
+         'Evet. Karayolları Trafik Yönetmeliği’nin 85. maddesine göre B sınıfı ehliyetle F sınıfı araçlar, yani lastik tekerlekli traktörler de kullanılabilir.'),
+        ('Traktör ehliyeti kaç yaşında alınır?',
+         'F sınıfı traktör ehliyeti için 18 yaşını bitirmiş olmak gerekir.'),
+        ('Traktör ehliyeti harcı ne kadar?',
+         '2026’da F sınıfı harcı 2.239,90 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 4.354,90 TL ödenir.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_ucret'],
+))
+
+PAGES.append(dict(
+    key='ismakinesi',
+    title='', desc='İş makinesi ehliyeti (G sınıfı) nasıl alınır? Operatörlük belgesi şartı, 18 yaş, e-Sınav ve sağlık şartı. MEB yönetmeliği ve Karayolları Trafik Yönetmeliğine göre.',
+    h1='İş Makinesi Ehliyeti (G Sınıfı) Nasıl Alınır?', crumb='İş Makinesi Ehliyeti',
+    card='G sınıfı: operatörlük belgesi şartı, yaş ve sınav.',
+    lead='İş makinesi türündeki motorlu araçlarla karayoluna çıkmak için G sınıfı ehliyet gerekir. Bu sınıfın kursa kayıt şartı diğerlerinden farklıdır. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği ve Karayolları Trafik Yönetmeliği’ne dayanır.',
+    summary=[
+        'G sınıfı sertifika için kursa kayıt olabilmek için İş Makinesi Kullanma Yetki Belgesi (operatörlük belgesi) gerekir.',
+        'Operatörlük belgesi olup ehliyeti olmayanlar, teorik eğitimi alıp e-Sınav’ı geçince lastik tekerlekli iş makinesi için G sertifikası alır.',
+        'G sınıfı için 18 yaş gerekir; sağlık muayenesinde ikinci grup şartları uygulanır.',
+    ],
+    body='''
+<h2>Kayıt şartı</h2>
+<p>G sınıfı sürücü sertifikası almak üzere kursa kayıt olabilmek için İş Makinesi Kullanma Yetki Belgesi (operatörlük belgesi) gerekir (MTSK Yönetmeliği m.12/3).</p>
+
+<h2>Eğitim ve sınav</h2>
+<p>Operatörlük belgesine sahip olup ehliyeti bulunmayan ve G sınıfı için kursa kayıt olan kursiyerlere, teorik dersleri alıp e-Sınav’da başarılı olmaları hâlinde lastik tekerlekli iş makinesi kullanmak için G sınıfı sertifika verilir (m.6/2). e-Sınav 50 soru ve 45 dakikadır, 70 puan başarılı sayılır.</p>
+
+<h2>Diğer şartlar</h2>
+<p>G sınıfı ehliyet iş makinesi türündeki motorlu araçları kullanacaklara verilir ve 18 yaşını bitirmiş olmak gerekir (Karayolları Trafik Yönetmeliği m.75-76). G ehliyetiyle M sınıfı araçlar da kullanılabilir (m.85). G sınıfı sağlık muayenesinde ikinci gruptadır (Sürücü Sağlık Yönetmeliği m.4). Ehliyet 10 yıl geçerlidir (Karayolları Trafik Yönetmeliği m.87). 2026’da G sınıfı harcı 11.271,20 TL’dir.</p>
+''',
+    faq=[
+        ('İş makinesi ehliyeti için operatörlük belgesi şart mı?',
+         'Evet. MEB yönetmeliğine göre G sınıfı sertifika için kursa kayıt olabilmek için İş Makinesi Kullanma Yetki Belgesi (operatörlük belgesi) gerekir.'),
+        ('G sınıfı için direksiyon sınavı var mı?',
+         'Operatörlük belgesi olup ehliyeti olmayanlara, teorik dersleri alıp e-Sınav’ı geçmeleri hâlinde lastik tekerlekli iş makinesi için G sertifikası verilir.'),
+        ('G sınıfı ehliyet kaç yaşında alınır?',
+         'G sınıfı ehliyet için 18 yaşını bitirmiş olmak gerekir.'),
+    ],
+    sources=['mtsk', 'kty', 'saglik', 'nvi_ucret'],
+))
+
+PAGES.append(dict(
+    key='sabika',
+    title='', desc='Sabıka kaydı ehliyet almaya engel mi? Karayolları Trafik Yönetmeliğinde sayılan suçlar, kurs kaydındaki adli sicil belgesi ve gerçeğe aykırı beyanın sonucu.',
+    h1='Sabıka Kaydı Ehliyet Almaya Engel mi?', crumb='Sabıka Kaydı',
+    card='Hangi suç kayıtları engel, adli sicil belgesi nasıl kontrol edilir.',
+    lead='Ehliyet almak için adli sicil şartı vardır, ancak bu şart her suç kaydını kapsamaz; yönetmelik belirli suçları sayar. Bilgiler Karayolları Trafik Yönetmeliği’nin 76. maddesine, MEB yönetmeliğinin 11. maddesine ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Engel sayılan kayıtlar, yönetmelikte madde numaralarıyla sayılan suçlardan hüküm giymiş olmaktır.',
+        'Kurs kaydında adli sicil kaydını gösteren barkodlu belge istenir; Bakanlık ayrıca yetkili adli mercilerden teyit eder.',
+        'Gerçeğe aykırı beyanda bulunan kursiyer sınava alınmaz; sınava girmişse sınavı geçersiz sayılır ve kaydı silinir.',
+    ],
+    body='''
+<h2>Hangi suçlar engel?</h2>
+<p>Karayolları Trafik Yönetmeliği’ne göre ehliyet alacakların adli sicilinde şu suçlardan hüküm giydiğine dair kayıt bulunmamalıdır (m.76/1-e):</p>
+<ul>
+<li>Türk Ceza Kanunu’nun 188, 190 ve 191. maddeleri (uyuşturucu veya uyarıcı madde suçları).</li>
+<li>Kaçakçılıkla Mücadele Kanunu’nun 4. maddesinin yedinci fıkrası.</li>
+<li>6136 sayılı Ateşli Silahlar ve Bıçaklar ile Diğer Aletler Hakkında Kanun’un 12. maddesinin ikinci ve sonraki fıkraları.</li>
+</ul>
+<p>Yönetmelikteki adli sicil şartı bu suçlarla sınırlıdır. NVİ de aynı listeyi ehliyet şartı olarak açıklar.</p>
+
+<h2>Kurs kaydında</h2>
+<p>Kayıtta, ehliyet almaya engel sabıka kaydı olmadığını gösteren barkodlu belge istenir; bu belgeyi e-Devlet’teki Adli Sicil Kaydı Sorgulama hizmetinden alabilirsiniz. Bakanlık ayrıca yetkili adli mercilerden teyit eder. Gerçeğe aykırı beyanda bulunduğu tespit edilen kursiyer sınava alınmaz; sınava girmişse sınavı geçersiz sayılır ve kaydı silinir (MTSK Yönetmeliği m.11).</p>
+
+<h2>Ehliyet başvurusunda</h2>
+<p>Nüfus müdürlüğündeki ehliyet başvurusunda adli sicil kaydı sistemden kontrol edilir. Diğer belgeler için ''' + a('belgeler', 'ehliyet için gerekli belgeler') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Her sabıka kaydı ehliyet almaya engel mi?',
+         'Hayır. Karayolları Trafik Yönetmeliği belirli suçları sayar: TCK 188, 190 ve 191. maddeler, Kaçakçılıkla Mücadele Kanunu 4/7 ve 6136 sayılı Kanun’un 12. maddesinin ikinci ve sonraki fıkraları.'),
+        ('Sürücü kursu adli sicil belgesi ister mi?',
+         'Evet. Kayıtta ehliyet almaya engel sabıka kaydı olmadığını gösteren barkodlu belge istenir; Bakanlık ayrıca adli mercilerden teyit eder.'),
+        ('Adli sicil belgesi nereden alınır?',
+         'Barkodlu adli sicil kaydı belgesi e-Devlet’teki Adli Sicil Kaydı Sorgulama hizmetinden alınabilir.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_sss', 'adli'],
+))
+
+PAGES.append(dict(
+    key='diploma',
+    title='', desc='Diploma olmadan ehliyet alınır mı? En az ilkokul şartı, diploma yerine geçen belgeler, kaybolan diploma ve yurt dışında alınan öğrenim belgesi.',
+    h1='Diploma Olmadan Ehliyet Alınır mı?', crumb='Öğrenim Şartı',
+    card='İlkokul şartı, diploma yerine geçen belgeler ve yurt dışı diploma.',
+    lead='Ehliyet için öğrenim şartı vardır ama diplomanın kendisi tek seçenek değildir. Bilgiler Karayolları Trafik Yönetmeliği’nin 76. maddesine, MEB yönetmeliğinin 11. maddesine ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Ehliyet için en az ilkokul düzeyinde öğrenim görmüş olmak gerekir.',
+        'Kursa kayıtta diploma, diploma yerine geçen belge ya da bir kamu kurumundan alınan öğrenim durumu belgesi kabul edilir.',
+        'Yurt dışında alınan öğrenim belgelerinin noter tasdikli Türkçe tercümesi istenir.',
+    ],
+    body='''
+<h2>Öğrenim şartı</h2>
+<p>Karayolları Trafik Yönetmeliği’ne göre ehliyet alacakların en az ilkokul düzeyinde eğitim almış olması gerekir (m.76/1-c).</p>
+
+<h2>Kabul edilen belgeler</h2>
+<ul>
+<li>Diploma.</li>
+<li>Diploma yerine geçen belge.</li>
+<li>Kamu kurum veya kuruluşlarından alınan, öğrenim durumunu bildiren belge.</li>
+</ul>
+<p>Kurs bu belgelerin aslını görerek onaylı örneğini alır (MTSK Yönetmeliği m.11). Diplomanızı kaybettiyseniz okulunuzdan ya da ilgili kamu kurumundan alacağınız öğrenim durumu belgesiyle kayıt olabilirsiniz.</p>
+
+<h2>Yurt dışında okuyanlar</h2>
+<p>Yurt dışından alınan öğrenim belgelerinin noter tasdikli Türkçe tercümesi istenir. NVİ, ehliyet başvurusunda öğrenim belgesini sistemden kontrol eder. Türkçe bilmeyen adaylar için tercüman ve yabancı dilde e-Sınav imkânı ''' + a('yabanci', 'yabancılar için ehliyet') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('Ehliyet için hangi okul mezuniyeti gerekir?',
+         'Karayolları Trafik Yönetmeliği’ne göre en az ilkokul düzeyinde eğitim almış olmak gerekir.'),
+        ('Diplomamı kaybettim, ehliyet kursuna kayıt olabilir miyim?',
+         'Evet. Diploma yerine geçen belge ya da bir kamu kurumundan alınan öğrenim durumu belgesi de kabul edilir.'),
+        ('Yurt dışında aldığım diploma geçerli mi?',
+         'Yurt dışından alınan öğrenim belgelerinin noter tasdikli Türkçe tercümesi istenir.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_sss'],
+))
+
+PAGES.append(dict(
+    key='yabanci',
+    title='', desc='Yabancılar Türkiye’de nasıl ehliyet alır? Kayıt belgeleri, 6 aylık ikamet şartı, tercümanla eğitim ve yabancı dilde e-Sınav.',
+    h1='Yabancılar Türkiye’de Nasıl Ehliyet Alır?', crumb='Yabancılar İçin Ehliyet',
+    card='Belgeler, ikamet şartı, tercüman ve yabancı dilde e-Sınav.',
+    lead='Türkiye’de yaşayan yabancılar da sürücü kursuna kayıt olarak ehliyet alabilir. Türkçe bilmeyenler için tercüman ve yabancı dilde sınav imkânı vardır. Bilgiler MEB yönetmeliğinin 11 ve 16. maddelerine, 2026 e-Sınav Kılavuzuna ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Kayıt tarihinden itibaren Türkiye’de en az altı ay kalacağını gösteren ikamet izni, öğrenim vizesi veya çalışma izni gerekir.',
+        'Türkçe bilmeyen kursiyerler için valilik izniyle tercüman görevlendirilir; tercüman teorik ve direksiyon derslerine girer.',
+        'Teorik eğitimi tercümanla tamamlayan aday, e-Sınav’a MEB’in belirlediği yabancı dillerde girebilir; dil seçimi sınavdan en az 48 saat önce sisteme işlenmelidir.',
+    ],
+    body='''
+<h2>Kayıt belgeleri</h2>
+<ul>
+<li>Pasaportun noter tasdikli Türkçe tercümesi veya geçici koruma kimlik belgesi.</li>
+<li>Kayıt tarihinden itibaren Türkiye’de en az altı ay kalacağını gösteren ikamet izni, öğrenim vizesi veya çalışma izni.</li>
+<li>Öğrenim belgesinin noter tasdikli Türkçe tercümesi.</li>
+<li>Sürücü olur raporu ve son altı ayda çekilmiş biyometrik fotoğraf.</li>
+<li>Cumhuriyet başsavcılığı veya kaymakamlıktan alınan adli sicil belgesi.</li>
+<li>18 yaşını doldurmamış adaylar için veli veya vasi muvafakatnamesi.</li>
+</ul>
+
+<h2>Tercüman ve yabancı dilde sınav</h2>
+<p>Türkçe bilmeyen yabancı uyruklu kursiyerlere eğitim verecek kurslarda, valilik izniyle yeminli bir tercüman ya da yabancı dil bilgisi yeterli bulunan bir kişi görevlendirilir; tercüman teorik ve direksiyon derslerine girer. Kursiyer isterse direksiyon sınavında da tercüman görevlendirilir (m.16/6). Teorik eğitimini tercümanla tamamlayan aday, e-Sınav’a MEB’in belirlediği yabancı dillerde girebilir. Bunun için dil seçiminin sınav randevusundan en az 48 saat önce sisteme işlenmesi gerekir; işlenmezse sorular Türkçe gelir. Geçici koruma kimlik belgesi olan adaylar e-Sınav’a yalnız belgede yazan ikamet ilinde girebilir.</p>
+
+<h2>Yabancı ehliyeti olanlar</h2>
+<p>NVİ’ye göre yurt dışından alınan ehliyetle yabancılar Türkiye’de 6 ay araç kullanabilir. Ayrıntılar ''' + a('yurtdisi', 'yurt dışı ehliyeti') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('Yabancılar Türkiye’de ehliyet alabilir mi?',
+         'Evet. Kayıt tarihinden itibaren en az altı ay Türkiye’de kalacağını gösteren ikamet izni, öğrenim vizesi veya çalışma izni olan yabancılar sürücü kursuna kayıt olabilir.'),
+        ('e-Sınav yabancı dilde yapılır mı?',
+         'Teorik eğitimini tercümanla tamamlayan yabancı uyruklu aday, e-Sınav’a MEB’in belirlediği yabancı dillerde girebilir; dil seçimi sınavdan en az 48 saat önce sisteme işlenmelidir.'),
+        ('Türkçe bilmeyen kursiyere tercüman verilir mi?',
+         'Kurslarda valilik izniyle tercüman görevlendirilir; tercüman teorik ve direksiyon derslerine girer, kursiyer isterse direksiyon sınavında da bulunur.'),
+    ],
+    sources=['mtsk', 'esinav', 'nvi_sss'],
+))
+
+PAGES.append(dict(
+    key='fotograf',
+    title='', desc='Ehliyet fotoğrafı nasıl olmalı? Biyometrik ve son altı ayda çekilmiş olma şartı, kurs kaydında ve nüfus müdürlüğünde fotoğraf. NVİ ve MEB yönetmeliğine göre.',
+    h1='Ehliyet Fotoğrafı Nasıl Olmalı?', crumb='Ehliyet Fotoğrafı',
+    card='Biyometrik fotoğraf şartı, kurs kaydı ve nüfus başvurusu.',
+    lead='Ehliyet sürecinde fotoğraf iki yerde istenir: sürücü kursuna kayıtta ve nüfus müdürlüğündeki ehliyet başvurusunda. Bilgiler NVİ açıklamalarına ve MEB yönetmeliğinin 11 ve 12. maddelerine dayanır.',
+    summary=[
+        'Fotoğraf son altı ay içinde çekilmiş ve ICAO standartlarına uygun biyometrik olmalıdır.',
+        'Fotokopi, bilgisayarda çoğaltılmış ya da biyometrik olmayan fotoğraf kabul edilmez.',
+        'Kursumuzda kayıt için 1 adet biyometrik fotoğraf yeterlidir.',
+    ],
+    body='''
+<h2>Fotoğraf şartları</h2>
+<p>NVİ’ye göre ehliyette kullanılacak fotoğraf, kişinin son hâlini göstermesi için son altı ay içinde çekilmiş ve Uluslararası Sivil Havacılık Teşkilatı (ICAO) standartlarına uygun biyometrik olmalıdır. Fotokopi, bilgisayarda çoğaltılmış ya da biyometrik olmayan fotoğraflar kabul edilmez.</p>
+
+<h2>Kurs kaydında</h2>
+<p>Kurs, kayıt sırasında yüzünüzün net görüldüğü bir fotoğrafınızı da çeker; biyometrik fotoğrafınız ve belgeleriniz taranarak sisteme aktarılır. Kayıt bilgileri size onaylatılır; fotoğrafı veya bilgileri hatalı girilen kursiyerde o dönem düzeltme yapılmaz (MTSK Yönetmeliği m.12). Kursumuzda kayıt için 1 adet biyometrik fotoğraf yeterlidir.</p>
+
+<h2>Nüfus müdürlüğünde</h2>
+<p>Ehliyet başvurusunda 1 adet biyometrik fotoğraf istenir; fotoğraf taranarak sisteme kaydedildikten sonra size iade edilir. Başvuru günü için ''' + a('randevu', 'ehliyet randevusu') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Ehliyet için nasıl fotoğraf gerekir?',
+         'Son altı ay içinde çekilmiş, ICAO standartlarına uygun biyometrik fotoğraf gerekir; fotokopi veya biyometrik olmayan fotoğraf kabul edilmez.'),
+        ('Ehliyet başvurusunda kaç fotoğraf istenir?',
+         'NVİ, ehliyet başvurusunda 1 adet biyometrik fotoğraf ister; fotoğraf taranıp sisteme kaydedildikten sonra iade edilir.'),
+        ('Sürücü kursu kaydı için kaç fotoğraf gerekir?',
+         'Kursumuzda kayıt için 1 adet biyometrik fotoğraf yeterlidir; kurs ayrıca kayıt sırasında sizin bir fotoğrafınızı çeker.'),
+    ],
+    sources=['nvi_sss', 'mtsk'],
+))
+
+PAGES.append(dict(
+    key='psikoteknik',
+    title='', desc='Psikoteknik değerlendirme ne zaman istenir? Aday belgesinin iptali, ikinci 100 ceza puanı, tekrarlanan alkol, kırmızı ışık ve hız ihlalleri.',
+    h1='Psikoteknik Değerlendirme Ne Zaman İstenir?', crumb='Psikoteknik',
+    card='Hangi ihlallerden sonra psikoteknik ve psikiyatri muayenesi gerekir.',
+    lead='Psikoteknik değerlendirme, bazı ihlallerden sonra ehliyetin iadesi ya da yeniden alınması için aranır ve çoğunlukla psikiyatri uzmanı muayenesiyle birlikte istenir. Bilgiler Karayolları Trafik Kanunu’nun 2026’da değişen maddelerine ve MEB yönetmeliğinin 11. maddesine dayanır.',
+    summary=[
+        'Aday sürücü belgesi iptal edilenler ve ehliyeti iptal edilip yeniden kursa kayıt olanlar için psikoteknik değerlendirme ve psikiyatri muayenesi istenir.',
+        'Aynı yıl ikinci kez 100 ceza puanını dolduranlar ile beş yıl içinde üçüncü kez alkollü araç kullananlar değerlendirmeye alınır.',
+        'Kırmızı ışık ve hız ihlallerinde belirli sayıya ulaşınca ehliyet, psikoteknik değerlendirme sonucuna göre iade edilir.',
+    ],
+    body='''
+<h2>Hangi durumlarda istenir?</h2>
+<ul>
+<li><strong>Aday sürücü belgesinin iptali:</strong> yeniden kursa başlamak için psikoteknik değerlendirme ve psikiyatri uzmanı muayenesinde engel hâli olmadığını gösteren belge kursa verilir (Ek 17).</li>
+<li><strong>İkinci 100 ceza puanı:</strong> aynı yıl ikinci kez 100 puanı dolduranın ehliyeti 4 ay geri alınır; psikoteknik değerlendirme ve psikiyatri muayenesi yapılır (m.118).</li>
+<li><strong>Alkol:</strong> beş yıl içinde üç veya daha fazla kez alkol nedeniyle ehliyeti geri alınanlar psikoteknik değerlendirmeye ve psikiyatri muayenesine alınır; ikincisinde sürücü davranışlarını geliştirme eğitimi uygulanır (m.48).</li>
+<li><strong>Uyuşturucu:</strong> ehliyeti iptal edilen kişinin yeniden kursa başlaması için en az beş yıl geçmesi, psikoteknik değerlendirmeden geçmesi ve resmî sağlık kurulu raporu gerekir (m.48).</li>
+<li><strong>Kırmızı ışık:</strong> bir yıl içinde üç, dört veya beş ihlalde geri alınan ehliyet, süre sonunda psikoteknik değerlendirmede engel çıkmazsa iade edilir; altıncıda ehliyet iptal edilir (m.47).</li>
+<li><strong>Hız:</strong> bir yıl içinde beşinci kez geri alınan ehliyet, psikoteknik değerlendirme ve psikiyatri muayenesinde engel çıkmazsa iade edilir (m.51).</li>
+</ul>
+
+<h2>Sonuçlar farklı çıkarsa</h2>
+<p>MEB yönetmeliğine göre psikoteknik değerlendirme merkezi ile psikiyatri uzmanının rapor sonuçları farklıysa psikiyatri uzmanının kararı geçerlidir. Geri alma süreleri dolmadan kursa müracaat kabul edilmez (MTSK Yönetmeliği m.11).</p>
+<p>İlgili kurallar ''' + a('aday', 'aday sürücü belgesi') + ''', ''' + a('ceza', 'ehliyet ceza puanı') + ''' ve ''' + a('alkol', 'alkollü araç kullanma cezası') + ''' yazılarımızda.</p>
+''',
+    faq=[
+        ('Psikoteknik değerlendirme ne zaman istenir?',
+         'Aday belgesinin iptali, aynı yıl ikinci kez 100 ceza puanı, beş yıl içinde üçüncü alkol ihlali, uyuşturucu nedeniyle iptal ve tekrarlanan kırmızı ışık ya da hız ihlallerinde istenir.'),
+        ('Psikoteknik ile psikiyatri raporu farklı çıkarsa hangisi geçerli?',
+         'MEB yönetmeliğine göre psikiyatri uzmanının kararı geçerlidir.'),
+        ('Aday belgesi iptal olan kursa ne zaman başvurabilir?',
+         'Varsa iptal nedenlerindeki geri alma süreleri dolmadan kursa müracaat kabul edilmez; ayrıca psikoteknik ve psikiyatri belgeleri gerekir.'),
+    ],
+    sources=['ktk', 'mtsk'],
+))
+
+# ── Parti 3c: trafik kuralları ve cezalar ───────────────────────────
+TUTAR_NOTU = ('<p class="guide-note">Tutarlar Karayolları Trafik Kanunu’nun 12.02.2026 tarihli 7574 sayılı Kanunla değişen metnindeki tutarlardır. '
+              'Kabahatler Kanunu’na göre idari para cezaları her takvim yılı başında yeniden değerleme oranında artırılır.</p>')
+
+PAGES.append(dict(
+    key='alkol',
+    title='', desc='Alkollü araç kullanmanın cezası 2026’da ne kadar? 0.50 promil sınırı, ehliyetin 6 ay, 2 yıl ve 5 yıl geri alınması, ölçüm yaptırmama ve uyuşturucu.',
+    h1='Alkollü Araç Kullanmanın Cezası Nedir?', crumb='Alkol Cezası',
+    card='Promil sınırları, 2026 cezaları ve ehliyetin geri alınması.',
+    lead='Alkollü araç kullanmak hem para cezası hem ehliyetin geri alınmasıyla sonuçlanır ve tekrarlandıkça ağırlaşır. Bilgiler Karayolları Trafik Kanunu’nun 12.02.2026’da değişen 48. maddesine dayanır.',
+    summary=[
+        'Hususi otomobil sürücülerinde sınır 0.50 promil, diğer araçlarda 0.20 promildir.',
+        'İlk ihlalde 25.000 TL idari para cezası verilir ve ehliyet 6 ay geri alınır.',
+        'Beş yıl içinde ikincisinde 50.000 TL ve 2 yıl, üçüncüsünde 150.000 TL ve her seferinde 5 yıl geri alma uygulanır.',
+    ],
+    body='''
+<h2>Promil sınırları</h2>
+<p>Hususi otomobil sürücüleri için 0.50 promilin, hususi otomobil dışındaki araçları kullananlar için 0.20 promilin üzeri alkollü araç kullanma sayılır. Aday sürücülerde, araç cinsine bakılmaksızın 0.20 promilin üzeri aday belgenin iptaline yol açar (Ek 17). Ayrıntılar ''' + a('aday', 'aday sürücü belgesi') + ''' yazımızda.</p>
+
+<h2>Cezalar ve geri alma süreleri</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Beş yıl içinde</th><th>Para cezası</th><th>Ehliyet</th></tr></thead>
+<tbody>
+<tr><td>İlk kez</td><td>25.000 TL</td><td>6 ay geri alınır</td></tr>
+<tr><td>İkinci kez</td><td>50.000 TL</td><td>2 yıl geri alınır</td></tr>
+<tr><td>Üç ve daha fazla</td><td>150.000 TL</td><td>Her seferinde 5 yıl</td></tr>
+</tbody></table></div>
+<p>İkinci kez ehliyeti geri alınanlar sürücü davranışlarını geliştirme eğitimine, üç ve daha fazlasında psikoteknik değerlendirme ve psikiyatri muayenesine alınır. 1.00 promilin üzerinde alkollü olanlar hakkında ayrıca Türk Ceza Kanunu’nun 179/3 maddesi uygulanır; alkollüyken kazaya sebep olanlar hakkında da ceza kanunu hükümleri uygulanır. Geri alınan ehliyetin iadesi için idari para cezalarının tamamının ödenmiş olması gerekir.</p>
+
+<h2>Ölçüm yaptırmamak ve uyuşturucu</h2>
+<ul>
+<li>Kolluğun alkol veya uyuşturucu ölçümünü yaptırmayan sürücüye 150.000 TL idari para cezası verilir ve ehliyeti 5 yıl geri alınır.</li>
+<li>Uyuşturucu veya uyarıcı madde aldığı tespit edilen sürücüye 150.000 TL idari para cezası verilir ve ehliyeti iptal edilir; yeniden ehliyet için en az beş yıl beklemek, kursa devam edip sınavları geçmek gerekir.</li>
+</ul>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Alkollü araç kullanma cezası 2026’da ne kadar?',
+         'Kanunun 2026 metnine göre ilk ihlalde 25.000 TL idari para cezası verilir ve ehliyet 6 ay geri alınır; beş yıl içinde ikincisinde 50.000 TL ve 2 yıl, üçüncüsünde 150.000 TL ve 5 yıl uygulanır.'),
+        ('Alkol sınırı kaç promil?',
+         'Hususi otomobil sürücüleri için 0.50 promil, diğer araç sürücüleri için 0.20 promildir. Aday sürücülerde her araç için 0.20 promilin üzeri aday belgenin iptaline yol açar.'),
+        ('Alkol ölçümünü reddedersem ne olur?',
+         'Ölçüm yaptırmayan sürücüye 150.000 TL idari para cezası verilir ve ehliyeti 5 yıl geri alınır.'),
+    ],
+    sources=['ktk', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='hiz',
+    title='', desc='Hız sınırları nedir, aşınca ceza ne kadar, ehliyet ne zaman geri alınır? Şehir içi 50, otoyol 120 km/s; 2026 hız cezaları tablosu.',
+    h1='Hız Sınırları Nedir, Aşınca Ne Olur?', crumb='Hız Sınırı Cezası',
+    card='Araç cinsine göre hız sınırları ve 2026 hız cezaları.',
+    lead='Hız sınırları araç cinsine ve yol türüne göre değişir. 2026’da yapılan değişiklikle hız cezaları kademeli hâle geldi ve büyük aşımlarda ehliyet geri alınıyor. Bilgiler Karayolları Trafik Yönetmeliği’nin 100. maddesine ve Karayolları Trafik Kanunu’nun 51. maddesine dayanır.',
+    summary=[
+        'Otomobilde genel sınırlar: yerleşim yeri içinde 50, şehirlerarası çift yönlü yolda 90, bölünmüş yolda 110, otoyolda 120 km/s.',
+        'Yerleşim yeri içinde 6-10 km/s aşım 2.000 TL’den başlar, 66 km/s ve üzeri aşım 30.000 TL’ye çıkar.',
+        'Büyük aşımlarda ehliyet her seferinde 30, 60 veya 90 gün geri alınır.',
+    ],
+    body='''
+<h2>Genel hız sınırları (km/s)</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Araç</th><th>Yerleşim içi</th><th>Çift yönlü yol</th><th>Bölünmüş yol</th><th>Otoyol</th></tr></thead>
+<tbody>
+<tr><td>Otomobil</td><td>50</td><td>90</td><td>110</td><td>120</td></tr>
+<tr><td>Minibüs, otobüs</td><td>50</td><td>80</td><td>90</td><td>100</td></tr>
+<tr><td>Kamyonet</td><td>50</td><td>80</td><td>85</td><td>95</td></tr>
+<tr><td>Kamyon, çekici</td><td>50</td><td>80</td><td>85</td><td>90</td></tr>
+<tr><td>Motosiklet (L3)</td><td>50</td><td>80</td><td>90</td><td>100</td></tr>
+</tbody></table></div>
+<p>Bunlar yönetmelikteki genel sınırlardır; levhayla farklı bir sınır belirlenen yerde levhaya uyulur.</p>
+
+<h2>Hız cezaları (2026)</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Aşım</th><th>Yerleşim içi</th><th>Yerleşim dışı</th></tr></thead>
+<tbody>
+<tr><td>Küçük aşım</td><td>6-10 km/s: 2.000 TL</td><td>11-15 km/s: 2.000 TL</td></tr>
+<tr><td>Orta aşım</td><td>26-35 km/s: 12.000 TL</td><td>31-40 km/s: 12.000 TL</td></tr>
+<tr><td>30 gün geri alma</td><td>46-55 km/s: 20.000 TL</td><td>51-60 km/s: 20.000 TL</td></tr>
+<tr><td>60 gün geri alma</td><td>56-65 km/s: 25.000 TL</td><td>61-70 km/s: 25.000 TL</td></tr>
+<tr><td>90 gün geri alma</td><td>66 ve üzeri: 30.000 TL</td><td>71 ve üzeri: 30.000 TL</td></tr>
+</tbody></table></div>
+<p>Aradaki kademeler de kanunda ayrı ayrı belirlenmiştir. Geri alınan ehliyetin iadesi için idari para cezalarının tamamının ödenmiş olması gerekir. Bir yıl içinde beşinci kez geri alınan ehliyet, psikoteknik değerlendirme ve psikiyatri muayenesinden sonra iade edilir. Radar yerini tespit eden ya da sürücüyü uyaran cihazları araçta bulundurmak yasaktır.</p>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Şehir içi hız sınırı kaç?',
+         'Yönetmelikteki genel sınıra göre yerleşim yeri içinde otomobil, otobüs, kamyon ve motosiklet için hız sınırı 50 km/s’tir; levhayla farklı sınır belirlenebilir.'),
+        ('Otoyolda hız sınırı kaç?',
+         'Otomobil için otoyolda genel hız sınırı 120 km/s, bölünmüş yolda 110 km/s’tir.'),
+        ('Hız cezasında ehliyet ne zaman alınır?',
+         'Yerleşim yeri içinde 46 km/s, dışında 51 km/s ve üzeri aşımlarda ehliyet aşım miktarına göre her seferinde 30, 60 veya 90 gün geri alınır.'),
+    ],
+    sources=['ktk', 'kty', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='kirmizi',
+    title='', desc='Kırmızı ışıkta geçmenin cezası 2026’da ne kadar? Tekrarlanan ihlallerde artan cezalar, ehliyetin geri alınması ve iptali.',
+    h1='Kırmızı Işıkta Geçmenin Cezası Nedir?', crumb='Kırmızı Işık Cezası',
+    card='2026 cezaları, tekrar eden ihlaller ve ehliyetin geri alınması.',
+    lead='Kırmızı ışık ihlali 2026 değişikliğiyle ağırlaştı: bir yıl içinde tekrarlanan ihlallerde ceza artıyor, ehliyet geri alınıyor ve altıncı ihlalde iptal ediliyor. Bilgiler Karayolları Trafik Kanunu’nun 47. maddesine dayanır.',
+    summary=[
+        'Trafik ışıklarına uymayan sürücüye 5.000 TL idari para cezası verilir.',
+        'Bir yıl içinde tekrarlandıkça ceza artar: ikincide 10.000 TL, altıncıda 80.000 TL.',
+        'Üçüncü ihlalde ehliyet 30 gün, dördüncüde 60 gün, beşincide 90 gün geri alınır; altıncıda iptal edilir.',
+    ],
+    body='''
+<h2>Cezalar (son ihlalden geriye doğru bir yıl içinde)</h2>
+<div class="guide-table"><table>
+<thead><tr><th>İhlal</th><th>Para cezası</th><th>Ehliyet</th></tr></thead>
+<tbody>
+<tr><td>İlk</td><td>5.000 TL</td><td>-</td></tr>
+<tr><td>İkinci</td><td>10.000 TL</td><td>-</td></tr>
+<tr><td>Üçüncü</td><td>15.000 TL</td><td>30 gün geri alınır</td></tr>
+<tr><td>Dördüncü</td><td>20.000 TL</td><td>60 gün geri alınır</td></tr>
+<tr><td>Beşinci</td><td>30.000 TL</td><td>90 gün geri alınır</td></tr>
+<tr><td>Altıncı</td><td>80.000 TL</td><td>İptal edilir</td></tr>
+</tbody></table></div>
+<p>Geri alınan ehliyet, süre sonunda psikoteknik değerlendirmede engel çıkmazsa iade edilir. Altıncı ihlalde iptal edilen ehliyeti yeniden almak için cezaların tamamı ödenmiş olmalı, iptalden itibaren en az bir yıl geçmeli ve kurs ile sınavlar yeniden tamamlanmalıdır.</p>
+
+<h2>Diğer durumlar</h2>
+<ul>
+<li>Kırmızı ışık ihlaliyle kazaya sebep olan sürücünün ehliyeti 60 gün geri alınır.</li>
+<li>Trafik polisinin uyarı ve işaretlerine uymayana 3.000 TL, levha ve yer işaretlerine uymayana 1.000 TL idari para cezası verilir.</li>
+<li>Dur ihtarına uymayıp kaçan sürücüye 200.000 TL idari para cezası verilir; ehliyeti 60 gün geri alınır ve araç 60 gün trafikten men edilir.</li>
+</ul>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Kırmızı ışık cezası 2026’da ne kadar?',
+         'Kanunun 2026 metnine göre trafik ışığına uymayan sürücüye 5.000 TL idari para cezası verilir; bir yıl içinde tekrarlandıkça ceza 10.000 TL’den 80.000 TL’ye kadar artar.'),
+        ('Kırmızı ışıkta kaç kez geçince ehliyet alınır?',
+         'Bir yıl içinde üçüncü ihlalde ehliyet 30 gün, dördüncüde 60 gün, beşincide 90 gün geri alınır; altıncı ihlalde ehliyet iptal edilir.'),
+        ('Kırmızı ışıkta geçip kazaya sebep olursam ne olur?',
+         'Kırmızı ışık ihlaliyle kazaya sebep olan sürücünün ehliyeti 60 gün geri alınır.'),
+    ],
+    sources=['ktk', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='telefon',
+    title='', desc='Araç kullanırken telefon cezası 2026’da ne kadar? İlk ihlal 5.000 TL, tekrarında 10.000 ve 20.000 TL; üçüncüde ehliyet 30 gün geri alınır.',
+    h1='Araç Kullanırken Telefon Cezası Nedir?', crumb='Telefon Cezası',
+    card='Seyir hâlinde telefon kullanmanın 2026 cezaları.',
+    lead='Seyir hâlinde cep veya araç telefonu ile benzer haberleşme cihazlarını kullanmak yasaktır. 2026 değişikliğiyle tekrarlanan ihlallerde ehliyet de geri alınıyor. Bilgiler Karayolları Trafik Kanunu’nun 73. maddesine dayanır.',
+    summary=[
+        'Seyir hâlinde telefon kullanan sürücüye 5.000 TL idari para cezası verilir.',
+        'Bir yıl içinde ikinci ihlalde 10.000 TL, üç ve daha fazlasında her seferinde 20.000 TL uygulanır.',
+        'Üç ve daha fazla ihlalde ehliyet her seferinde 30 gün geri alınır.',
+    ],
+    body='''
+<h2>Kural</h2>
+<p>Karayolunda seyir hâlindeki sürücülerin cep ve araç telefonu ile benzer haberleşme cihazlarını kullanması yasaktır. Aynı madde, aracın kamunun rahat ve huzurunu bozacak ya da kişilere zarar verecek şekilde saygısızca sürülmesini ve araçtan bir şey atılmasını da yasaklar (m.73).</p>
+
+<h2>Cezalar (son ihlalden geriye doğru bir yıl içinde)</h2>
+<div class="guide-table"><table>
+<thead><tr><th>İhlal</th><th>Para cezası</th><th>Ehliyet</th></tr></thead>
+<tbody>
+<tr><td>İlk</td><td>5.000 TL</td><td>-</td></tr>
+<tr><td>İkinci</td><td>10.000 TL</td><td>-</td></tr>
+<tr><td>Üç ve daha fazla</td><td>Her seferinde 20.000 TL</td><td>Her seferinde 30 gün geri alınır</td></tr>
+</tbody></table></div>
+<p>Maddenin diğer hükümlerine uymayanlara 1.000 TL idari para cezası uygulanır. Geri alınan ehliyetin iadesi için idari para cezalarının tamamının ödenmiş olması gerekir.</p>
+
+<h2>Güvenli kullanım</h2>
+<p>Sürüş sırasında dikkati dağıtan her şey kaza riskini artırır. Telefonla ilgili işinizi aracı güvenli bir yerde durdurduktan sonra yapın. Aday sürücüler için ek kurallar ''' + a('aday', 'aday sürücü belgesi') + ''' yazımızda.</p>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Araç kullanırken telefonla konuşmanın cezası ne kadar?',
+         'Kanunun 2026 metnine göre ilk ihlalde 5.000 TL, bir yıl içinde ikincisinde 10.000 TL, üç ve daha fazlasında her seferinde 20.000 TL idari para cezası uygulanır.'),
+        ('Telefon cezasında ehliyet alınır mı?',
+         'Evet. Bir yıl içinde üç ve daha fazla ihlalde ehliyet her seferinde 30 gün geri alınır.'),
+        ('Geri alınan ehliyet ne zaman iade edilir?',
+         'Geri alma süresi dolduğunda ve kanun kapsamındaki idari para cezalarının tamamı ödenmişse iade edilir.'),
+    ],
+    sources=['ktk', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='ehliyetsiz',
+    title='', desc='Ehliyetsiz araç kullanmanın cezası 2026’da 40.000 TL; ehliyeti geri alınmış veya iptal edilmişken araç kullanana 200.000 TL.',
+    h1='Ehliyetsiz Araç Kullanmanın Cezası Nedir?', crumb='Ehliyetsiz Araç',
+    card='Ehliyetsiz, geri alınmış ya da iptal edilmiş ehliyetle araç kullanmak.',
+    lead='Motorlu aracı ehliyeti olmayan birinin kullanması da, kullanmasına izin verilmesi de yasaktır. 2026 değişikliğiyle bu cezalar önemli ölçüde arttı. Bilgiler Karayolları Trafik Kanunu’nun 36. maddesine dayanır.',
+    summary=[
+        'Ehliyeti olmadan motorlu araç kullanana 40.000 TL idari para cezası verilir.',
+        'Ehliyeti geri alınmışken ya da iptal edilmişken araç kullanana 200.000 TL idari para cezası verilir.',
+        'Aracının ehliyetsiz kişilerce kullanılmasına izin veren işletene de 40.000 TL ceza verilir.',
+    ],
+    body='''
+<h2>Kural</h2>
+<p>Motorlu araçlar; yönetmelikte sınıfları belirtilen ehliyete sahip sürücüler ile çok taraflı anlaşmalara göre ehliyeti olan ya da geçerli uluslararası sürücü belgesi bulunan kişilerce sürülebilir. Ehliyeti olmayanların araç kullanması ve kullanmasına izin verilmesi yasaktır (m.36).</p>
+
+<h2>Cezalar (2026)</h2>
+<ul>
+<li>Ehliyeti olmadan motorlu araç kullanana 40.000 TL.</li>
+<li>Mahkeme, savcılık ya da yetkililerce ehliyeti geçici veya tedbiren geri alınmışken araç kullanana 200.000 TL.</li>
+<li>Ehliyeti iptal edilmişken araç kullanana 200.000 TL.</li>
+<li>Bu kişilerin aracını kullanmasına izin veren işletene, tescil plakası üzerinden 40.000 TL.</li>
+</ul>
+<p>Ehliyet sahibinin, ehliyetinin sınıfı dışındaki bir aracı kullanması da yasaktır; bu durumda sürücüye ve araç sahibine ayrıca idari para cezası verilir (m.39).</p>
+
+<h2>Sertifika ve K belgesi ehliyet değildir</h2>
+<p>Sınavları geçince alınan sertifika ile kursta verilen K sınıfı sürücü aday belgesi, karayolunda tek başına araç kullanma yetkisi vermez. Ayrıntılar ''' + a('sertifika', 'sürücü sertifikası') + ''' ve ''' + a('kbelgesi', 'K sınıfı sürücü aday belgesi') + ''' yazılarımızda.</p>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Ehliyetsiz araç kullanmanın cezası ne kadar?',
+         'Kanunun 2026 metnine göre ehliyeti olmadan motorlu araç kullanana 40.000 TL idari para cezası verilir.'),
+        ('Ehliyeti geri alınmışken araç kullanılırsa ne olur?',
+         'Ehliyeti geçici olarak geri alınmışken ya da iptal edilmişken araç kullanana 200.000 TL idari para cezası verilir.'),
+        ('Ehliyetsiz birine aracımı verirsem ceza alır mıyım?',
+         'Evet. Aracın ehliyetsiz kişilerce kullanılmasına izin veren işletene tescil plakası üzerinden 40.000 TL idari para cezası verilir.'),
+    ],
+    sources=['ktk', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='kaza',
+    title='', desc='Trafik kazasında ne yapılmalı? Durmak, güvenlik önlemi, ilk yardım, bilgi paylaşımı, maddi hasarlı kazada tutanak ve olay yerinden ayrılmanın cezası.',
+    h1='Trafik Kazasında Ne Yapılmalı?', crumb='Trafik Kazası',
+    card='Kaza anında yükümlülükler, tutanak ve olay yerinden ayrılma.',
+    lead='Trafik kazasına karışan sürücünün kanundan doğan yükümlülükleri vardır; bunlara uymamak ayrıca ceza gerektirir. Bilgiler Karayolları Trafik Kanunu’nun 81 ve 82. maddelerine dayanır.',
+    summary=[
+        'Kazaya karışan sürücü hemen durmalı, güvenlik önlemi almalı ve kaza yerindeki durumu değiştirmemelidir.',
+        'Yalnız maddi hasarlı kazada taraflar yetkili çağırmadan durumu aralarında yazılı olarak tespit edip ayrılabilir.',
+        'Ölümlü veya yaralanmalı kazada izin almadan olay yerinden ayrılan sürücüye 1-3 yıl hapis cezası verilir.',
+    ],
+    body='''
+<h2>Kazaya karışan sürücünün yükümlülükleri</h2>
+<ol>
+<li>Trafik için ek tehlike yaratmadan hemen durmak ve kaza yerinde güvenlik önlemlerini almak.</li>
+<li>Ölen, yaralanan veya maddi hasar varsa, trafiği ve can güvenliğini etkilemiyorsa kanıt ve izler dahil kaza yerindeki durumu değiştirmemek.</li>
+<li>İstenirse kimliğini, adresini, ehliyet ve ruhsat bilgilerini, sigorta poliçesinin tarih ve numarasını bildirmek.</li>
+<li>Kazayı yetkililere bildirmek, gelene kadar ya da izinleri olmadan kaza yerinden ayrılmamak.</li>
+<li>Sahibi yokken bir araca veya eşyaya zarar verdiyse sahibini bulmak; bulamazsa zarar verdiği şeyin üzerine yazılı bilgi bırakmak ve en kısa zamanda zabıtaya haber vermek.</li>
+</ol>
+<p>Kaza yerinden geçen ya da kazaya karışan sürücüler ilk yardım önlemlerini almak, en yakın zabıtaya veya sağlık kuruluşuna haber vermek ve yetkililer isterse yaralıları sağlık kuruluşuna götürmekle yükümlüdür (m.82). İlk yardım dersi bu yüzden sürücü kursunun zorunlu derslerindendir.</p>
+
+<h2>Maddi hasarlı kazada tutanak</h2>
+<p>Yalnız maddi hasar olan kazalarda, kazaya karışanların tümü yetkili çağırmaya gerek görmezse durumu aralarında yazılı olarak tespit ederek kaza yerinden ayrılabilir (m.81).</p>
+
+<h2>Olay yerinden ayrılmanın cezası</h2>
+<p>Anlaşma hâli dışında zabıtanın iznini almadan, zaruret dışında olay yerinden ayrılan ya da kaza yerindeki durumu değiştiren sürücüye 46.000 TL idari para cezası verilir. Ölümlü veya yaralanmalı kazada izin almadan olay yerinden ayrılan sürücüye bir yıldan üç yıla kadar hapis cezası verilir.</p>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Trafik kazasında ilk ne yapılır?',
+         'Trafik için ek tehlike yaratmadan hemen durulur, kaza yerinde güvenlik önlemleri alınır, yaralı varsa ilk yardım önlemleri alınıp en yakın zabıtaya veya sağlık kuruluşuna haber verilir.'),
+        ('Maddi hasarlı kazada polis çağırmak zorunlu mu?',
+         'Yalnız maddi hasar varsa ve kazaya karışanların tümü gerek görmezse, durumu aralarında yazılı olarak tespit ederek kaza yerinden ayrılabilirler.'),
+        ('Kaza yerinden ayrılmanın cezası nedir?',
+         'Anlaşma dışında izin almadan ayrılana 46.000 TL idari para cezası verilir; ölümlü veya yaralanmalı kazada ayrılana 1-3 yıl hapis cezası verilir.'),
+    ],
+    sources=['ktk', 'kabahat'],
+))
+
+PAGES.append(dict(
+    key='itiraz',
+    title='', desc='Trafik cezasına nasıl itiraz edilir? 15 gün içinde sulh ceza hâkimliği, bir ay içinde ödemede yüzde 25 indirim, gecikme faizi ve taksit.',
+    h1='Trafik Cezasına Nasıl İtiraz Edilir?', crumb='Trafik Cezası İtirazı',
+    card='İtiraz süresi, yüzde 25 indirim, ödeme ve gecikme faizi.',
+    lead='Trafik idari para cezasına itiraz etmek de, cezayı indirimli ödemek de belirli sürelere bağlıdır. Bilgiler Kabahatler Kanunu’nun 17 ve 27. maddelerine ve Karayolları Trafik Kanunu’nun 115 ve 116. maddelerine dayanır.',
+    summary=[
+        'İtiraz, cezanın tebliğinden itibaren en geç 15 gün içinde sulh ceza hâkimliğine dilekçeyle yapılır.',
+        'Ceza, tebliğden itibaren bir ay içinde ödenirse yüzde 25 indirim yapılır; ödemek itiraz hakkını ortadan kaldırmaz.',
+        'Bir ay içinde ödenmeyen cezaya her ay yüzde 5 gecikme faizi eklenir; toplam, cezanın iki katını geçemez.',
+    ],
+    body='''
+<h2>İtiraz</h2>
+<ul>
+<li>İdari para cezasına karşı, kararın tebliğ veya tefhim tarihinden itibaren en geç 15 gün içinde sulh ceza hâkimliğine başvurulabilir. Süresinde başvurulmazsa karar kesinleşir.</li>
+<li>Başvuru, kişinin kendisi, kanuni temsilcisi veya avukatı tarafından iki nüsha dilekçeyle yapılır. Dilekçede karara ilişkin bilgiler ve deliller açıkça gösterilir.</li>
+<li>Mücbir sebeple süre kaçırıldıysa, sebebin ortadan kalktığı tarihten itibaren en geç 7 gün içinde başvurulabilir (Kabahatler Kanunu m.27).</li>
+</ul>
+
+<h2>Ödeme ve indirim</h2>
+<ul>
+<li>Trafik cezası, tutanağın tebliğinden itibaren bir ay içinde ödenmelidir (KTK m.115).</li>
+<li>Ödeme süresi içinde ödenen cezadan yüzde 25 indirim yapılır; ödeme yapmak itiraz hakkını etkilemez (Kabahatler Kanunu m.17/6).</li>
+<li>Bir ay içinde ödenmeyen cezaya her ay yüzde 5 faiz uygulanır; bulunan tutar cezanın iki katını geçemez.</li>
+<li>Cezalar vergi dairelerine, muhasebe birimlerine, yetkili bankalara ve PTT’ye ödenebilir.</li>
+<li>Kişinin ekonomik durumu müsait değilse, ilk taksit peşin ödenmek koşuluyla bir yıl içinde dört eşit taksitte ödenmesine karar verilebilir (Kabahatler Kanunu m.17/3).</li>
+</ul>
+
+<h2>Plakaya yazılan cezalar</h2>
+<p>Sürücüsü tespit edilemeyen araçlara plakaya göre tutanak düzenlenir ve tebligat trafik kaydında araç sahibi görünen kişiye posta yoluyla yapılır (KTK m.116).</p>
+''' + TUTAR_NOTU,
+    faq=[
+        ('Trafik cezasına itiraz süresi kaç gün?',
+         'Kabahatler Kanunu’na göre cezanın tebliğinden itibaren en geç 15 gün içinde sulh ceza hâkimliğine başvurulabilir.'),
+        ('Trafik cezasında yüzde 25 indirim var mı?',
+         'Evet. Ceza tebliğden itibaren bir aylık ödeme süresi içinde ödenirse yüzde 25 indirim yapılır; ödeme, itiraz hakkını etkilemez.'),
+        ('Trafik cezası geç ödenirse ne olur?',
+         'Bir ay içinde ödenmeyen cezaya her ay yüzde 5 faiz uygulanır; toplam tutar cezanın iki katını geçemez.'),
+    ],
+    sources=['kabahat', 'ktk'],
+))
+
+# Ek SSS: her yazı en az 5 soru (Ahmet 29.09: "en az 4-5 tane olsun").
+# Cevaplar yalnız yazının gövdesinde kaynağıyla verilen bilgilerden türetilir.
+EXTRA_FAQ = {
+'nasil': [('Ehliyet almak için hangi sınavlar geçilir?', 'Önce teorik dersleri ölçen 50 soruluk e-Sınav, ardından akan trafikte yapılan direksiyon sınavı geçilir.')],
+'siniflar': [('Ehliyet kaç yıl geçerlidir?', 'M, A1, A2, A, B1, B, BE, F ve G sınıfı ehliyetler 10 yıl; C1, C1E, C, CE, D1, D1E, D ve DE sınıfı ehliyetler 5 yıl geçerlidir.')],
+'belgeler': [('Ehliyet başvurusunda nüfus müdürlüğü neler ister?', 'Kimlik belgesi, sürücü sertifikası, öğrenim belgesi, sürücü sağlık raporu, harç ve vakıf payı, biyometrik fotoğraf, kan grubu belgesi veya beyanı ile adli sicil kaydı istenir.')],
+'masraf': [('Uslu Sürücü Kursu’nun ücreti ne kadar?', 'Kurs ücreti seçilen eğitime göre değişir ve sabit liste yayımlanmaz; güncel ücret için 0532 068 56 47 numarasından ya da iletişim sayfasından teklif alınır.')],
+'otomatik': [('e-Sınav’dan sonra vites türünü değiştirebilir miyim?', 'Evet. e-Sınav’ı geçen kursiyer, direksiyon ders planlaması yapılmadan önce yazılı başvuruyla aynı sınıfın manuel ya da otomatik seçeneğine geçebilir.')],
+'kalirsam': [('Sınav hakkım biterse ne olur?', 'Haklarını başarısız tamamlayan aday kursa yeniden kayıt yaptırabilir; teorik sınavı geçmişse üç yıl içinde kayıtta teorik eğitim ve sınavdan muaf olur.')],
+'motor': [('B ehliyetle A1 için kaç saat ders alınır?', 'A1 sınıfı için öngörülen direksiyon eğitim saatinin yarısı kadar ders alınır; A1 için akan trafikte en az 12 saat öngörüldüğünden bu yolda eğitim yarısı kadardır.')],
+'korku': [('Ehliyeti olanlar için teorik ders var mı?', 'Yönetmeliğe göre bu kursiyerlere trafik adabı dersi ile ihtiyaç duydukları kadar direksiyon dersi verilir.'),
+          ('Uslu Sürücü Kursu’nda ehliyeti olanlara ders veriliyor mu?', 'Evet. Trafiğe yeniden çıkış, park ve araç kontrolünü pekiştirmek isteyenler için özel direksiyon dersi veriyoruz; ders planı mevcut deneyime göre birlikte oluşturulur.')],
+'sincan': [('Sincan’da ehliyet başvurusu nereye yapılır?', 'Randevuyla, sertifikanın alındığı yerden bağımsız olarak yetkili nüfus müdürlüklerinden birine yapılır; belge PTT ile ücretsiz olarak adrese gönderilir.')],
+'ankara': [('Ankara’da sürücü olur raporu nereden alınır?', 'Ankara’daki aile sağlığı merkezlerinden, Sağlık Bakanlığına ve üniversitelere bağlı hastanelerden ya da muayenehane dışındaki özel sağlık kuruluşlarından alınabilir.')],
+'yenileme': [('Ehliyet yenilemek için nereye başvurulur?', 'Randevu alınarak yetkili nüfus müdürlüklerinden birine başvurulur; randevu randevu.nvi.gov.tr, e-Devlet, NVİ Mobil veya Alo 199 üzerinden alınır.'),
+             ('Eski tip ehliyetler hâlâ geçerli mi?', 'NVİ’ye göre eski tip ehliyetler Kasım 2025 itibarıyla geçerliliğini kaybetmiştir; bu belgelerle araç kullananların ehliyeti geri alınır.')],
+'kayip': [('Kayıp ehliyet için nereye başvurulur?', 'Randevu alınarak yetkili nüfus müdürlüklerinden birine başvurulur; başvuru bizzat yapılır, vekaletle işlem yapılmaz.'),
+          ('Ad soyadım değişti, ehliyeti değiştirmem gerekir mi?', 'Evet. NVİ’ye göre ad ve soyadı gibi kişisel bilgiler değiştiğinde değerli kâğıt bedeli ve vakıf payı ödenerek ehliyet yenilenmelidir.')],
+'yurtdisi': [('Yabancılar yurt dışı ehliyetiyle Türkiye’de ne kadar araç kullanabilir?', 'NVİ’ye göre yabancılar yurt dışından alınan ehliyetle Türkiye’de 6 ay araç kullanabilir.'),
+             ('Yurt dışı ehliyetim varsa başka sınıf için kursa yazılabilir miyim?', 'Önce yurt dışı ehliyeti Türk ehliyetiyle değiştirmeniz gerekir; farklı bir sınıf için kursa ondan sonra kayıt olunur.')],
+'aday': [('Aday sürücü alkol sınırı kaç promil?', 'Aday sürücülerde araç cinsine bakılmaksızın 0.20 promilin üzerinde alkollü araç kullanmak aday belgenin iptaline yol açar.'),
+         ('Aday belgesi iptal edilen yeniden nasıl ehliyet alır?', 'Sürücü kursuna devam edip sınavları yeniden geçmesi gerekir; kursa başlamak için psikoteknik değerlendirme ve psikiyatri belgesi, cezaların ödenmiş olması ve bekleme sürelerinin geçmiş olması aranır.')],
+'ceza': [('Ceza puanıyla geri alınan ehliyet için eğitim var mı?', 'Evet. 100 ceza puanı nedeniyle ehliyeti 2 ay geri alınan sürücü eğitime alınır ve bu sürede sürücü kursunda teorik derslerin tamamına devam eder.'),
+         ('Ölümlü kazada ehliyet ne kadar geri alınır?', 'Ölümle sonuçlanan trafik kazasına asli kusurlu olarak sebep olan sürücünün ehliyeti 1 yıl süreyle geri alınır.')],
+'rapor': [('Sürücü raporunda hangi muayeneler yapılır?', 'Yönetmelik göz, iç hastalıkları, kulak burun boğaz, ortopedi, ruh ve sinir hastalıkları muayenelerine ilişkin esasları belirler; gerekirse uzman hekime yönlendirme yapılır.'),
+          ('Sürücü raporuna itiraz edilebilir mi?', 'Evet. Kişinin adına düzenlenen rapora itiraz hakkı vardır; itiraz usullerini Sağlık Bakanlığı belirler.')],
+'motosiklet': [('Motor ehliyeti için kaç saat ders gerekir?', 'A1 ve A2 için akan trafikte en az 12 saat, A2 deneyimiyle A için 6 saat, 24 yaşını dolduranların A sınıfı için 12 saat direksiyon dersi alınır.'),
+               ('Uslu Sürücü Kursu’nda motor ehliyeti var mı?', 'Evet. Ankara Sincan’daki kursumuzda A1 ve A2 motosiklet ehliyeti eğitimleri verilir.')],
+'ekleme': [('Sınıf eklemede direksiyon sınavı var mı?', 'Evet. Tablodaki saat kadar ders alındıktan sonra kursun uygun görmesiyle direksiyon sınavına girilir; başarılı olana yeni sınıfın sertifikası verilir.'),
+           ('A2 ehliyetime A eklemek için kaç saat ders gerekir?', 'Yönetmelikteki tabloya göre A2 sahibinin A eklemesi için akan trafikte 6 saat direksiyon dersi alınır.')],
+'ozel': [('Özel tertibat komisyonunda kimler bulunur?', 'İlgili branş uzmanları, ortopedi ve travmatoloji, fiziksel tıp ve rehabilitasyon ve nöroloji uzmanları ile bir makine mühendisi bulunur.'),
+         ('Uslu Sürücü Kursu’nda özel gereksinimli eğitim var mı?', 'Evet. Kursumuzda özel gereksinimli A-B sınıfı eğitimi verilir; eğitim ve araç uygunluğu adaya göre bireysel değerlendirilir.')],
+'randevu': [('Randevuya geç kalırsam ne olur?', 'Randevu saatinden 30 dakika önce ile 60 dakika sonrası arasında sıra alınabilir; 60 dakikayı geçirenlerin başvurusu alınmaz.'),
+            ('Ehliyet kargo ücreti var mı?', 'Hayır. Ehliyet başvuruda belirtilen adrese PTT güvenli taşıma hizmetiyle gönderilir ve gönderim ücretsizdir.')],
+'kayitdonemi': [('Sürücü kursunda teorik dersler günde kaç saat?', 'Kurslarda günde en az 2, en çok 6 saat teorik ders yapılır.'),
+                ('Bir araç için kaç kursiyer kaydedilir?', 'Bir dönemde bir direksiyon eğitim ve sınav aracı için en fazla 12 kursiyer kaydedilir.')],
+'devamsizlik': [('Direksiyon telafi dersleri ücretli mi?', 'Evet. Yönetmeliğe göre direksiyon telafi programlarında kursiyerden devam ettiği derslerin ücreti alınır.'),
+                ('Teorik derslerin toplam süresi kaç saat?', 'Bütün sınıflarda teorik dersler 34 saattir: trafik ve çevre 16, ilk yardım 8, araç tekniği 6, trafik adabı 4 saat.')],
+'nakil': [('Nakil olursam sınav hakkım ne olur?', 'Direksiyon sınavının ilk dört hakkında başarısız olup nakil olan kursiyere, yeni kursta sınıfın ders saati kadar eğitimden sonra ikinci dört sınav hakkı kullandırılır.'),
+          ('Nakil olunca hangi döneme kaydolunur?', 'Nakil olan kursiyer, kayıtlı olduğu dönemden sonraki döneme, naklini istediği kursun kontenjanına dahil edilerek kaydedilir.')],
+'direksiyon': [('Gece direksiyon dersi zorunlu mu?', 'Evet. Çoğu sınıfta akan trafikte en az 2 saat gece sürüşü zorunludur; sağlık raporunda gece kısıtı olanlara gece dersi verilmez.'),
+               ('Uslu Sürücü Kursu’nda direksiyon eğitimi nerede verilir?', 'Ankara Sincan’daki kursumuzun direksiyon dersleri OSB Törekent parkurunda yapılır, ardından akan trafikte devam edilir.')],
+'kbelgesi': [('K belgesi ehliyet yerine geçer mi?', 'Hayır. K sınıfı sürücü aday belgesi ehliyet değildir; yalnız kurstaki eğitim ve sınav için kullanılır.'),
+             ('K belgesi ne zaman verilir?', 'Akan trafikte direksiyon eğitimi başladığında kurs müdürlüğünce düzenlenir.')],
+'sertifika': [('Sertifika e-Devlet’te ne zaman görünür?', 'Sınavları geçen adayın sertifikası elektronik olarak düzenlenir ve e-Devlet üzerinden erişilir; bilgileri ayrıca NVİ’ye iletilir.'),
+              ('Sertifikayı ehliyete çevirmek için ne ödenir?', 'Nüfus müdürlüğünde sınıfın harcı, değerli kâğıt bedeli ve vakıf payı ödenir; 2026’da B sınıfı için toplam 8.869,60 TL’dir.')],
+'esinavkural': [('e-Sınava saat takılabilir mi?', 'Hayır. Kılavuza göre her türlü saat sınav binasına alınmaz.'),
+                ('e-Sınava kaç dakika önce gidilmeli?', 'Adaylar sınav saatinden en geç 30 dakika önce e-Sınav salonunda hazır bulunmalıdır.')],
+'esinavitiraz': [('e-Sınav itirazı nereden yapılır?', 'İtiraz ücreti yatırıldıktan sonra MEB e-İtiraz Modülü (eitiraz.meb.gov.tr) üzerinden yapılır.'),
+                 ('e-Sınav soruları yayımlanır mı?', 'Hayır. Kılavuza göre sınav soruları ve cevapları yayımlanmaz.')],
+'geripark': [('Direksiyon sınavında geri parktan sonra ne yapılır?', 'Şerit içinde 25 metre geri gitme, geri giderken sağa dönüş, dar alanda en fazla üç hamlede geri dönüş, azami hıza ulaşma ve 30 km/s hızda ani fren yapılır.'),
+             ('Geri parkta konilere değersem ne olur?', 'Yönetmelik aracın kaldırıma ve konilere değmeden park edilmesini ister; değerlendirmeyi sınav komisyonu formdaki ölçütlere göre yapar.')],
+'motorsinav': [('Motor sınavında denge çizgisi ne kadar?', 'Denge çizgisi 20 metre uzunluğunda ve 20 cm genişliğindedir; B1 sınıfında bu aşama yoktur.'),
+               ('Motor sınavı trafikte de yapılır mı?', 'Evet. Sınav alanında başarılı olan adayın sınavı güzergâhta, akan trafikte devam eder.')],
+'mazeret': [('e-Sınava girmezsem ücret iade edilir mi?', 'Hayır. Randevu alıp sınava girmeyen aday ücret iadesi isteyemez ve bir sınav hakkını kullanmış sayılır.'),
+            ('Hamilelik nedeniyle sınava giremezsem ne olur?', 'Doktor raporuyla 10 gün içinde kursa yazılı bildirim yapılırsa kayıt dondurulur ve kalan haklar rapor süresi bitince kullandırılır.')],
+'yas16': [('16 yaşında otomobil ehliyeti alınır mı?', 'Hayır. B sınıfı otomobil ehliyeti için 18 yaşını bitirmiş olmak gerekir.'),
+          ('A1 ehliyetle moped kullanılır mı?', 'Evet. Karayolları Trafik Yönetmeliği’ne göre A1 ehliyetiyle M sınıfı araçlar, yani mopedler de kullanılabilir.')],
+'romork': [('BE ehliyeti harcı ne kadar?', '2026’da BE sınıfı harcı 11.271,20 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 13.386,20 TL ödenir.'),
+           ('C ve D ehliyetle hafif römork takılır mı?', 'Evet. B, C, C1, D ve D1 sınıfı ehliyet sahipleri azami yüklü ağırlığı 750 kg’a kadar hafif römork takabilir.')],
+'kamyon': [('C ehliyetle otomobil kullanılır mı?', 'Evet. C sınıfı ehliyetle M, B, B1, C1 ve F sınıfı araçlar da kullanılabilir.'),
+           ('Kamyon ehliyeti harcı ne kadar?', '2026’da C1 ve C sınıfı harcı 11.271,20 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 13.386,20 TL ödenir.')],
+'otobus': [('Minibüs ehliyeti hangi sınıf?', 'Minibüs için D1 sınıfı ehliyet gerekir; 21 yaş ve B ehliyeti şarttır. D sınıfı ise minibüs ve otobüsü kapsar.'),
+           ('D ehliyetle otomobil kullanılır mı?', 'Evet. D sınıfı ehliyetle M, B, B1, D1 ve F sınıfı araçlar da kullanılabilir.')],
+'traktor': [('Traktör ehliyeti için kaç saat ders gerekir?', 'F sınıfında akan trafikte en az 12 saat direksiyon dersi alınır; en az 2 saati gece sürüşüdür.'),
+            ('Traktör otoyola girebilir mi?', 'Hayır. Yönetmelikteki hız tablosunda lastik tekerlekli traktörlerin otoyola giremeyeceği belirtilir.')],
+'ismakinesi': [('İş makinesi ehliyeti kaç yıl geçerlidir?', 'G sınıfı ehliyet 10 yıl geçerlidir.'),
+               ('G ehliyeti harcı ne kadar?', '2026’da G sınıfı harcı 11.271,20 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 13.386,20 TL ödenir.')],
+'sabika': [('Yalan beyanda bulunursam ne olur?', 'Gerçeğe aykırı beyanda bulunduğu tespit edilen kursiyer sınava alınmaz; sınava girmişse sınavı geçersiz sayılır ve kaydı silinir.'),
+           ('Nüfus müdürlüğü adli sicili kontrol eder mi?', 'Evet. Ehliyet başvurusunda adli sicil kaydı sistemden kontrol edilir.')],
+'diploma': [('Diploma aslı gerekli mi?', 'Kurs, diploma veya öğrenim belgesinin aslını görerek onaylı örneğini alır.'),
+            ('Nüfus müdürlüğü öğrenim belgesi ister mi?', 'Evet. Ehliyet başvurusunda öğrenim belgesi istenir ve sistemden kontrol edilir.')],
+'yabanci': [('Yabancılar için kurs kaydında hangi belgeler istenir?', 'Pasaportun noter tasdikli Türkçe tercümesi veya geçici koruma kimlik belgesi, en az altı aylık ikamet izni ya da vize, öğrenim belgesinin tercümesi, sürücü olur raporu, biyometrik fotoğraf ve adli sicil belgesi istenir.'),
+            ('Geçici koruma altındakiler e-Sınava nerede girer?', 'Geçici koruma kimlik belgesi olan adaylar e-Sınav’a yalnız belgede yazan ikamet ilinde girebilir.')],
+'fotograf': [('Ehliyet fotoğrafı kaç aylık olmalı?', 'Fotoğraf son altı ay içinde çekilmiş olmalıdır.'),
+             ('Kayıtta fotoğrafım yanlış girilirse düzeltilir mi?', 'Kayıt bilgileri kursiyere onaylatılır; fotoğrafı veya bilgileri hatalı girilen kursiyerde o eğitim döneminde düzeltme yapılmaz.')],
+'psikoteknik': [('Hız ihlalinde psikoteknik ne zaman istenir?', 'Bir yıl içinde beşinci kez hız nedeniyle geri alınan ehliyet, psikoteknik değerlendirme ve psikiyatri muayenesinden sonra iade edilir.'),
+                ('Kırmızı ışık ihlalinde psikoteknik istenir mi?', 'Evet. Bir yıl içinde üç, dört veya beş ihlalde geri alınan ehliyet süre sonunda psikoteknik değerlendirmede engel çıkmazsa iade edilir.')],
+'alkol': [('Alkollü araç kullanan sürücü hapis cezası alır mı?', '1.00 promilin üzerinde alkollü olanlar hakkında ayrıca Türk Ceza Kanunu’nun 179/3 maddesi uygulanır; kazaya sebep olanlar hakkında da ceza kanunu hükümleri uygulanır.'),
+          ('Alkol nedeniyle geri alınan ehliyet ne zaman iade edilir?', 'Geri alma süresi dolduğunda ve kanun kapsamındaki idari para cezalarının tamamı ödenmişse iade edilir.')],
+'hiz': [('Şehir içinde 10 km/s hız aşmanın cezası ne kadar?', 'Kanunun 2026 metnine göre yerleşim yeri içinde 6-10 km/s aşan sürücüye 2.000 TL idari para cezası verilir.'),
+        ('Radar dedektörü kullanmak yasak mı?', 'Evet. Hız ölçen cihazların yerini tespit eden veya sürücüyü uyaran cihazları araçta bulundurmak yasaktır.')],
+'kirmizi': [('Kırmızı ışıkta 6 kez geçen ne zaman yeniden ehliyet alır?', 'Cezaların tamamı ödenmiş olmalı, iptalden itibaren en az bir yıl geçmeli ve psikoteknik değerlendirmeden sonra kurs ile sınavlar yeniden tamamlanmalıdır.'),
+            ('Dur ihtarına uymamanın cezası nedir?', 'Dur ihtarına uymayıp kaçan sürücüye 200.000 TL idari para cezası verilir; ehliyeti 60 gün geri alınır ve araç 60 gün trafikten men edilir.')],
+'telefon': [('Araçta telefonla konuşmak her durumda yasak mı?', 'Kanun, seyir hâlinde cep ve araç telefonu ile benzer haberleşme cihazlarının kullanılmasını yasaklar.'),
+            ('Araçtan çöp atmanın cezası var mı?', 'Evet. Araçlardan bir şey atılması da aynı maddeyle yasaktır; bu hükme uymayanlara 1.000 TL idari para cezası uygulanır.')],
+'ehliyetsiz': [('Ehliyet sınıfım dışında araç kullanırsam ne olur?', 'Ehliyetin sınıfı dışındaki aracı kullanmak yasaktır; sürücüye ve aracı kullandıran araç sahibine idari para cezası verilir.'),
+               ('Sertifikayla araç kullanmak ehliyetsiz sayılır mı?', 'Sertifika, ehliyetle değiştirilmedikçe karayolunda araç kullanma yetkisi vermez.')],
+'kaza': [('Kazada sigorta bilgisi vermek zorunlu mu?', 'Evet. İstenirse kimlik, adres, ehliyet ve ruhsat bilgileri ile sigorta poliçesinin tarih ve numarası bildirilir.'),
+         ('Park hâlindeki araca çarparsam ne yapmalıyım?', 'Aracın sahibini bulmalı; bulamazsanız durumu tespit edip araç üzerine yazılı bilgi bırakmalı ve en kısa zamanda zabıtaya haber vermelisiniz.')],
+'itiraz': [('Trafik cezasına itiraz nereye yapılır?', 'İtiraz, cezanın tebliğinden itibaren en geç 15 gün içinde sulh ceza hâkimliğine dilekçeyle yapılır.'),
+           ('Trafik cezası taksitle ödenir mi?', 'Kişinin ekonomik durumu müsait değilse, ilk taksit peşin ödenmek koşuluyla bir yıl içinde dört eşit taksitte ödenmesine karar verilebilir.')],
+}
+for _p in PAGES:
+    _p['faq'] = _p['faq'] + EXTRA_FAQ.get(_p['key'], [])
+
 # Gruplar: merkez sayfadaki bölümler ve "diğer yazılar" bağlantıları buna göre.
 GROUPS = [
-    ('Ehliyet almak', ['nasil', 'ankara', 'siniflar', 'belgeler', 'rapor', 'masraf', 'randevu', 'sincan']),
-    ('Eğitim ve sınavlar', ['sinav', 'kalirsam', 'otomatik', 'motosiklet', 'motor', 'ekleme', 'ozel', 'korku']),
-    ('Ehliyet aldıktan sonra', ['yenileme', 'kayip', 'aday', 'ceza', 'yurtdisi']),
+    ('Ehliyet almak', ['nasil', 'ankara', 'sincan', 'belgeler', 'rapor', 'sabika', 'diploma', 'yabanci', 'fotograf', 'masraf', 'randevu']),
+    ('Kurs ve dersler', ['kayitdonemi', 'devamsizlik', 'nakil', 'direksiyon', 'kbelgesi', 'sertifika', 'otomatik', 'korku']),
+    ('Sınavlar', ['sinav', 'esinavkural', 'esinavitiraz', 'geripark', 'motorsinav', 'kalirsam', 'mazeret']),
+    ('Ehliyet sınıfları', ['siniflar', 'yas16', 'motosiklet', 'motor', 'romork', 'kamyon', 'otobus', 'traktor', 'ismakinesi', 'ekleme', 'ozel']),
+    ('Ehliyet aldıktan sonra', ['yenileme', 'kayip', 'aday', 'yurtdisi', 'psikoteknik']),
+    ('Trafik kuralları ve cezalar', ['ceza', 'alkol', 'hiz', 'kirmizi', 'telefon', 'ehliyetsiz', 'kaza', 'itiraz']),
 ]
 # Footer'daki "Rehber" bölümünde görünen yazılar (tümü için merkez sayfa bağlantısı ayrıca var).
 FOOTER = ['ankara', 'nasil', 'belgeler', 'sinav', 'masraf', 'siniflar', 'rapor', 'yenileme', 'motosiklet', 'kalirsam', 'sincan']
@@ -1203,7 +2432,7 @@ FOOTER = ['ankara', 'nasil', 'belgeler', 'sinav', 'masraf', 'siniflar', 'rapor',
 
 HUB = dict(
     title='Ehliyet Rehberi: Belgeler, Sınavlar ve Masraflar | Uslu',
-    desc='Ehliyet nasıl alınır, hangi belgeler gerekir, e-Sınav ve direksiyon sınavı nasıl yapılır, 2026 harçları ne kadar? Sincan’daki Uslu Sürücü Kursu’ndan resmî kaynaklı rehber.',
+    desc='Ankara ve Sincan için resmî kaynaklı ehliyet rehberi: 50 yazıda belgeler, sınavlar, 2026 masrafları, ehliyet sınıfları ve trafik cezaları.',
     h1='Ehliyet Rehberi',
     lead='Ehliyet sürecinde en çok sorulan soruları resmî kaynaklara dayanarak yanıtladık: MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği, MEB 2026 e-Sınav Kılavuzu, Karayolları Trafik Yönetmeliği, Sürücü Sağlık Yönetmeliği ve Nüfus ve Vatandaşlık İşleri Genel Müdürlüğü. Her yazının sonunda kaynaklarını bulabilirsiniz.',
     quick=[

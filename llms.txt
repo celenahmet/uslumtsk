@@ -41,7 +41,7 @@ Uslu Driving School is a driving school in Sincan, Ankara, Türkiye. An English 
 - Fiyat: eğitim programına göre değişir; telefonla ya da sitedeki asistandan teklif alınır.
 - Adres tarifi: 2. Noterin üst katı, Atatürk Caddesi, Sincan.
 
-## Ehliyet Rehberi (Ankara ve Sincan için resmî kaynaklı bilgi bankası)
+## Ehliyet Rehberi (Ankara ve Sincan için resmî kaynaklı bilgi bankası, 50 yazı)
 
 Tüm yazılar 29.09.2026 tarihli resmî metinlere dayanır: MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği, MEB 2026 e-Sınav Kılavuzu, Karayolları Trafik Yönetmeliği, Sürücü Sağlık Yönetmeliği ve NVİ.
 
@@ -67,6 +67,35 @@ Tüm yazılar 29.09.2026 tarihli resmî metinlere dayanır: MEB Özel Motorlu Ta
 - [Ehliyete sınıf ekleme](https://uslusurucukursu.com/rehber/ehliyete-sinif-ekleme/): B sahibi için akan trafikte BE 6, C1 10, C 20, D1 7, D 14 saat; A1, A2, A için 12 saat.
 - [Özel gereksinimli sürücü adayları](https://uslusurucukursu.com/rehber/ozel-gereksinimli-surucu-adaylari/): özel tertibat raporu için il sağlık müdürlüğü komisyonu, kodların ehliyete yazılması, raporda belirtilen araçla eğitim ve sınav.
 - [Ehliyet randevusu ve başvurusu](https://uslusurucukursu.com/rehber/ehliyet-randevusu/): randevu kanalları, randevudan 30 dk önce ile 60 dk sonra arası sıra, vekalet yok, PTT ile ücretsiz teslim.
+- [Sürücü Kursuna Ne Zaman Kayıt Olunur?](https://uslusurucukursu.com/rehber/surucu-kursu-kayit-donemleri/): Eğitim dönemleri her ayın ilk on günü içinde, kursun belirlediği tarihlerde başlar.
+- [Sürücü Kursunda Devamsızlık Hakkı Var mı?](https://uslusurucukursu.com/rehber/surucu-kursu-devamsizlik/): Teorik derslerin toplam saatinin beşte birinden fazlasına katılmayan kursiyerin kaydı silinir.
+- [Sürücü Kursu Değiştirilebilir mi?](https://uslusurucukursu.com/rehber/surucu-kursu-degistirme/): Kurs kapanırsa ya da kapatılırsa kayıtlı kursiyerler il sınırları içinde başka kurslara nakledilir.
+- [Direksiyon Dersi Kaç Saat, Nasıl İşler?](https://uslusurucukursu.com/rehber/direksiyon-dersi/): Direksiyon dersleri teorik sınavı geçen kursiyerlerle başlar; önce eğitim alanında veya simülatörde en az 2 saat ders verilir.
+- [K Sınıfı Sürücü Aday Belgesi Nedir?](https://uslusurucukursu.com/rehber/k-sinifi-surucu-aday-belgesi/): K sınıfı sürücü aday belgesi, araç sürmeyi öğrenen adaylara eğitim ve sınavda kullanmak üzere verilir.
+- [Sürücü Sertifikası Nedir, Ne İşe Yarar?](https://uslusurucukursu.com/rehber/surucu-sertifikasi/): Sertifika elektronik olarak düzenlenir ve e-Devlet üzerinden görülür.
+- [e-Sınava Girerken Nelere Dikkat Edilmeli?](https://uslusurucukursu.com/rehber/e-sinav-kurallari/): Sınav saatinden en geç 30 dakika önce salonda olun; e-Sınav giriş belgesi ve geçerli kimlik belgesi olmadan sınava alınmazsınız.
+- [e-Sınav Sonucuna İtiraz Edilir mi?](https://uslusurucukursu.com/rehber/e-sinav-sonucu-itiraz/): Sonuç, sınav merkezindeki sonuç ekranından ya da oturum bittikten sonra esinav.meb.gov.tr adresinden öğrenilir; ayrıca tebligat yapılmaz.
+- [Direksiyon Sınavında Geri Park Nasıl Yapılır?](https://uslusurucukursu.com/rehber/direksiyon-sinavi-geri-park/): Araç, en az 100 cm yüksekliğindeki konilerin arasına geri geri ve tek hamlede girilerek park edilir; giremeyene bir hak daha verilir.
+- [Motosiklet Direksiyon Sınavı Nasıl Yapılır?](https://uslusurucukursu.com/rehber/motosiklet-direksiyon-sinavi/): Sınav alanında araç bilgisi soruları, dokuz koni arasında slalom, sekiz çizme, denge çizgisi ve dar alanda U dönüşü istenir.
+- [Ehliyet Sınavına Giremezsem Ne Olur?](https://uslusurucukursu.com/rehber/ehliyet-sinavi-mazeret/): Randevu alınan e-Sınav’a gelinmezse bir sınav hakkı kullanılmış sayılır.
+- [16 Yaşında Hangi Ehliyet Alınır?](https://uslusurucukursu.com/rehber/16-yasinda-ehliyet/): 16 yaşını bitirenler M, A1 ve B1 sınıfı ehliyet alabilir.
+- [B Ehliyetle Römork Çekilir mi?](https://uslusurucukursu.com/rehber/b-ehliyetle-romork/): B sınıfı ehliyetle azami yüklü ağırlığı 750 kg’a kadar (750 kg dahil) hafif römork takılabilir.
+- [Kamyon Ehliyeti (C Sınıfı) Nasıl Alınır?](https://uslusurucukursu.com/rehber/kamyon-ehliyeti/): C1: azami yüklü ağırlığı 3.500-7.500 kg arası kamyon ve çekiciler; 18 yaş ve B ehliyeti gerekir.
+- [Otobüs Ehliyeti (D Sınıfı) Nasıl Alınır?](https://uslusurucukursu.com/rehber/otobus-ehliyeti/): D1 minibüs için verilir; 21 yaş ve B ehliyeti gerekir.
+- [Traktör Ehliyeti (F Sınıfı) Nasıl Alınır?](https://uslusurucukursu.com/rehber/traktor-ehliyeti/): F sınıfı lastik tekerlekli traktör kullanacaklara verilir; 18 yaş gerekir.
+- [İş Makinesi Ehliyeti (G Sınıfı) Nasıl Alınır?](https://uslusurucukursu.com/rehber/is-makinesi-ehliyeti/): G sınıfı sertifika için kursa kayıt olabilmek için İş Makinesi Kullanma Yetki Belgesi (operatörlük belgesi) gerekir.
+- [Sabıka Kaydı Ehliyet Almaya Engel mi?](https://uslusurucukursu.com/rehber/sabika-kaydi-ehliyet/): Engel sayılan kayıtlar, yönetmelikte madde numaralarıyla sayılan suçlardan hüküm giymiş olmaktır.
+- [Diploma Olmadan Ehliyet Alınır mı?](https://uslusurucukursu.com/rehber/diplomasiz-ehliyet/): Ehliyet için en az ilkokul düzeyinde öğrenim görmüş olmak gerekir.
+- [Yabancılar Türkiye’de Nasıl Ehliyet Alır?](https://uslusurucukursu.com/rehber/yabancilar-icin-ehliyet/): Kayıt tarihinden itibaren Türkiye’de en az altı ay kalacağını gösteren ikamet izni, öğrenim vizesi veya çalışma izni gerekir.
+- [Ehliyet Fotoğrafı Nasıl Olmalı?](https://uslusurucukursu.com/rehber/ehliyet-fotografi/): Fotoğraf son altı ay içinde çekilmiş ve ICAO standartlarına uygun biyometrik olmalıdır.
+- [Psikoteknik Değerlendirme Ne Zaman İstenir?](https://uslusurucukursu.com/rehber/psikoteknik-degerlendirme/): Aday sürücü belgesi iptal edilenler ve ehliyeti iptal edilip yeniden kursa kayıt olanlar için psikoteknik değerlendirme ve psikiyatri muayenesi istenir.
+- [Alkollü Araç Kullanmanın Cezası Nedir?](https://uslusurucukursu.com/rehber/alkollu-arac-kullanma-cezasi/): Hususi otomobil sürücülerinde sınır 0.50 promil, diğer araçlarda 0.20 promildir.
+- [Hız Sınırları Nedir, Aşınca Ne Olur?](https://uslusurucukursu.com/rehber/hiz-siniri-cezasi/): Otomobilde genel sınırlar: yerleşim yeri içinde 50, şehirlerarası çift yönlü yolda 90, bölünmüş yolda 110, otoyolda 120 km/s.
+- [Kırmızı Işıkta Geçmenin Cezası Nedir?](https://uslusurucukursu.com/rehber/kirmizi-isik-cezasi/): Trafik ışıklarına uymayan sürücüye 5.000 TL idari para cezası verilir.
+- [Araç Kullanırken Telefon Cezası Nedir?](https://uslusurucukursu.com/rehber/arac-kullanirken-telefon-cezasi/): Seyir hâlinde telefon kullanan sürücüye 5.000 TL idari para cezası verilir.
+- [Ehliyetsiz Araç Kullanmanın Cezası Nedir?](https://uslusurucukursu.com/rehber/ehliyetsiz-arac-kullanma-cezasi/): Ehliyeti olmadan motorlu araç kullanana 40.000 TL idari para cezası verilir.
+- [Trafik Kazasında Ne Yapılmalı?](https://uslusurucukursu.com/rehber/trafik-kazasinda-ne-yapilmali/): Kazaya karışan sürücü hemen durmalı, güvenlik önlemi almalı ve kaza yerindeki durumu değiştirmemelidir.
+- [Trafik Cezasına Nasıl İtiraz Edilir?](https://uslusurucukursu.com/rehber/trafik-cezasina-itiraz/): İtiraz, cezanın tebliğinden itibaren en geç 15 gün içinde sulh ceza hâkimliğine dilekçeyle yapılır.
 
 ## Kurs hakkında
 
