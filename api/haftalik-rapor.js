@@ -362,9 +362,12 @@ module.exports = async function handler(req, res) {
   const mail = render(data, range, { test, sample: useSample });
   const payload = { from: FROM, to, subject: mail.subject, html: mail.html, text: mail.text };
   if (process.env.REPORT_REPLY_TO) payload.reply_to = process.env.REPORT_REPLY_TO;
+  // Cron'un aynı dakikadaki çift tetiklenmesi tek e-posta olur; panodan elle yeniden çalıştırma
+  // (Vercel → Cron Jobs → Run) bir sonraki saatte yeni e-posta gönderir.
+  const idemKey = 'rapor-' + isoDay(range.start) + '-' + new Date().toISOString().slice(0, 13) + (test ? '-test-' + Date.now() : '');
   const r = await fetchJson('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', 'Idempotency-Key': 'rapor-' + isoDay(range.start) + (test ? '-test-' + Date.now() : '') },
+    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', 'Idempotency-Key': idemKey },
     body: JSON.stringify(payload)
   }, 10000).catch(() => ({ ok: false, status: 0 }));
   if (!r.ok) {
