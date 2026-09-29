@@ -4010,3 +4010,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid #0049d0; outline-offs
 @media (prefers-reduced-motion:reduce){.video-track{display:none}.video-preview img{animation:none}.video-preview img+img{display:none}.video-play::before,.video-play::after{animation:none;opacity:0}}
 @media (max-width:991.98px){.video-area-grid{grid-template-columns:minmax(0,1fr);gap:28px}.video-area-text{text-align:center}.video-area-facts,.video-area-links{justify-content:center}.video-stage{max-width:440px;margin:0 auto}}
 @media (max-width:575.98px){.video-frame{width:min(270px,70%);border-radius:34px;padding:8px}.video-screen{border-radius:27px}.video-play{width:76px;height:76px}.video-play svg{width:28px;height:28px}.video-stage-card{width:38%;border-radius:18px}}
+
+/* Üst şeritte Instagram kullanıcı adı (Ahmet 30.09): simge + @uslu_surucu, yuvarlak düğme hap biçimine döner */
+.header-top-social a.has-handle {
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px 0 9px;
+  font-size: 14px;
+  font-weight: 500;
+}
