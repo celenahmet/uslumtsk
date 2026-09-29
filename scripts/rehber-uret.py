@@ -6,10 +6,45 @@ FAQPage yapısal verisi birlikte güncellenir. Sonra `npm run build` ve check.
 """
 import re, json, sys, os, html
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rehber_icerik import PAGES, HUB, SRC, R
+from rehber_icerik import PAGES, HUB, SRC, R, GROUPS, FOOTER
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/'
 BASE = 'https://uslusurucukursu.com'
+BY_KEY = {p['key']: p for p in PAGES}
+
+# ── Menü ve footer: rehber dışındaki tüm TR sayfalarda tek kaynaktan ──
+NAV_OLD = '<li class="nav-item"><a class="nav-link" href="/rehber/">EHLİYET REHBERİ</a></li>'
+NAV_NEW = '<li class="nav-item"><a class="nav-link" href="/rehber/">REHBER</a></li>'
+FT_OLD_LINK = '<li><a href="/rehber/"><i aria-hidden="true" class="fas fa-caret-right"></i> Ehliyet Rehberi</a></li>\n'
+FT_START, FT_END = '<!-- rehber footer -->', '<!-- rehber footer end -->'
+FT_ANCHOR = '</div>\n</div>\n<center>'
+
+def footer_block():
+    lis = ''.join('<li><a href="%s">%s</a></li>' % (R[k], BY_KEY[k]['h1']) for k in FOOTER)
+    return (FT_START + '<div class="footer-guide"><h2 class="footer-widget-title">Rehber</h2>'
+            '<ul class="footer-guide-list">%s<li><a class="footer-guide-all" href="/rehber/">Tüm rehber yazıları</a></li></ul></div>' % lis + FT_END + '\n')
+
+def tr_pages():
+    urls = re.findall(r'<loc>https://uslusurucukursu\.com/([^<]*)</loc>', open(ROOT + 'sitemap.xml', encoding='utf-8').read())
+    pages = [u + 'index.html' if u else 'index.html' for u in urls if not u.startswith('en/') and not u.startswith('rehber/')]
+    return pages + ['error/404/index.html', 'e-sinav/index.html']
+
+def sync_site_chrome():
+    for rel in tr_pages():
+        path = ROOT + rel
+        s = open(path, encoding='utf-8').read()
+        s = s.replace(NAV_OLD, NAV_NEW).replace(FT_OLD_LINK, '')
+        assert s.count(NAV_NEW) == 1, rel
+        if FT_START in s:
+            s = re.sub(re.escape(FT_START) + '.*?' + re.escape(FT_END) + '\n', lambda m: footer_block(), s, count=1, flags=re.S)
+        else:
+            assert s.count(FT_ANCHOR) == 1, rel
+            i = s.index(FT_ANCHOR)
+            s = s[:i] + footer_block() + s[i:]
+        assert s.count(FT_START) == 1, rel
+        open(path, 'w', encoding='utf-8').write(s)
+
+sync_site_chrome()
 TEMPLATE = open(ROOT + 'sss/index.html', encoding='utf-8').read()
 DATE = '2026-09-29'
 DATE_TR = '29 Eylül 2026'
@@ -71,7 +106,8 @@ CTA = ('<div class="guide-cta">\n<p><strong>Sincan’da ehliyet kursu mu arıyor
        '<a class="guide-cta-tel" href="tel:+905320685647">0532 068 56 47</a>\n</div>\n')
 
 def related_html(current):
-    lis = ''.join('<li><a href="%s">%s</a></li>' % (R[p['key']], p['h1']) for p in PAGES if p['key'] != current)
+    group = next(ks for _, ks in GROUPS if current in ks)
+    lis = ''.join('<li><a href="%s">%s</a></li>' % (R[k], BY_KEY[k]['h1']) for k in group if k != current)
     return ('<nav aria-label="Rehberdeki diğer yazılar" class="guide-related">\n<h2>Rehberdeki diğer yazılar</h2>\n<ul>%s</ul>\n'
             '<p><a href="/rehber/">Ehliyet Rehberi ana sayfası</a></p>\n</nav>\n') % lis
 
@@ -105,13 +141,15 @@ for p in PAGES:
     written.append(path)
 
 # Merkez sayfa
-cards = ''.join('<li><a href="%s"><strong>%s</strong><span>%s</span></a></li>' % (R[p['key']], p['h1'], p['card']) for p in PAGES)
+def cards_for(keys):
+    return ''.join('<li><a href="%s"><strong>%s</strong><span>%s</span></a></li>' % (R[k], BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys)
+cards = ''.join('<h2>%s</h2>\n<ul class="guide-cards">%s</ul>\n' % (name, cards_for(keys)) for name, keys in GROUPS)
 quick = ''.join('<h3>%s</h3>\n<p>%s <a href="%s">Ayrıntılar</a></p>\n' % (q, ans, R[k]) for q, ans, k in HUB['quick'])
 main = (breadcrumb_html(HUB['h1'], [('Ehliyet Rehberi', '/rehber/')]) +
         '<div class="guide-area py-120">\n<div class="container">\n<div class="legal-text guide-text">\n'
         '<p class="guide-meta">Son güncelleme: %s · Hazırlayan: Uslu Sürücü Kursu</p>\n' % DATE_TR +
         '<p class="legal-lead">%s</p>\n' % HUB['lead'] +
-        '<h2>Yazılar</h2>\n<ul class="guide-cards">%s</ul>\n' % cards +
+        cards +
         '<h2>Kısa cevaplar</h2>\n' + quick + CTA + sources_html(HUB['sources']) +
         '</div>\n</div>\n</div>\n')
 nodes = [

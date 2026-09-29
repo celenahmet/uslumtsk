@@ -16,6 +16,8 @@ SRC = {
                   'https://randevu.nvi.gov.tr/pages/applicationprices'),
     'adli': ('e-Devlet: Adli Sicil Kaydı Sorgulama', 'https://www.turkiye.gov.tr/adli-sicil-kaydi'),
     'esinav_site': ('MEB e-Sınav Bilgi Sistemi', 'https://esinav.meb.gov.tr/'),
+    'ktk': ('2918 sayılı Karayolları Trafik Kanunu (mevzuat.gov.tr, PDF)',
+            'https://www.mevzuat.gov.tr/MevzuatMetin/1.5.2918.pdf'),
 }
 
 def ext(label, url):
@@ -32,6 +34,16 @@ R = {  # rehber içi bağlantılar
     'motor': '/rehber/b-ehliyetle-motosiklet/',
     'korku': '/rehber/ehliyetim-var-araba-kullanamiyorum/',
     'sincan': '/rehber/sincanda-ehliyet-almak/',
+    'yenileme': '/rehber/ehliyet-yenileme/',
+    'kayip': '/rehber/kayip-ehliyet/',
+    'yurtdisi': '/rehber/yurt-disi-ehliyet/',
+    'aday': '/rehber/aday-surucu-belgesi/',
+    'ceza': '/rehber/ehliyet-ceza-puani/',
+    'rapor': '/rehber/surucu-olur-raporu/',
+    'motosiklet': '/rehber/motosiklet-ehliyeti/',
+    'ekleme': '/rehber/ehliyete-sinif-ekleme/',
+    'ozel': '/rehber/ozel-gereksinimli-surucu-adaylari/',
+    'randevu': '/rehber/ehliyet-randevusu/',
 }
 
 def a(key, text):
@@ -442,7 +454,7 @@ PAGES.append(dict(
 <p>Teorik dersler ve e-Sınav her iki yolda aynıdır. Yönetmelik en az direksiyon ders saatlerini sınıfa göre belirler; B sınıfında akan trafikte en az 14 saattir ve manuel ile otomatik için ayrı süre öngörmez. Direksiyon sınavının aşamaları da aynıdır; fark, eğitimin ve sınavın otomatik şanzımanlı araçla yapılmasıdır.</p>
 
 <h2>Sonradan manuele geçiş</h2>
-<p>Ehliyetinde veya sertifikasında yalnız otomatik araç kullanabileceği yazanlar, kendi sınıflarının manuel vitesli aracını kullanmak üzere sertifika alabilmek için direksiyon eğitimi dersinin yarısına devam eder (m.39/2). Kursun sınava girmesini uygun görmesiyle direksiyon sınavına alınır; başarılı olanlara ilgili sertifika verilir (m.39/3).</p>
+<p>Ehliyetinde veya sertifikasında yalnız otomatik araç kullanabileceği yazanlar, kendi sınıflarının manuel vitesli aracını kullanmak üzere sertifika alabilmek için direksiyon eğitimi dersinin yarısına devam eder (m.39/2). Kursun sınava girmesini uygun görmesiyle direksiyon sınavına alınır; başarılı olanlara ilgili sertifika verilir (m.39/3). NVİ’ye göre aynı sınıfın manuel sertifikasını getirenlerden ehliyet değişiminde harç alınmaz; yalnız değerli kâğıt bedeli ve vakıf payı ödenir.</p>
 <p>Yönetmelikte bu konuda bir ayrıntı daha vardır: C1, C, D1 veya D sertifikasını manuel vitesli araçla alanlar, M, A1, A2 ve A dışındaki diğer manuel şanzımanlı araçları da kullanabilir.</p>
 
 <h2>Sınav sürecinde vites türünü değiştirmek</h2>
@@ -461,7 +473,7 @@ PAGES.append(dict(
         ('Manuel ehliyetle otomatik araç kullanılır mı?',
          'Evet. Yalnız otomatik araç kısıtı, otomatik şanzımanlı araçla eğitim alıp sınavı geçenlerin sertifikasına yazılır; manuel araçla alınan ehliyette bu kısıt yoktur.'),
     ],
-    sources=['mtsk'],
+    sources=['mtsk', 'nvi_sss'],
 ))
 
 # 7 ─────────────────────────────────────────────────────────────
@@ -673,6 +685,474 @@ PAGES.append(dict(
     ],
     sources=['esinav', 'mtsk', 'nvi_sss'],
 ))
+
+# 11 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='yenileme',
+    title='Ehliyet Yenileme 2026: Ücret, Belgeler ve Süre | Uslu',
+    desc='Ehliyet kaç yılda yenilenir, 2026 yenileme ücreti ne kadar, hangi belgeler gerekir? Süresi dolan ehliyetle araç kullanmanın cezası ve eski tip belgeler.',
+    h1='Ehliyet Yenileme',
+    crumb='Ehliyet Yenileme',
+    card='Süresi dolan ehliyet, 2026 yenileme ücreti ve gereken belgeler.',
+    lead='Yeni tip ehliyetler süreli verilir ve süre dolunca nüfus müdürlüğünden yenilenir. 2016’da verilen ilk yeni tip B sınıfı ehliyetlerin süresi 2026 başında dolduğu için bu konu bu yıl sık soruluyor. Bilgiler NVİ açıklamalarına ve Karayolları Trafik Kanunu’na dayanır.',
+    summary=[
+        'M, A1, A2, A, B1, B, BE, F ve G sınıfı ehliyetler 10 yıl; C1, C1E, C, CE, D1, D1E, D ve DE sınıfı ehliyetler 5 yıl geçerlidir.',
+        '2026’da yenileme bedeli 2.115 TL’dir (1.690 TL değerli kâğıt bedeli ve 425 TL vakıf payı); yenilemede harç alınmaz.',
+        'Süresi dolan ehliyetle araç kullanana 2026’da 4.712 TL idari para cezası uygulanır ve ehliyet geri alınır.',
+    ],
+    body='''
+<h2>Ehliyet ne zaman yenilenir?</h2>
+<p>NVİ’ye göre ehliyet, geçerlilik süresinin bitimini izleyen tarihten itibaren geçersiz sayılır. Süre, yenileme başvurusuyla uzatılır. 01.01.2016’da düzenlenen B sınıfı yeni tip ehliyetler 01.01.2026 itibarıyla geçerliliğini kaybetmiştir. Ehliyetinizin ne zaman sona erdiği kartın üzerinde yazar.</p>
+
+<h2>Yenileme için gerekli belgeler</h2>
+<ul>
+<li>Kimlik belgesi.</li>
+<li>Kayıp veya çalıntı değilse mevcut ehliyet.</li>
+<li>Sürücü sağlık raporu.</li>
+<li>Son altı ay içinde çekilmiş 1 adet biyometrik fotoğraf.</li>
+<li>Kan grubunu gösteren belge veya beyan.</li>
+<li>Adli sicil kaydı ile değerli kâğıt bedeli ve vakıf payı ödemesi (bunlar sistemden kontrol edilir).</li>
+</ul>
+<p>Sağlık raporunun nereden alındığını ''' + a('rapor', 'sürücü olur raporu') + ''' yazımızda anlattık.</p>
+
+<h2>Yenileme ücreti</h2>
+<p>2026 yılında yenileme bedeli 1.690 TL değerli kâğıt bedeli ve 425 TL vakıf payı olmak üzere toplam 2.115 TL’dir. Karayolları Trafik Kanunu’nun 39. maddesine göre süresi dolduğu için yenilenen ehliyetlerden harç alınmaz.</p>
+
+<h2>Süresi dolan ehliyetle araç kullanmak</h2>
+<p>Geçerlilik süresi biten ehliyetle araç kullanana Karayolları Trafik Kanunu’nun 39/3 maddesi uyarınca işlem yapılır. NVİ’ye göre 2026 yılında bu ceza 4.712 TL’dir ve ehliyet geri alınır.</p>
+
+<h2>Eski tip (2016 öncesi) ehliyetler</h2>
+<p>NVİ’ye göre eski tip ehliyetler Kasım 2025 itibarıyla geçerliliğini kaybetmiştir ve bu belgelerle araç kullananların ehliyeti geri alınır. Eski tip ehliyetler; sınıfa ait o yılın harcı, indirimsiz değerli kâğıt bedeli ve vakıf payı ödenerek herhangi bir il veya ilçe nüfus müdürlüğünde ya da yurt dışında dış temsilciliklerde yenilenir.</p>
+<p>Başvuru randevuyla yapılır; ayrıntılar ''' + a('randevu', 'ehliyet randevusu') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('2026’da ehliyet yenileme ücreti ne kadar?',
+         'NVİ’ye göre 2026 yılında yeni tip ehliyet yenileme bedeli 1.690 TL değerli kâğıt bedeli ve 425 TL vakıf payı olmak üzere toplam 2.115 TL’dir.'),
+        ('Ehliyet yenilemek için sağlık raporu gerekir mi?',
+         'Evet. NVİ, yenileme başvurusunda istenen belgeler arasında sürücü sağlık raporunu sayar.'),
+        ('Süresi dolan ehliyetle araç kullanılırsa ne olur?',
+         'Karayolları Trafik Kanunu’nun 39/3 maddesi uyarınca işlem yapılır; NVİ’ye göre 2026 yılında 4.712 TL idari para cezası uygulanır ve ehliyet geri alınır.'),
+    ],
+    sources=['nvi_sss', 'nvi_ucret', 'ktk', 'kty'],
+))
+
+# 12 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='kayip',
+    title='Kayıp veya Çalıntı Ehliyet: Yenileme ve Ücret | Uslu',
+    desc='Kayıp veya çalıntı ehliyet nasıl yenilenir, ücret ödenir mi, hangi belgeler gerekir? Ad soyad değişikliği ve dağıtımda kaybolan belgeler için NVİ bilgileri.',
+    h1='Kayıp veya Çalıntı Ehliyet',
+    crumb='Kayıp Ehliyet',
+    card='Kaybolan, çalınan ya da bilgisi değişen ehliyet nasıl yenilenir.',
+    lead='Ehliyetiniz kaybolduysa, çalındıysa ya da üzerindeki bilgiler değiştiyse süresi dolmadan da yenilenir. Başvuru, diğer ehliyet işlemleri gibi nüfus müdürlüğüne randevuyla yapılır. Bilgiler NVİ açıklamalarına dayanır.',
+    summary=[
+        'Kayıp veya çalıntı ehliyet, randevuyla yetkili nüfus müdürlüklerinden birinde yenilenir.',
+        'Kayıp ya da çalıntı olsa da değerli kâğıt bedeli ve vakıf payı ödenir; 2026’da bu iki kalemin toplamı 2.115 TL’dir.',
+        'Ad veya soyadı değişen sürücünün ehliyeti de bu bedellerle yenilenir.',
+    ],
+    body='''
+<h2>Ehliyet süresi dolmadan hangi durumlarda değiştirilir?</h2>
+<p>NVİ’ye göre ehliyet; kayıp veya çalıntı durumunda, üzerindeki kimlik bilgilerinden biri değiştiğinde, kartta tahrifat veya kırılma olduğunda, sertifika bilgilerinde ekleme veya çıkarma yapıldığında ya da kullanılmasını engelleyen bir kusur tespit edildiğinde süresi dolmadan değiştirilebilir.</p>
+
+<h2>Gerekli belgeler</h2>
+<ul>
+<li>Kimlik belgesi.</li>
+<li>Sürücü sağlık raporu.</li>
+<li>Son altı ay içinde çekilmiş 1 adet biyometrik fotoğraf.</li>
+<li>Kan grubunu gösteren belge veya beyan.</li>
+<li>Adli sicil kaydı ile değerli kâğıt bedeli ve vakıf payı ödemesi (bunlar sistemden kontrol edilir).</li>
+</ul>
+<p>Kayıp veya çalıntı değilse mevcut ehliyetinizi de götürmeniz gerekir.</p>
+
+<h2>Özel durumlar</h2>
+<ul>
+<li><strong>Dağıtımda kaybolursa:</strong> posta görevlisinin bildirimi üzerine kayıtlarınız esas alınarak ehliyet yeniden düzenlenir; tekrar başvurmanız gerekmez.</li>
+<li><strong>Evde bulunamadıysanız:</strong> belge nüfus müdürlüğüne geri döner; başvurduğunuz ya da başvuruda belirttiğiniz müdürlükten alabilirsiniz.</li>
+<li><strong>Hatalı basım:</strong> hata sistemden kaynaklanıyorsa ehliyet bedelsiz değiştirilir; başvuru sahibinin beyanından kaynaklanıyorsa bedeller yeniden alınır.</li>
+<li><strong>Vekalet:</strong> ehliyet başvurusu ve teslimi vekaletle yapılamaz, başvuru bizzat yapılır.</li>
+</ul>
+<p>Randevu ve teslim süreci için ''' + a('randevu', 'ehliyet randevusu') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Kayıp ehliyet için ücret ödenir mi?',
+         'Evet. NVİ’ye göre ehliyet kayıp veya çalıntı nedeniyle yenilense bile değerli kâğıt bedeli ve vakıf payı ödenir. 2026’da bu iki kalemin toplamı 2.115 TL’dir.'),
+        ('Kayıp ehliyet için sağlık raporu gerekir mi?',
+         'Evet. NVİ, kayıp veya çalıntı nedeniyle yenilemede istenen belgeler arasında sürücü sağlık raporunu sayar.'),
+        ('Ehliyetim kargoda kayboldu, yeniden başvurmalı mıyım?',
+         'Hayır. Dağıtım sırasında kaybolduğu posta görevlisince bildirilen ehliyet, kayıtlarınız esas alınarak yeniden düzenlenir; tekrar başvurmanız gerekmez.'),
+    ],
+    sources=['nvi_sss', 'nvi_ucret'],
+))
+
+# 13 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='yurtdisi',
+    title='Yurt Dışı Ehliyeti Türkiye’de Geçerli mi? Değişim | Uslu',
+    desc='Yurt dışından alınan ehliyetle Türkiye’de ne kadar araç kullanılır, Türk ehliyetine nasıl çevrilir? Türk ehliyetinin yurt dışında geçerliliği ve uluslararası belge.',
+    h1='Yurt Dışı Ehliyeti ve Değişimi',
+    crumb='Yurt Dışı Ehliyeti',
+    card='Yabancı ehliyetle Türkiye’de araç kullanma süresi ve değişim işlemi.',
+    lead='Yurt dışından alınan ehliyetle Türkiye’de belirli bir süre araç kullanılabilir; bu sürenin sonunda ehliyetin Türk ehliyetiyle değiştirilmesi gerekir. Bilgiler NVİ açıklamalarına dayanır.',
+    summary=[
+        '01.01.2016’dan itibaren yurt dışından alınan ehliyetle Türk vatandaşları 2 yıl, yabancılar 6 ay Türkiye’de araç kullanabilir.',
+        'Bu sürenin sonunda araç kullanmaya devam etmek için Türk ehliyeti almak ya da yabancı ehliyeti değiştirmek gerekir.',
+        'Yeni tip Türk ehliyetiyle Karayolu Trafiği Konvansiyonuna üye 93 ülkede araç kullanılabilir.',
+    ],
+    body='''
+<h2>Yabancı ehliyetle Türkiye’de araç kullanmak</h2>
+<p>NVİ’ye göre 01.01.2016’dan itibaren yurt dışından alınan ehliyetle Türk vatandaşları 2 yıl, yabancılar 6 ay süreyle Türkiye’de araç kullanabilir. Bu süre dolduktan sonra Türkiye’de araç kullanmak için Türk ehliyeti gerekir.</p>
+
+<h2>Yabancı ehliyeti Türk ehliyetiyle değiştirme</h2>
+<p>Değişim başvurusunda NVİ şunları ister:</p>
+<ul>
+<li>Yabancı ehliyetin aslı ve renkli fotokopisi.</li>
+<li>Noter veya konsolosluk onaylı Türkçe tercümesi.</li>
+<li>Kimlik belgesi ve sürücü sağlık raporu.</li>
+<li>Son altı ay içinde çekilmiş 1 adet biyometrik fotoğraf.</li>
+<li>Kan grubunu gösteren belge veya beyan.</li>
+<li>Öğrenim belgesi; yurt dışından alınanlar için noter tasdikli tercümesi.</li>
+<li>Değerli kâğıt bedeli, harç ve vakıf payı ile adli sicil kaydı (bunlar sistemden kontrol edilir).</li>
+</ul>
+<p>Değiştirilen yabancı ehliyet, Karayolları Trafik Yönetmeliği uygulama talimatına göre ilgili ülkeye gönderilir. Yurt dışında yaşayan vatandaşların ehliyet başvuruları 15.02.2021’den beri dış temsilciliklerde de alınmaktadır. Mavi Kart sahipleri, ehliyetlerini Türk ehliyetine dönüştürürlerse ticari araç kullanabilir.</p>
+
+<h2>Yurt dışı ehliyetiyle başka sınıf almak</h2>
+<p>MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne göre yurt dışından alınmış ehliyet önce Türk ehliyetiyle değiştirilir; farklı bir sınıf için sürücü kursuna ondan sonra başvurulabilir (m.39/4). Ayrıntılar ''' + a('ekleme', 'ehliyete sınıf ekleme') + ''' yazımızda.</p>
+
+<h2>Türk ehliyeti yurt dışında geçerli mi?</h2>
+<p>NVİ’ye göre 01.01.2016’dan itibaren verilen yeni tip Türk ehliyetiyle Karayolu Trafiği Konvansiyonuna üye 93 ülkede araç kullanılabilir. Bu ülkelerde ne kadar süre araç kullanılabileceği o ülkenin mevzuatına göre değişir. Konvansiyona üye olmayan ülkelerde araç kullanmak için Türkiye Turing ve Otomobil Kurumunun verdiği Uluslararası Sürücü Belgesi gerekir.</p>
+''',
+    faq=[
+        ('Yurt dışı ehliyetiyle Türkiye’de ne kadar araç kullanılır?',
+         'NVİ’ye göre 01.01.2016’dan itibaren yurt dışından alınan ehliyetle Türk vatandaşları 2 yıl, yabancılar 6 ay süreyle Türkiye’de araç kullanabilir.'),
+        ('Yabancı ehliyeti Türk ehliyetine çevirmek için ne gerekir?',
+         'Yabancı ehliyetin aslı ve renkli fotokopisi, noter veya konsolosluk onaylı Türkçe tercümesi, kimlik, sağlık raporu, biyometrik fotoğraf, kan grubu belgesi, öğrenim belgesi ile harç, değerli kâğıt bedeli ve vakıf payı gerekir.'),
+        ('Türk ehliyetiyle yurt dışında araç kullanılır mı?',
+         'Yeni tip Türk ehliyetiyle Karayolu Trafiği Konvansiyonuna üye 93 ülkede araç kullanılabilir. Üye olmayan ülkelerde Türkiye Turing ve Otomobil Kurumundan Uluslararası Sürücü Belgesi alınması gerekir.'),
+    ],
+    sources=['nvi_sss', 'mtsk'],
+))
+
+# 14 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='aday',
+    title='Aday Sürücü Belgesi Nedir? 2 Yıl Kuralı ve İptal | Uslu',
+    desc='İlk ehliyetini alanlar iki yıl aday sürücüdür. 75 ceza puanı, 0.20 promil üzeri alkol ve bazı kuralların üç kez ihlali aday belgenin iptaline yol açar.',
+    h1='Aday Sürücü Belgesi',
+    crumb='Aday Sürücü',
+    card='İlk iki yılın kuralları ve belgenin iptal edildiği durumlar.',
+    lead='İlk kez ehliyet alan sürücüler, belgenin alındığı tarihten itibaren iki yıl aday sürücü sayılır ve bu dönemde daha sıkı kurallara tabidir. Bilgiler Karayolları Trafik Kanunu’nun 24.07.2026’da değişen Ek 17. maddesine ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'İlk kez ehliyet alanlar ile ehliyeti iptal edilip yeniden alanlar, belgenin alındığı tarihten itibaren iki yıl aday sürücüdür.',
+        'Bu sürede 75 ceza puanını aşmak ya da 0.20 promilin üzerinde alkollü araç kullanmak aday belgenin iptaline yol açar.',
+        'Belgesi iptal edilen aday, yeniden ehliyet için sürücü kursuna devam edip sınavları tekrar geçmelidir.',
+    ],
+    body='''
+<h2>Kimler aday sürücüdür?</h2>
+<p>İlk defa ehliyet alanlar ile ehliyeti herhangi bir nedenle iptal edilip yeniden almaya hak kazananlar, belgenin alındığı tarihten itibaren iki yıl aday sürücü sayılır (Karayolları Trafik Kanunu Ek 17). NVİ’ye göre ehliyetin üzerinde aday sürücü olduğunu gösteren bir ibare bulunmaz, bu bilgi sistemde görülür; iki yıllık süre sonunda ehliyet yenilenmez.</p>
+
+<h2>Aday belge hangi durumlarda iptal edilir?</h2>
+<ul>
+<li>Kanuna göre ehliyetin geçici olarak geri alınmasını gerektiren bir ihlal.</li>
+<li>75 ceza puanının aşılması.</li>
+<li>Araç cinsine bakılmaksızın 0.20 promilin üzerinde alkollü araç kullanılması.</li>
+<li>Şu kurallardan herhangi birinin üç kez ihlal edilmesi: dönüşlerde yayalara, bisiklet ve elektrikli skuter kullananlara ve sola dönüşte sağdan ve karşıdan gelen trafiğe ilk geçiş hakkını vermek (m.53/2); yaya ve okul geçitlerinde yayalara ilk geçiş hakkını vermek (m.74); emniyet kemeri, koruma başlığı ve çocuk bağlama sistemi gibi koruyucu sistemleri kullanmak (m.78).</li>
+</ul>
+
+<h2>İptalden sonra yeniden ehliyet</h2>
+<p>Aday belgesi iptal edilen kişi, yeniden ehliyet alabilmek için sürücü kursuna devam edip sınavlarda başarılı olarak yeni bir sertifika almalıdır. Kursa başlayabilmesi için psikoteknik değerlendirme ve psikiyatri uzmanı muayenesi sonucunda sürücülüğe engel hâli olmadığını gösteren belgeyi kursa vermesi, kanun kapsamındaki idari para cezalarının tamamını ödemiş olması ve varsa bekleme ya da geri alma süresinin geçmiş olması gerekir.</p>
+<p>Ceza puanı kuralları için ''' + a('ceza', 'ehliyet ceza puanı') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Aday sürücülük kaç yıl sürer?',
+         'Ehliyetin alındığı tarihten itibaren iki yıl sürer. İlk kez ehliyet alanlar ile ehliyeti iptal edilip yeniden alanlar aday sürücü sayılır.'),
+        ('Aday sürücü ehliyetinde bir ibare olur mu?',
+         'Hayır. NVİ’ye göre ehliyetin üzerinde aday sürücü olduğunu gösteren bir ibare bulunmaz; bu bilgi sistemde görülür.'),
+        ('Aday sürücü kaç ceza puanında ehliyetini kaybeder?',
+         'Aday sürücülük süresinde 75 ceza puanının aşılması aday belgenin iptaline yol açar.'),
+    ],
+    sources=['ktk', 'nvi_sss'],
+))
+
+# 15 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='ceza',
+    title='Ehliyet Ceza Puanı ve 100 Puan Kuralı | Uslu Sürücü Kursu',
+    desc='Bir yılda 100 ceza puanını dolduran sürücünün ehliyeti 2 ay geri alınır; ikincisinde 4 ay, üçüncüsünde süresiz iptal. Emniyet kemeri kuralı ve aday sürücüler.',
+    h1='Ehliyet Ceza Puanı',
+    crumb='Ceza Puanı',
+    card='100 puan kuralı, geri alma süreleri ve emniyet kemeri kuralı.',
+    lead='Trafik kurallarını ihlal eden sürücülere, aldıkları her ceza için ceza puanı verilir. Puanlar belirli bir sınırı aşınca ehliyet geri alınır. Bilgiler Karayolları Trafik Kanunu’nun 78, 118 ve Ek 17. maddelerine dayanır.',
+    summary=[
+        'Suçun işlendiği tarihten geriye doğru bir yıl içinde 100 ceza puanını dolduran sürücünün ehliyeti 2 ay geri alınır ve sürücü eğitime alınır.',
+        'Aynı yıl ikinci kez 100 puan dolarsa ehliyet 4 ay geri alınır; üçüncüsünde ehliyet süresiz iptal edilir.',
+        'Aday sürücülerde sınır 75 puandır; aşılırsa aday belge iptal edilir.',
+    ],
+    body='''
+<h2>100 ceza puanı kuralı</h2>
+<p>Karayolları Trafik Kanunu’nun 118. maddesine göre:</p>
+<ul>
+<li>Trafik suçunun işlendiği tarihten geriye doğru bir yıl içinde toplam 100 ceza puanını dolduran sürücünün ehliyeti 2 ay süreyle geri alınır ve sürücü eğitime alınır.</li>
+<li>Aynı yıl içinde ikinci kez 100 puanı dolduran sürücünün ehliyeti 4 ay süreyle geri alınır; sürücü psikoteknik değerlendirmeye ve psikiyatri uzmanı muayenesine tabi tutulur. Engel hâli yoksa ehliyet süre sonunda iade edilir.</li>
+<li>Bir yıl içinde üç kez 100 puanı dolduran sürücünün ehliyeti süresiz olarak iptal edilir.</li>
+<li>Ölümle sonuçlanan bir trafik kazasına asli kusurlu olarak sebep olan sürücünün ehliyeti 1 yıl süreyle geri alınır.</li>
+</ul>
+<p>Hangi ihlale kaç puan verileceği yönetmelikte belirlenir. Ehliyeti geri alınmışken araç kullanan sürücü ayrıca cezalandırılır.</p>
+
+<h2>Emniyet kemeri kuralı</h2>
+<p>Kanunun 12.02.2026’da değişen 78. maddesine göre, son ihlalin gerçekleştiği tarihten geriye doğru bir yıl içinde emniyet kemeri kuralını dört veya daha fazla kez ihlal eden sürücünün ehliyeti her seferinde 30 gün süreyle geri alınır. Geri alınan ehliyetin iadesi için kanun kapsamındaki idari para cezalarının tamamının ödenmiş olması gerekir.</p>
+
+<h2>Aday sürücüler için</h2>
+<p>İlk iki yılındaki sürücülerde sınır 75 ceza puanıdır; bu puanın aşılması aday belgenin iptaline yol açar. Ayrıntılar ''' + a('aday', 'aday sürücü belgesi') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('Kaç ceza puanında ehliyet alınır?',
+         'Suçun işlendiği tarihten geriye doğru bir yıl içinde 100 ceza puanını dolduran sürücünün ehliyeti 2 ay süreyle geri alınır ve sürücü eğitime alınır.'),
+        ('İkinci kez 100 ceza puanı dolarsa ne olur?',
+         'Aynı yıl içinde ikinci kez 100 puanı dolduran sürücünün ehliyeti 4 ay geri alınır; psikoteknik değerlendirme ve psikiyatri uzmanı muayenesi gerekir. Üçüncüsünde ehliyet süresiz iptal edilir.'),
+        ('Emniyet kemeri takmamak ehliyeti etkiler mi?',
+         'Evet. Bir yıl içinde emniyet kemeri kuralını dört veya daha fazla kez ihlal eden sürücünün ehliyeti her seferinde 30 gün geri alınır.'),
+    ],
+    sources=['ktk'],
+))
+
+# 16 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='rapor',
+    title='Sürücü Olur Raporu Nereden Alınır? Şartlar 2026 | Uslu',
+    desc='Sürücü olur raporunu hangi sağlık kuruluşları verir, muayenede nelere bakılır, görme şartı nedir, rapor kaç yıl geçerlidir? Sürücü Sağlık Yönetmeliğine göre.',
+    h1='Sürücü Olur Raporu',
+    crumb='Sürücü Olur Raporu',
+    card='Raporu kim verir, muayenede nelere bakılır, kaç yıl geçerli.',
+    lead='Sürücü olur raporu, hem sürücü kursuna kayıtta hem de nüfus müdürlüğündeki ehliyet başvurusunda istenir. Bilgiler Sürücü Adayları ve Sürücülerde Aranacak Sağlık Şartları ile Muayenelerine Dair Yönetmeliğe ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Rapor; Sağlık Bakanlığına ve üniversitelere bağlı sağlık tesisleri, aile sağlığı merkezleri ve muayenehaneler dışındaki özel sağlık kuruluşlarındaki hekimlerce düzenlenir.',
+        'Birinci grup sınıflarda (M, A1, A2, A, B1, B, BE, F) iki gözün toplam görmesi 1,0 olmalıdır; gözlük ve kontakt lens kabul edilir.',
+        'NVİ’ye göre hekim aksine bir tarih yazmadıysa sağlık raporu 2 yıl geçerlidir.',
+    ],
+    body='''
+<h2>Rapor nereden alınır?</h2>
+<p>Sürücü adaylarının ve sürücülerin muayenesini; Sağlık Bakanlığına ve üniversitelere bağlı sağlık tesisleri, aile sağlığı merkezleri ve Sağlık Bakanlığınca ruhsatlandırılan muayenehaneler dışındaki özel sağlık kuruluşlarında görevli hekimler yapar ve raporu düzenler (m.4/1).</p>
+
+<h2>Muayenede nelere bakılır?</h2>
+<p>Yönetmelik; göz, iç hastalıkları, kulak burun boğaz, ortopedi, ruh ve sinir hastalıkları muayenelerine ilişkin esasları belirler. Hakkında karar verilemeyen durumlarda aday ilgili uzman hekime yönlendirilir. Muayenede sınıflar iki gruba ayrılır: birinci grup M, A1, A2, A, B1, B, BE ve F; ikinci grup C1, C1E, C, CE, D1, D1E, D, DE ve G sınıflarıdır.</p>
+
+<h2>Görme şartı</h2>
+<ul>
+<li><strong>Birinci grup:</strong> gözlüklü ya da gözlüksüz, bir gözün görmesi 0,1’in altında olmamak şartıyla iki gözün toplam görme derecesi 1,0 olmalıdır.</li>
+<li><strong>İkinci grup:</strong> az gören gözün görmesi 0,6’nın, iyi gören gözün görmesi 0,8’in altında olmamalı ya da her iki göz 0,7 olmalıdır.</li>
+<li>Gözlük ve kontakt lensle düzeltme kabul edilir; bu durumda araç kullanırken gözlük veya lens takmak zorunludur.</li>
+<li>Görme alanı için de yönetmelikte ayrıca şartlar vardır; muayeneyi yapan hekim bunları değerlendirir.</li>
+</ul>
+
+<h2>Kısıtlar ve itiraz</h2>
+<p>Sağlık durumu nedeniyle araç kullanımı bir şarta bağlanırsa bu şart kod numarasıyla rapora yazılır (m.4/7). Özel tertibatlı araç gerekiyorsa süreç komisyonda yürür; bunu ''' + a('ozel', 'özel gereksinimli sürücü adayları') + ''' yazımızda anlattık. Kişinin, adına düzenlenen rapora itiraz hakkı vardır; itiraz usullerini Sağlık Bakanlığı belirler (m.4/5).</p>
+
+<h2>Rapor kaç yıl geçerli?</h2>
+<p>NVİ, Sağlık Raporları Usul ve Esasları Hakkında Yönerge’ye dayanarak, hekimlerce veya ilgili mevzuatta aksine bir tarih belirtilmediği durumlarda raporların 2 yıl geçerli olduğunu belirtir.</p>
+
+<h2>Ehliyet aldıktan sonra sağlık durumu değişirse</h2>
+<p>Karayolları Trafik Kanunu’nun 45. maddesine göre sürücüde sağlığı bakımından sürücülüğe engel açık bir değişiklik görülürse ehliyet geri alınır ve muayene istenir. Engel hâlinin olmadığı ya da ortadan kalktığı raporla tespit edilirse ehliyet iade edilir.</p>
+''',
+    faq=[
+        ('Sürücü olur raporu nereden alınır?',
+         'Aile sağlığı merkezlerinden, Sağlık Bakanlığına ve üniversitelere bağlı sağlık tesislerinden ve muayenehaneler dışındaki özel sağlık kuruluşlarından alınır.'),
+        ('Gözlük takıyorum, ehliyet alabilir miyim?',
+         'Evet. Gözlük ve kontakt lensle düzeltme kabul edilir; görme şartını gözlükle sağlıyorsanız araç kullanırken gözlük takmanız zorunludur.'),
+        ('Sürücü sağlık raporu kaç yıl geçerlidir?',
+         'NVİ’ye göre hekim veya ilgili mevzuat aksine bir tarih belirtmediyse sağlık raporu 2 yıl geçerlidir.'),
+    ],
+    sources=['saglik', 'nvi_sss', 'ktk'],
+))
+
+# 17 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='motosiklet',
+    title='Motosiklet Ehliyeti: A1, A2 ve A Sınıfı Rehberi | Uslu',
+    desc='A1, A2 ve A motosiklet ehliyeti kaç yaşında alınır, hangi motosikletleri kapsar, kaç saat ders gerekir, sınavda neler istenir? 2026 harç tutarlarıyla.',
+    h1='Motosiklet Ehliyeti: A1, A2, A',
+    crumb='Motosiklet Ehliyeti',
+    card='Yaş, motor gücü sınırı, ders saati, sınav ve 2026 harcı.',
+    lead='Motosiklet ehliyeti üç sınıftan oluşur: A1, A2 ve A. Sınıf; motosikletin gücüne, sizin yaşınıza ve deneyiminize göre belirlenir. Bilgiler Karayolları Trafik Yönetmeliği ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        'A1 16, A2 18, A 20 yaşında alınır; A için iki yıllık A2 gerekir, 24 yaşını dolduranlarda bu şart aranmaz.',
+        'A1 125 cm³ ve 11 kW’a, A2 35 kW’a kadar motosikletleri kapsar; A tüm iki tekerlekli motosikletleri kapsar.',
+        '2026’da A1, A2 ve A için ilk ehliyette nüfus müdürlüğüne toplam 4.354,90 TL ödenir.',
+    ],
+    body='''
+<h2>Sınıflar</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Sınıf</th><th>Motosiklet</th><th>Yaş</th><th>Akan trafikte en az ders</th></tr></thead>
+<tbody>
+<tr><td>A1</td><td>125 cm³, 11 kW’a kadar</td><td>16</td><td>12 saat</td></tr>
+<tr><td>A2</td><td>35 kW’a kadar</td><td>18</td><td>12 saat</td></tr>
+<tr><td>A</td><td>Tüm motosikletler</td><td>20</td><td>6 saat (A2 ile), 12 saat (24 yaş)</td></tr>
+</tbody></table></div>
+<p>A sınıfı için en az iki yıllık A2 ehliyeti gerekir; 24 yaşını dolduran adaylarda bu şart aranmaz. Gücü 15 kW’ı aşan üç tekerlekli motosikletler için A sınıfında yaş şartı 21’dir. A2 ehliyetiyle A1, A ehliyetiyle A1 ve A2 motosikletleri de kullanılabilir (Karayolları Trafik Yönetmeliği m.85).</p>
+
+<h2>Eğitim ve sınav</h2>
+<p>Teorik dersler tüm sınıflarda aynıdır (34 saat) ve e-Sınav’la ölçülür. Direksiyon sınavı önce sınav alanında yapılır: araç bilgisi soruları, dokuz koni arasında slalom, iki çember içinde sekiz çizme, 20 metrelik denge çizgisi, dar alanda dönüş, hızlanıp durma, engelden kaçınma ve ani fren. Alanda başarılı olan adayın sınavı güzergâhta, trafikte devam eder (MTSK Yönetmeliği m.35). Ayrıntılar ''' + a('sinav', 'ehliyet sınavı') + ''' yazımızda.</p>
+
+<h2>B ehliyetiniz varsa</h2>
+<p>B ehliyeti olan biri motosiklet sınıfı için kursa kayıt olduğunda, yönetmelikteki tabloya göre A1, A2 veya A için akan trafikte 12 saat direksiyon dersi alır. Ehliyeti en az iki yıllık olanlar için ayrıca A1 motosikletleri kullanmanın daha kısa bir yolu vardır; şartlarını ''' + a('motor', 'B ehliyetle motosiklet') + ''' yazımızda anlattık.</p>
+
+<h2>Uslu Sürücü Kursu’nda</h2>
+<p>Kursumuzda <a href="/egitim/motor-a1/">A1 motosiklet</a> ve <a href="/egitim/motor-a2/">A2 motosiklet</a> eğitimleri verilir. Masraf kalemleri için ''' + a('masraf', 'ehliyet masrafları') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Motosiklet ehliyeti kaç yaşında alınır?',
+         'A1 sınıfı 16, A2 sınıfı 18, A sınıfı 20 yaşında alınır. A için ayrıca iki yıllık A2 ehliyeti gerekir; 24 yaşını dolduranlarda bu şart aranmaz.'),
+        ('A2 ehliyetle 125 cc motosiklet kullanılır mı?',
+         'Evet. Karayolları Trafik Yönetmeliği’nin 85. maddesine göre A2 ehliyetiyle M ve A1 sınıfı araçlar da kullanılabilir.'),
+        ('Motor ehliyeti harcı ne kadar?',
+         '2026’da A1, A2 ve A sınıfları için harç 2.239,90 TL’dir; değerli kâğıt bedeli ve vakıf payıyla toplam 4.354,90 TL ödenir.'),
+    ],
+    sources=['kty', 'mtsk', 'nvi_ucret'],
+))
+
+# 18 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='ekleme',
+    title='Ehliyete Sınıf Ekleme: Ders Saatleri ve Belgeler | Uslu',
+    desc='B ehliyetine A2, BE, C veya D eklemek için kaç saat direksiyon dersi gerekir, hangi belgeler istenir, ne ödenir? MEB yönetmeliğindeki tabloya göre.',
+    h1='Ehliyete Sınıf Ekleme',
+    crumb='Sınıf Ekleme',
+    card='Mevcut ehliyete yeni sınıf eklerken ders saati ve belgeler.',
+    lead='Ehliyeti olan biri başka bir sınıf için de sürücü kursuna kayıt olabilir. Bu durumda alınacak direksiyon dersi, sahip olunan ehliyete göre yönetmelikteki tabloda belirlenir. Bilgiler MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’nin 39. maddesine ve NVİ açıklamalarına dayanır.',
+    summary=[
+        'Farklı sınıf isteyen ehliyet sahibi, o sınıfın yaş ve deneyim şartlarını taşıyorsa tablodaki saat kadar akan trafikte direksiyon dersi alır ve direksiyon sınavına girer.',
+        'B sahibi için akan trafikteki ders saatleri: BE 6, C1 10, C 20, D1 7, D 14; A1, A2 ve A için 12 saat.',
+        'Sınavı geçtikten sonra nüfus müdürlüğünde yeni sınıfın harcı, değerli kâğıt bedeli ve vakıf payı ödenir.',
+    ],
+    body='''
+<h2>Nasıl işler?</h2>
+<p>Ehliyet sahibi, istediği sınıfın şartlarını taşımak kaydıyla yönetmelikteki tabloda belirtilen saat kadar direksiyon dersi alır. Eğitim sonunda kursun uygun görmesiyle direksiyon sınavına girer; başarılı olana yeni sınıfın sertifikası verilir (m.39/1 ve 39/3). Farklı sınıf alacakların eğitim alanında veya simülatörde alması gereken dersler akan trafikte de yapılabilir (m.7/1). Yaş ve deneyim şartları için ''' + a('siniflar', 'ehliyet sınıfları') + ''' yazımıza bakın.</p>
+
+<h2>B ehliyeti olanlar için ders saatleri</h2>
+<div class="guide-table"><table>
+<thead><tr><th>Eklenecek sınıf</th><th>Akan trafikte ders</th><th>Şart</th></tr></thead>
+<tbody>
+<tr><td>A1, A2</td><td>12 saat</td><td>Yaş şartı</td></tr>
+<tr><td>A</td><td>12 saat</td><td>20 yaş, 2 yıllık A2 veya 24 yaş</td></tr>
+<tr><td>BE</td><td>6 saat</td><td>B</td></tr>
+<tr><td>C1</td><td>10 saat</td><td>18 yaş, B</td></tr>
+<tr><td>C</td><td>20 saat</td><td>21 yaş, B</td></tr>
+<tr><td>D1</td><td>7 saat</td><td>21 yaş, B</td></tr>
+<tr><td>D</td><td>14 saat</td><td>24 yaş, B</td></tr>
+</tbody></table></div>
+<p>Motosiklet ehliyeti olanlar için tablodaki bazı değerler: A1 sahibinin A2 eklemesi 6 saat, A2 sahibinin A eklemesi 6 saat, A1 veya A2 sahibinin B eklemesi 14 saattir. 2016 öncesi eski sınıf ehliyeti olanlar için yönetmelikte ayrı bir tablo uygulanır.</p>
+
+<h2>Nüfus müdürlüğünde</h2>
+<p>Sınıf eklemede NVİ şunları ister: kimlik belgesi, sürücü sertifikası, öğrenim belgesi, kayıp veya çalıntı değilse mevcut ehliyet, sürücü sağlık raporu, 1 adet biyometrik fotoğraf, kan grubu belgesi veya beyanı ile harç, değerli kâğıt bedeli ve vakıf payı. Adli sicil kaydı sistemden kontrol edilir. Yeni sınıfın 2026 harcı için ''' + a('masraf', 'ehliyet masrafları') + ''' yazımıza bakın.</p>
+<p>Otomatik ehliyetini aynı sınıfın manuel ehliyetine çevirenlerden harç alınmaz; bu durum ''' + a('otomatik', 'otomatik vites ehliyet') + ''' yazımızda.</p>
+''',
+    faq=[
+        ('B ehliyetine motosiklet sınıfı eklemek için kaç saat ders gerekir?',
+         'MEB yönetmeliğindeki tabloya göre B ehliyeti olan biri A1, A2 veya A sınıfı için akan trafikte 12 saat direksiyon dersi alır.'),
+        ('B ehliyetine C sınıfı eklemek için ne gerekir?',
+         'C sınıfı için 21 yaşını bitirmiş olmak ve B ehliyetine sahip olmak gerekir; tabloya göre akan trafikte 20 saat direksiyon dersi alınır ve direksiyon sınavı geçilir.'),
+        ('Sınıf eklemede ne ödenir?',
+         'Nüfus müdürlüğünde yeni sınıfın harcı ile değerli kâğıt bedeli ve vakıf payı ödenir. Kurs ve sınav ücretleri ayrıca ödenir.'),
+    ],
+    sources=['mtsk', 'nvi_sss', 'nvi_ucret', 'kty'],
+))
+
+# 19 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='ozel',
+    title='Engelli Sürücü Adayları: Rapor, Araç ve Sınav | Uslu',
+    desc='Özel tertibatlı araç gereken sürücü adaylarında sağlık raporu komisyonu, özel tertibat kodu, eğitim ve sınav aracı. Sürücü Sağlık Yönetmeliği ve MEB yönetmeliğine göre.',
+    h1='Özel Gereksinimli Sürücü Adayları',
+    crumb='Özel Gereksinimli Adaylar',
+    card='Özel tertibat raporu, komisyon süreci, eğitim ve sınav aracı.',
+    lead='Özel tertibatlı araç kullanması gereken sürücü adayları için sağlık raporu, eğitim ve sınav süreci ayrıca düzenlenmiştir. Bilgiler Sürücü Sağlık Yönetmeliği ile MEB Özel Motorlu Taşıt Sürücüleri Kursu Yönetmeliği’ne dayanır.',
+    summary=[
+        'Özel tertibatlı araç gerektiren durumlarda sağlık raporu il sağlık müdürlüğü bünyesindeki komisyona sevk edilir.',
+        'Komisyon, uygun özel tertibat kodlarını ve hangi sınıf ehliyet alınabileceğini raporda belirtir.',
+        'Direksiyon eğitimi ve sınavı, raporda belirtilen şartları taşıyan araçla yapılır.',
+    ],
+    body='''
+<h2>Sağlık raporu ve komisyon</h2>
+<p>Özel tertibatlı araç kullanılması gereken durumlarda hekim, raporda tanıyı ve adayın ehliyet alabileceğini ve özel tertibatlı araç kullanabileceğini belirtir; kod ve sınıf yazmadan raporu il sağlık müdürlüğü bünyesindeki komisyona sevk eder (m.4/8). Komisyonda ilgili branş uzmanları, ortopedi ve travmatoloji, fiziksel tıp ve rehabilitasyon ve nöroloji uzmanları ile bir makine mühendisi bulunur. Komisyon, uygun özel tertibat kodlarını, hangi sınıf ehliyet alınabileceğini ya da sürücü olunup olunamayacağını raporda belirtir. Başvuru olması hâlinde en az ayda bir toplanır.</p>
+
+<h2>Kodlar ehliyete yazılır</h2>
+<p>Sağlık durumuna bağlı şartlar kod numarasıyla rapora yazılır (m.4/7). Sürücünün sağlık şartları ve araçta bulunması gereken özel tertibatlara ilişkin kodlar, ehliyetin ve araç tescil belgesinin ilgili bölümüne yazılır (m.4/10).</p>
+
+<h2>Eğitim ve sınav aracı</h2>
+<p>MEB yönetmeliğine göre engelli kursiyerlerin direksiyon sınavları, ilgili mevzuata göre düzenlenen raporda belirtilen şartları taşıyan direksiyon eğitim ve sınav aracıyla yapılır (m.7/5). Teorik ders saatleri bütün adaylar için aynıdır; e-Sınav’da işitme engelli adaylara 15 dakika ek süre tanınır.</p>
+
+<h2>Eski H sınıfı ehliyetler</h2>
+<p>Karayolları Trafik Yönetmeliği’ne göre eski H sınıfı ehliyetler, engellinin kullanmaya yetkili olduğu araç cinsine göre A veya B sınıfı ehliyetle değiştirilir; değişim sırasında sağlık raporu istenir.</p>
+
+<h2>Uslu Sürücü Kursu’nda</h2>
+<p>Kursumuzda <a href="/egitim/ozel-ab/">özel gereksinimli A-B sınıfı</a> eğitimi verilir; eğitim ve araç uygunluğu adaya göre bireysel değerlendirilir. Raporun genel esasları için ''' + a('rapor', 'sürücü olur raporu') + ''' yazımıza bakın.</p>
+''',
+    faq=[
+        ('Özel tertibatlı araç gereken adayın raporunu kim verir?',
+         'Hekim raporu tanı ve özel tertibatlı araç kullanabileceği bilgisiyle il sağlık müdürlüğü bünyesindeki komisyona sevk eder; özel tertibat kodlarını ve ehliyet sınıfını komisyon belirler.'),
+        ('Özel tertibat kodu nereye yazılır?',
+         'Sürücünün sağlık şartları ve araçta bulunması gereken özel tertibatlara ilişkin kodlar ehliyetin ve araç tescil belgesinin ilgili bölümüne yazılır.'),
+        ('Direksiyon sınavı hangi araçla yapılır?',
+         'Engelli kursiyerlerin direksiyon sınavları, raporda belirtilen şartları taşıyan direksiyon eğitim ve sınav aracıyla yapılır.'),
+    ],
+    sources=['saglik', 'mtsk', 'kty', 'esinav'],
+))
+
+# 20 ────────────────────────────────────────────────────────────
+PAGES.append(dict(
+    key='randevu',
+    title='Ehliyet Randevusu ve Başvurusu: Nüfus Müdürlüğü | Uslu',
+    desc='Ehliyet randevusu nereden alınır, randevuya ne zaman gidilir, vekaletle başvuru olur mu, belge nasıl teslim edilir, başvuru nasıl takip edilir? NVİ bilgileriyle.',
+    h1='Ehliyet Randevusu ve Başvurusu',
+    crumb='Ehliyet Randevusu',
+    card='Randevu kanalları, başvuru günü, teslim ve takip.',
+    lead='Sınavları geçtikten sonra ehliyet için nüfus müdürlüğüne randevuyla başvurulur. Aynı yol yenileme, kayıp ve sınıf ekleme işlemlerinde de izlenir. Bilgiler NVİ açıklamalarına dayanır.',
+    summary=[
+        'Randevu randevu.nvi.gov.tr, e-Devlet, NVİ Mobil, Nüfusmatik veya Alo 199 üzerinden alınır.',
+        'Randevu saatinden 30 dakika önce ile 60 dakika sonrası arasında sıra alınabilir; 60 dakikayı geçirenin başvurusu alınmaz.',
+        'Başvuru bizzat yapılır, vekaletle işlem yapılmaz; ehliyet PTT ile ücretsiz olarak adrese gönderilir.',
+    ],
+    body='''
+<h2>Randevu nereden alınır?</h2>
+<p>Ehliyet randevusu randevu.nvi.gov.tr, e-Devlet, NVİ Mobil, Nüfusmatik veya Alo 199 üzerinden alınır. Başvuru, sertifikanın alındığı yerden bağımsız olarak yetkilendirilen ilçe nüfus müdürlüklerinden birine, dış temsilciliklere ya da nüfusmatik aracılığıyla yapılabilir. Başvuru yapılabilen müdürlükler randevu.nvi.gov.tr’de görülür.</p>
+
+<h2>Başvuru günü</h2>
+<ul>
+<li>Randevu saatinizden 30 dakika önce ile 60 dakika sonrası arasında sıramatik veya dijital sıramatikten sıra alabilirsiniz; 60 dakikayı geçirenlerin başvurusu alınmaz.</li>
+<li>Kimliğinizi kanıtlayan ve doğruluğu sorgulanabilen bir kimlik belgesi zorunludur.</li>
+<li>Getirdiğiniz biyometrik fotoğraf taranıp sisteme kaydedildikten sonra size iade edilir; fotokopi veya biyometrik olmayan fotoğraf kabul edilmez.</li>
+<li>Ehliyet başvurularında bir defaya mahsus parmak izi alınır.</li>
+<li>Başvuru bizzat yapılır; vekaletle işlem yapılmaz.</li>
+</ul>
+<p>İstenen belgelerin tam listesi ''' + a('belgeler', 'ehliyet için gerekli belgeler') + ''' yazımızda.</p>
+
+<h2>Teslim ve takip</h2>
+<ul>
+<li>Sorun yoksa ehliyet üretilir ve başvuruda belirttiğiniz adrese PTT güvenli taşıma hizmetiyle gönderilir; gönderim ücretsizdir.</li>
+<li>Evde bulunamazsanız belge nüfus müdürlüğüne döner; oradan alabilirsiniz.</li>
+<li>Teslim aldığınızda kimlik bilgilerini ve sınıfları kontrol edin; hata varsa belgeyi iade etmeniz gerekir.</li>
+<li>Başvurunun hangi aşamada olduğunu randevu.nvi.gov.tr, e-Devlet, NVİ Mobil veya Alo 199’dan takip edebilirsiniz.</li>
+</ul>
+''',
+    faq=[
+        ('Ehliyet randevusu nereden alınır?',
+         'Randevu randevu.nvi.gov.tr, e-Devlet, NVİ Mobil, Nüfusmatik veya Alo 199 üzerinden alınır.'),
+        ('Sürücü sertifikasıyla araç kullanabilir miyim?',
+         'Hayır. NVİ’ye göre sürücü sertifikası ehliyetle değiştirilmedikçe karayolunda araç kullanma yetkisi vermez.'),
+        ('Ehliyet başvurusu vekaletle yapılabilir mi?',
+         'Hayır. Ehliyet başvurusu ve teslimi vekaletle yapılamaz; başvuru bizzat yapılır.'),
+    ],
+    sources=['nvi_sss'],
+))
+
+# Gruplar: merkez sayfadaki bölümler ve "diğer yazılar" bağlantıları buna göre.
+GROUPS = [
+    ('Ehliyet almak', ['nasil', 'siniflar', 'belgeler', 'rapor', 'masraf', 'randevu', 'sincan']),
+    ('Eğitim ve sınavlar', ['sinav', 'kalirsam', 'otomatik', 'motosiklet', 'motor', 'ekleme', 'ozel', 'korku']),
+    ('Ehliyet aldıktan sonra', ['yenileme', 'kayip', 'aday', 'ceza', 'yurtdisi']),
+]
+# Footer'daki "Rehber" bölümünde görünen yazılar (tümü için merkez sayfa bağlantısı ayrıca var).
+FOOTER = ['nasil', 'belgeler', 'sinav', 'masraf', 'siniflar', 'rapor', 'yenileme', 'motosiklet', 'kalirsam', 'sincan']
+
 
 HUB = dict(
     title='Ehliyet Rehberi: Belgeler, Sınavlar ve Masraflar | Uslu',
