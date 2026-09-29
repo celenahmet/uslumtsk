@@ -104,5 +104,19 @@ for(const file of [...copied].map(f=>f==='error/404/index.html'?'404.html':f)){
  fs.writeFileSync(dest,html);
 }
 if(!stamped)throw new Error('Version stamp matched no asset reference');
+// 4) Cloudflare Web Analytics (cerezsiz ziyaret istatistigi, haftalik rapor bunu okur).
+//    DNS Cloudflare'de ama site Vercel'den gri bulutla yayinda: otomatik ekleme calismaz,
+//    JS snippet ile eklenir. Token herkese acik site belirtecidir, gizli degildir.
+//    KVKK aydinlatma metni (kvkk/index.html) bu araci anlatir; kaldirilirsa metni de guncelle.
+const CF_BEACON='<!-- Cloudflare Web Analytics --><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5b44d86f1a9a4e27bfc1060f36c0f757"}\'></script><!-- End Cloudflare Web Analytics -->';
+let beacons=0;
+for(const file of exportedHtml()){
+ const dest=path.join(out,file);
+ const html=fs.readFileSync(dest,'utf8');
+ if(!html.includes('</body>')||html.includes('cloudflareinsights'))continue;
+ fs.writeFileSync(dest,html.replace('</body>',CF_BEACON+'</body>'));
+ beacons++;
+}
+if(beacons<80)throw new Error(`Cloudflare beacon only on ${beacons} pages`);
 let bytes=0;for(const file of copied)bytes+=fs.statSync(file).size;
 console.log(`Static export: ${copied.size+1} files, ${(bytes/1024/1024).toFixed(2)} MiB. No WordPress, PHP, demos or source tooling.`);
