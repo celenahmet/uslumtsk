@@ -86,24 +86,30 @@
             if (first && first.currentSrc) video.poster=first.currentSrc;
             frame.querySelector('.video-screen').appendChild(video);
             frame.classList.add('is-playing');
-            // Oynarken arka planda yarış hissi: hız çizgileri (Ahmet 30.09). Yalnız video oynarken akar.
+            // Oynarken bölümün alt şeridinde sakin bir yarış (Ahmet 30.09): paralele yakın 3 şeritli yol,
+            // üstünde yukarıdan görünen 3 araç aynı pakette ilerleyip birbirini sollar. Yalnız video
+            // oynarken hareket eder; hareket azaltma tercihinde hiç oluşturulmaz. SVG statik, girdi yok.
             const area=frame.closest('.video-area');
-            if (area && !area.querySelector('.video-race') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                const race=document.createElement('div');
-                race.className='video-race'; race.setAttribute('aria-hidden','true');
-                for (let i=0;i<16;i++) {
-                    const line=document.createElement('span');
-                    if (i%4===1) line.className='is-red';
-                    line.style.top=(4+i*6)+'%';
-                    line.style.width=(70+(i*53)%190)+'px';
-                    line.style.animationDuration=(0.7+((i*37)%9)/10)+'s';
-                    line.style.animationDelay=(-((i*29)%10)/10)+'s';
-                    race.appendChild(line);
-                }
-                area.prepend(race);
+            let track=area&&area.querySelector('.video-track');
+            if (area && !track && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                const wave='C 240 {a}, 480 {b}, 720 {c} S 1200 {d}, 1560 {e}';
+                const lane=(y)=>`M -140 ${y} `+wave.replace('{a}',y-18).replace('{b}',y+18).replace('{c}',y-2).replace('{d}',y-20).replace('{e}',y);
+                const car=(id,body,glass,roof,extra)=>`<g id="${id}"><ellipse cx="2" cy="3" rx="34" ry="15" fill="#000" opacity=".28"/><rect x="-32" y="-14" width="64" height="28" rx="9" fill="${body}"/><path d="M9 -11.5 L17 -9.5 Q20.5 0 17 9.5 L9 11.5 Q11 0 9 -11.5Z" fill="${glass}"/><path d="M-14 -11 L-20 -8.5 Q-22.5 0 -20 8.5 L-14 11 Q-15.5 0 -14 -11Z" fill="${glass}"/><rect x="-13" y="-10.5" width="21" height="21" rx="4" fill="${roof}"/><rect x="5" y="-16.5" width="3" height="3" rx="1" fill="${body}"/><rect x="5" y="13.5" width="3" height="3" rx="1" fill="${body}"/><rect x="28" y="-11" width="3" height="5" rx="1.2" fill="#fff4cc"/><rect x="28" y="6" width="3" height="5" rx="1.2" fill="#fff4cc"/><rect x="-32" y="-11" width="2.5" height="5" rx="1" fill="#e2334f"/><rect x="-32" y="6" width="2.5" height="5" rx="1" fill="#e2334f"/>${extra}</g>`;
+                const move=(href,laneId,begin,points)=>`<use href="#${href}"><animateMotion dur="14s" begin="${begin}" repeatCount="indefinite" rotate="auto" calcMode="linear" keyTimes="0;0.33;0.66;1" keyPoints="${points}"><mpath href="#${laneId}"/></animateMotion></use>`;
+                const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+                svg.setAttribute('class','video-track'); svg.setAttribute('aria-hidden','true'); svg.setAttribute('focusable','false');
+                svg.setAttribute('viewBox','0 0 1440 170'); svg.setAttribute('preserveAspectRatio','xMidYMax slice');
+                svg.innerHTML=`<defs><path id="vt-l1" d="${lane(52)}"/><path id="vt-l2" d="${lane(88)}"/><path id="vt-l3" d="${lane(124)}"/>`
+                    +car('vt-uslu','#f4f6f9','#0d2743','#dde3ea','<rect x="-7" y="-7.5" width="7" height="15" rx="1.6" fill="#cb1643"/>')
+                    +car('vt-kirmizi','#b3142f','#140c14','#9a1028','')+car('vt-grafit','#56657a','#0c1622','#4a586b','')+'</defs>'
+                    +`<path d="${lane(88)}" fill="none" stroke="#fff" stroke-opacity=".035" stroke-width="112"/>`
+                    +`<path d="${lane(34)}" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="2"/><path d="${lane(142)}" fill="none" stroke="#fff" stroke-opacity=".16" stroke-width="2"/>`
+                    +`<path d="${lane(70)}" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2" stroke-dasharray="22 18"/><path d="${lane(106)}" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="2" stroke-dasharray="22 18"/>`
+                    +move('vt-grafit','vt-l1','-0.7s','0;0.36;0.66;1')+move('vt-uslu','vt-l2','0s','0;0.30;0.63;1')+move('vt-kirmizi','vt-l3','-0.35s','0;0.34;0.70;1');
+                area.prepend(svg); track=svg; svg.pauseAnimations?.();
             }
-            video.addEventListener('play', ()=>area?.classList.add('is-racing'));
-            ['pause','ended'].forEach(name=>video.addEventListener(name, ()=>area?.classList.remove('is-racing')));
+            video.addEventListener('play', ()=>{area?.classList.add('is-racing'); track?.unpauseAnimations?.();});
+            ['pause','ended'].forEach(name=>video.addEventListener(name, ()=>{area?.classList.remove('is-racing'); track?.pauseAnimations?.();}));
             video.play().catch(()=>{});
             video.focus({preventScroll:true});
         }, {once:true});
