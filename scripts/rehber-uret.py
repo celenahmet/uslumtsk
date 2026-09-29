@@ -225,43 +225,42 @@ for path in written:
 HOME_START, HOME_END = '<!-- rehber home -->', '<!-- rehber home end -->'
 
 def home_section():
+    # Kompakt vitrin: solda görselli öne çıkan yazı, sağda en çok aranan 6 soru, altta kategoriler.
     esc = lambda t: html.escape(t, quote=True)
-    def card(k):
-        p = BY_KEY[k]
-        return ('<a class="home-guide-card" href="%s"><img alt="%s" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/>'
-                '<span class="home-guide-body"><span class="home-guide-cat">%s</span><strong>%s</strong><span class="home-guide-text">%s</span></span></a>'
-                % (R[k], esc(img_alt(p['h1'])), img_base(k), GROUP_OF[k], p['h1'], p['card']))
-    featured = ''.join(card(k) for k in HOME_FEATURED)
-    cats = ''
-    for name, ks in GROUPS:
-        gid = group_id(name)
-        lis = ''.join('<li><a href="%s">%s</a></li>' % (R[k], BY_KEY[k]['h1']) for k in ks[:4])
-        cats += ('<div class="home-guide-catbox"><h4><a href="/rehber/#%s">%s</a> <small>%d yazı</small></h4><ul>%s</ul>'
-                 '<a class="home-guide-more" href="/rehber/#%s">Tümünü gör</a></div>' % (gid, name, len(ks), lis, gid))
-    newest = [p['key'] for p in reversed(PAGES) if p['key'] not in HOME_FEATURED][:6]
-    news = ''.join('<li><a href="%s"><img alt="" decoding="async" height="252" loading="lazy" src="/assets/img/rehber/%s-480.webp" width="480"/><span>%s</span></a></li>'
-                   % (R[k], img_base(k), BY_KEY[k]['h1']) for k in newest)
-    return (HOME_START + '\n<section aria-labelledby="home-guide-title" class="home-guide py-120"><div class="container">'
+    lead, rest = HOME_FEATURED[0], HOME_FEATURED[1:7]
+    p = BY_KEY[lead]
+    feature = ('<a class="home-guide-feature" href="%s"><img alt="%s" decoding="async" height="630" loading="lazy" src="/assets/img/rehber/%s.webp" width="1200"/>'
+               '<span class="home-guide-body"><span class="home-guide-cat">%s</span><strong>%s</strong><span class="home-guide-text">%s</span><span class="home-guide-go">Okumaya başla</span></span></a>'
+               % (R[lead], esc(img_alt(p['h1'])), img_base(lead), GROUP_OF[lead], p['h1'], p['card']))
+    top = ''.join('<li><a href="%s"><span class="home-guide-q"><span class="home-guide-cat">%s</span><strong>%s</strong></span></a></li>'
+                  % (R[k], GROUP_OF[k], BY_KEY[k]['h1']) for k in rest)
+    chips = ''.join('<a href="/rehber/#%s">%s <small>%d</small></a>' % (group_id(name), name, len(ks)) for name, ks in GROUPS)
+    return (HOME_START + '\n<section aria-labelledby="home-guide-title" class="home-guide"><div class="container">'
             '<div class="site-heading text-center"><span class="site-title-tagline">Ehliyet Rehberi</span>'
             '<h2 class="site-title" id="home-guide-title">Aradığınız sorunun <span>cevabı burada</span></h2>'
-            '<p class="home-guide-lead">Ehliyetle ilgili %d soruya resmî kaynaklara dayanan kısa cevaplar: belgeler, sınavlar, 2026 masrafları, ehliyet sınıfları ve trafik cezaları.</p></div>'
-            '<h3 class="home-guide-sub">En çok aranan sorular</h3><div class="home-guide-grid">%s</div>'
-            '<h3 class="home-guide-sub">Kategoriler</h3><div class="home-guide-cats">%s</div>'
-            '<h3 class="home-guide-sub">En yeni eklenenler</h3><ul class="home-guide-new">%s</ul>'
-            '<div class="text-center mt-5"><a class="theme-btn" href="/rehber/">Tüm rehber yazıları <i aria-hidden="true" class="far fa-arrow-right"></i></a></div>'
-            '</div></section>\n' % (len(PAGES), featured, cats, news) + HOME_END)
+            '<p class="home-guide-lead">Ehliyetle ilgili %d soruya resmî kaynaklara dayanan kısa cevaplar.</p></div>'
+            '<div class="home-guide-main">%s<div class="home-guide-top"><h3 class="home-guide-sub">En çok aranan sorular</h3><ol class="home-guide-list">%s</ol></div></div>'
+            '<div class="home-guide-foot"><nav aria-label="Rehber kategorileri" class="home-guide-chips">%s</nav>'
+            '<a class="theme-btn" href="/rehber/">%d sorunun tümü <i aria-hidden="true" class="far fa-arrow-right"></i></a></div>'
+            '</div></section>\n' % (len(PAGES), feature, top, chips, len(PAGES)) + HOME_END)
 
 def sync_home():
+    # Bölüm eğitmenlerin (son team-area) altında durur; yeri değişirse eskisi kaldırılıp yeniden eklenir.
     path = ROOT + 'index.html'
     h = open(path, encoding='utf-8').read()
-    if HOME_START in h:
-        h = re.sub(re.escape(HOME_START) + '.*?' + re.escape(HOME_END), lambda m: home_section(), h, count=1, flags=re.S)
-    else:
-        anchor = '<!-- course area end -->'
-        assert h.count(anchor) == 1
-        h = h.replace(anchor, anchor + '\n' + home_section())
+    h = re.sub('\n?' + re.escape(HOME_START) + '.*?' + re.escape(HOME_END), '', h, count=1, flags=re.S)
+    anchor = '<!-- team-area end -->'
+    assert h.count(anchor) == 2
+    i = h.rindex(anchor) + len(anchor)
+    h = h[:i] + '\n' + home_section() + h[i:]
     assert h.count(HOME_START) == 1
     open(path, 'w', encoding='utf-8').write(h)
 
+def sync_report_names():
+    # Haftalık e-posta raporu rehber sayfalarını adres yerine başlığıyla yazar (api/haftalik-rapor.js).
+    names = {R[p['key']]: p['h1'] for p in PAGES}
+    open(ROOT + 'api/_rehber-adlari.json', 'w', encoding='utf-8').write(json.dumps(names, ensure_ascii=False, indent=0, sort_keys=True) + '\n')
+
 sync_home()
 sync_sitemap()
+sync_report_names()

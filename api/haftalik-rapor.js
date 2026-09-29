@@ -46,10 +46,11 @@ const PAGE_NAMES = {
   '/en/': 'İngilizce ana sayfa',
   '/rehber/': 'Ehliyet Rehberi'
 };
+// Rehber yazılarının başlıkları; scripts/rehber-uret.py üretir.
+const GUIDE_NAMES = require('./_rehber-adlari.json');
 function pageName(path) {
   if (PAGE_NAMES[path]) return PAGE_NAMES[path];
-  const m = /^\/rehber\/([a-z0-9-]+)\/$/.exec(path);
-  return m ? 'Rehber: ' + m[1].replace(/-/g, ' ') : path;
+  return GUIDE_NAMES[path] ? 'Rehber: ' + GUIDE_NAMES[path] : path;
 }
 
 // Her hafta sırayla bir öneri (ISO hafta numarasına göre döner).
@@ -75,6 +76,12 @@ function trDate(d) {
 }
 function isoDay(d) {
   return d.toISOString().slice(0, 10);
+}
+const TR_MS = 3 * 3600 * 1000;
+const WEEKDAYS = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+// Ortalama sıra tam sayıya yuvarlanır: 5,6 → "6."
+function rank(pos) {
+  return Math.max(1, Math.round(pos)) + '.';
 }
 function change(cur, prev) {
   if (!prev) return cur ? 'yeni' : '';
@@ -119,7 +126,7 @@ async function cloudflare(range) {
     viewer { accounts(filter: { accountTag: $a }) {
       total: rumPageloadEventsAdaptiveGroups(limit: 1, filter: $f) { count sum { visits } }
       prev: rumPageloadEventsAdaptiveGroups(limit: 1, filter: $p) { count sum { visits } }
-      pages: rumPageloadEventsAdaptiveGroups(limit: 6, filter: $f, orderBy: [count_DESC]) { count dimensions { requestPath } }
+      pages: rumPageloadEventsAdaptiveGroups(limit: 100, filter: $f, orderBy: [count_DESC]) { count dimensions { requestPath } }
       refs: rumPageloadEventsAdaptiveGroups(limit: 8, filter: $f, orderBy: [sum_visits_DESC]) { sum { visits } dimensions { refererHost } }
       devices: rumPageloadEventsAdaptiveGroups(limit: 5, filter: $f, orderBy: [count_DESC]) { count dimensions { deviceType } }
     } }
@@ -155,15 +162,72 @@ async function cloudflare(range) {
   }
   const devTotal = acc.devices.reduce((s, x) => s + x.count, 0) || 1;
   const mobile = acc.devices.filter((x) => /mobile|tablet/i.test(x.dimensions.deviceType)).reduce((s, x) => s + x.count, 0);
+  const pages = acc.pages.map((x) => [x.dimensions.requestPath, x.count]);
+  const guide = pages.filter((x) => GUIDE_NAMES[x[0]]);
+  const [hours, speed] = await Promise.all([
+    cfHours(token, account, site, start, end).catch(() => null),
+    cfSpeed(token, account, site, start, end).catch(() => null)
+  ]);
   return {
     visits: tot.sum.visits,
     prevVisits: hasPrev ? prev.sum.visits : null,
     partial: start > range.start || end > range.end ? { from: start, to: end } : null,
     views: tot.count,
-    pages: acc.pages.map((x) => [x.dimensions.requestPath, x.count]),
+    pages,
     sources: Object.entries(groups).filter((e) => e[1] > 0).sort((a, b) => b[1] - a[1]),
-    mobilePct: Math.round((mobile / devTotal) * 100)
+    mobilePct: Math.round((mobile / devTotal) * 100),
+    guideViews: guide.reduce((n, x) => n + x[1], 0),
+    guideTop: guide.slice(0, 3).map((x) => [GUIDE_NAMES[x[0]], x[1]]),
+    days: hours && hours.days,
+    blocks: hours && hours.blocks,
+    loadSec: speed
   };
+}
+
+// Ek sorgular temel sorgudan ayrıdır: biri alınamazsa yalnız o bölüm e-postadan düşer, sebebi günlüğe yazılır.
+async function cfQuery(token, query, variables, label) {
+  const r = await fetchJson('https://api.cloudflare.com/client/v4/graphql', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, variables })
+  });
+  const acc = r.body && r.body.data && r.body.data.viewer && r.body.data.viewer.accounts && r.body.data.viewer.accounts[0];
+  if (!r.ok || !acc) {
+    const why = r.body && r.body.errors && r.body.errors[0] && r.body.errors[0].message;
+    console.error('rapor: cloudflare ' + label + ' durum ' + r.status + (why ? ' ' + String(why).slice(0, 160) : ''));
+    return null;
+  }
+  return acc;
+}
+// Ziyaretler Türkiye saatine göre günlere ve dört zaman dilimine dağıtılır.
+const BLOCKS = ['Sabah (06.00-12.00)', 'Öğleden sonra (12.00-17.00)', 'Akşam (17.00-22.00)', 'Gece (22.00-06.00)'];
+async function cfHours(token, account, site, start, end) {
+  const acc = await cfQuery(token, `query($a: String!, $f: AccountRumPageloadEventsAdaptiveGroupsFilter_InputObject) {
+    viewer { accounts(filter: { accountTag: $a }) {
+      hours: rumPageloadEventsAdaptiveGroups(limit: 200, filter: $f) { sum { visits } dimensions { datetimeHour } }
+    } }
+  }`, { a: account, f: { AND: [{ siteTag: site }, { datetime_geq: start.toISOString(), datetime_lt: end.toISOString() }] } }, 'saat');
+  if (!acc) return null;
+  const days = new Map();
+  for (let t = new Date(start.getTime() + TR_MS); t < new Date(end.getTime() + TR_MS); t = new Date(t.getTime() + 86400000)) days.set(isoDay(t), 0);
+  const blocks = [0, 0, 0, 0];
+  for (const x of acc.hours) {
+    const t = new Date(new Date(x.dimensions.datetimeHour).getTime() + TR_MS);
+    const h = t.getUTCHours(), v = x.sum.visits;
+    if (days.has(isoDay(t))) days.set(isoDay(t), days.get(isoDay(t)) + v);
+    blocks[h >= 6 && h < 12 ? 0 : h >= 12 && h < 17 ? 1 : h >= 17 && h < 22 ? 2 : 3] += v;
+  }
+  return { days: [...days.entries()], blocks };
+}
+// Sayfanın açılma süresi: ziyaretlerin yarısı bu süreden kısa (medyan). Cloudflare mikro saniye verir.
+async function cfSpeed(token, account, site, start, end) {
+  const acc = await cfQuery(token, `query($a: String!, $f: AccountRumPerformanceEventsAdaptiveGroupsFilter_InputObject) {
+    viewer { accounts(filter: { accountTag: $a }) {
+      perf: rumPerformanceEventsAdaptiveGroups(limit: 1, filter: $f) { count quantiles { pageLoadTimeP50 } }
+    } }
+  }`, { a: account, f: { AND: [{ siteTag: site }, { datetime_geq: start.toISOString(), datetime_lt: end.toISOString() }] } }, 'hiz');
+  const x = acc && acc.perf && acc.perf[0];
+  return x && x.count && x.quantiles && x.quantiles.pageLoadTimeP50 ? x.quantiles.pageLoadTimeP50 / 1e6 : null;
 }
 
 /* ---------------------------------------------------- Google Search Console */
@@ -209,17 +273,30 @@ async function searchConsole() {
   const pStart = new Date(pEnd.getTime() - 6 * 86400000);
   const url = 'https://www.googleapis.com/webmasters/v3/sites/' + encodeURIComponent(site) + '/searchAnalytics/query';
   const ask = (body) => fetchJson(url, { method: 'POST', headers: { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-  const [cur, prev, queries] = await Promise.all([
+  const [cur, prev, queries, prevQueries, pages] = await Promise.all([
     ask({ startDate: isoDay(start), endDate: isoDay(end) }),
     ask({ startDate: isoDay(pStart), endDate: isoDay(pEnd) }),
-    ask({ startDate: isoDay(start), endDate: isoDay(end), dimensions: ['query'], rowLimit: 250 })
+    ask({ startDate: isoDay(start), endDate: isoDay(end), dimensions: ['query'], rowLimit: 250 }),
+    ask({ startDate: isoDay(pStart), endDate: isoDay(pEnd), dimensions: ['query'], rowLimit: 250 }),
+    ask({ startDate: isoDay(start), endDate: isoDay(end), dimensions: ['page'], rowLimit: 25 })
   ]);
   if (!cur.ok) {
     console.error('rapor: search console durum ' + cur.status);
     return null;
   }
   const row = (r) => (r.ok && r.body && r.body.rows && r.body.rows[0]) || { clicks: 0, impressions: 0, position: 0 };
+  const rows = (r) => (r.ok && r.body && r.body.rows) || [];
   const c = row(cur), p = row(prev);
+  // İçinde "sincan" ya da "ankara" geçen aramalar: toplam görünme/tık, görünmeye göre ağırlıklı ortalama sıra.
+  // Google seyrek aramaları gizlediği için toplamlar yaklaşıktır.
+  const local = (list, word) => {
+    const m = list.filter((x) => x.keys[0].toLocaleLowerCase('tr').includes(word));
+    const imp = m.reduce((n, x) => n + x.impressions, 0);
+    return imp ? { impressions: imp, clicks: m.reduce((n, x) => n + x.clicks, 0), position: m.reduce((n, x) => n + x.position * x.impressions, 0) / imp } : null;
+  };
+  const localRows = [['Sincan', 'sincan'], ['Ankara', 'ankara']]
+    .map((w) => ({ name: w[0], cur: local(rows(queries), w[1]), prev: local(rows(prevQueries), w[1]) }))
+    .filter((x) => x.cur);
   return {
     from: start,
     to: end,
@@ -229,9 +306,15 @@ async function searchConsole() {
     prevClicks: p.clicks,
     position: c.position,
     // En çok tıklanan, eşitlikte en çok görünen 5 arama
-    queries: ((queries.ok && queries.body && queries.body.rows) || [])
-      .map((x) => [x.keys[0], x.impressions, x.clicks])
+    queries: rows(queries)
+      .map((x) => [x.keys[0], x.impressions, x.clicks, x.position])
       .sort((a, b) => b[2] - a[2] || b[1] - a[1])
+      .slice(0, 5),
+    local: localRows,
+    // Google'da en çok görünen 5 sayfa
+    pages: rows(pages)
+      .map((x) => [x.keys[0].replace(SITE, '') || '/', x.impressions, x.clicks])
+      .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
   };
 }
@@ -243,12 +326,20 @@ function sample(range) {
       visits: 312, prevVisits: 268, views: 845,
       pages: [['/', 402], ['/egitim/manuel-b/', 118], ['/iletisim/', 96], ['/egitim/otomatik-b/', 71], ['/hakkimizda/', 44]],
       sources: [['Google', 188], ['Doğrudan / kayıtlı bağlantı', 71], ['Instagram', 39], ['Diğer', 14]],
-      mobilePct: 78
+      mobilePct: 78,
+      guideViews: 96,
+      guideTop: [['Ehliyet Masrafları 2026', 31], ['Ehliyet Nasıl Alınır? Adım Adım 2026', 24], ['Ehliyet Sınavı Nasıl Yapılır?', 17]],
+      days: [52, 47, 39, 44, 41, 58, 31].map((v, i) => [isoDay(new Date(range.start.getTime() + TR_MS + i * 86400000)), v]),
+      blocks: [58, 84, 131, 39],
+      loadSec: 1.4
     },
     gsc: {
       from: new Date(range.start.getTime() - 2 * 86400000), to: new Date(range.end.getTime() - 3 * 86400000),
       impressions: 1240, prevImpressions: 1105, clicks: 86, prevClicks: 71, position: 6.4,
-      queries: [['sincan sürücü kursu', 410, 38], ['uslu sürücü kursu', 96, 29], ['sincan ehliyet kursu', 188, 9], ['otomatik ehliyet sincan', 74, 4], ['sürücü kursu fiyatları ankara', 131, 2]]
+      queries: [['sincan sürücü kursu', 410, 38, 3.2], ['uslu sürücü kursu', 96, 29, 1.1], ['sincan ehliyet kursu', 188, 9, 5.6], ['otomatik ehliyet sincan', 74, 4, 4.4], ['sürücü kursu fiyatları ankara', 131, 2, 12.3]],
+      local: [{ name: 'Sincan', cur: { impressions: 820, clicks: 61, position: 4.6 }, prev: { impressions: 760, clicks: 52, position: 5.7 } },
+        { name: 'Ankara', cur: { impressions: 214, clicks: 6, position: 13.8 }, prev: { impressions: 190, clicks: 4, position: 16.2 } }],
+      pages: [['/', 640, 52], ['/rehber/ehliyet-masraflari/', 182, 9], ['/egitim/manuel-b/', 131, 11], ['/iletisim/', 88, 6], ['/rehber/ehliyet-nasil-alinir/', 76, 3]]
     }
   };
 }
@@ -284,6 +375,21 @@ function render(data, range, opts) {
   const list = (rows) => '<table cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
     rows.map((r) => '<tr><td class="dk-text dk-line" style="padding:7px 0;border-bottom:1px solid ' + LINE + ';color:' + NAVY + '">' + esc(r[0]) + '</td><td class="dk-muted dk-line" style="padding:7px 0;border-bottom:1px solid ' + LINE + ';text-align:right;color:' + MUTED + ';white-space:nowrap">' + esc(r[1]) + '</td></tr>').join('') + '</table>';
 
+  // Yatay çubuk listesi: [etiket, değer, sağdaki yazı]; en büyük değer tam genişlik.
+  const bars = (rows) => {
+    const max = Math.max.apply(null, rows.map((r) => r[1])) || 1;
+    return '<table cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;font-size:14px">' +
+      rows.map((r) => '<tr><td class="dk-text dk-line" style="padding:7px 12px 7px 0;border-bottom:1px solid ' + LINE + ';color:' + NAVY + ';white-space:nowrap;width:1%">' + esc(r[0]) + '</td>' +
+        '<td class="dk-line" style="padding:7px 0;border-bottom:1px solid ' + LINE + '"><div style="background:' + RED + ';height:10px;border-radius:2px;width:' + (r[1] ? Math.max(3, Math.round((r[1] / max) * 100)) : 0) + '%"></div></td>' +
+        '<td class="dk-muted dk-line" style="padding:7px 0 7px 12px;border-bottom:1px solid ' + LINE + ';text-align:right;color:' + MUTED + ';white-space:nowrap;width:1%">' + esc(r[2]) + '</td></tr>').join('') + '</table>';
+  };
+  // Sıra değişimi: küçük sayı daha iyi (yukarı çıkmak).
+  const move = (cur, prev) => {
+    const d = Math.round(prev) - Math.round(cur);
+    return d > 0 ? ' (▲ ' + d + ')' : d < 0 ? ' (▼ ' + -d + ')' : '';
+  };
+  const note = (t) => '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:8px 0 0;line-height:1.5">' + t + '</p>';
+
   let html = '<div class="dk-page" style="font-family:Arial,Helvetica,sans-serif;background:#f3f5f8;padding:20px 0"><div class="dk-card" style="max-width:600px;margin:0 auto;background:#fff;border-top:4px solid ' + RED + '">';
   html += '<div class="dk-head" style="background:' + NAVY + ';color:#fff;padding:20px 24px"><div style="font-size:13px;opacity:.8">Uslu Sürücü Kursu</div><div style="font-size:20px;font-weight:bold;margin-top:4px">Web sitenizin haftalık özeti</div><div style="font-size:13px;opacity:.8;margin-top:4px">' + esc(weekLabel) + '</div></div>';
   html += '<div style="padding:8px 24px 24px">';
@@ -303,8 +409,17 @@ function render(data, range, opts) {
 
   if (gsc && gsc.queries.length) {
     html += h2('İnsanlar sizi Google’da ne yazarak buldu?');
-    html += list(gsc.queries.map((q) => [q[0], fmt(q[1]) + ' kez göründünüz · ' + fmt(q[2]) + ' tıklama']));
-    html += '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">“Görünme”, sitenizin Google arama sonuçlarında listelenme sayısıdır. Google’ın verisi 2-3 gün geç geldiği için bu bölüm ' + esc(trDate(gsc.from)) + ' - ' + esc(trDate(gsc.to)) + ' arasını gösterir.' + (gsc.position ? ' Aramalarda ortalama ' + esc(gsc.position.toFixed(1).replace('.', ',')) + '. sıradasınız.' : '') + '</p>';
+    html += list(gsc.queries.map((q) => [q[0], fmt(q[1]) + ' görünme · ' + fmt(q[2]) + ' tık · ' + rank(q[3]) + ' sıra']));
+    html += '<p class="dk-muted" style="font-size:12px;color:' + MUTED + ';margin:8px 0 0">“Görünme”, sitenizin Google arama sonuçlarında listelenme sayısıdır. Google’ın verisi 2-3 gün geç geldiği için bu bölüm ' + esc(trDate(gsc.from)) + ' - ' + esc(trDate(gsc.to)) + ' arasını gösterir.' + (gsc.position ? ' Aramalarda ortalama ' + esc(rank(gsc.position)) + ' sıradasınız.' : '') + '</p>';
+  }
+  if (gsc && gsc.local && gsc.local.length) {
+    html += h2('Sincan ve Ankara aramalarında yeriniz');
+    html += list(gsc.local.map((l) => ['“' + l.name + '” geçen aramalar', fmt(l.cur.impressions) + ' görünme · ' + fmt(l.cur.clicks) + ' tık · ' + rank(l.cur.position) + ' sıra' + (l.prev ? move(l.cur.position, l.prev.position) : '')]));
+    html += note('Sıra, sitenizin Google sonuçlarındaki ortalama yeridir; 1. sıra en üsttür. ▲ geçen haftaya göre yükseldiğinizi gösterir.');
+  }
+  if (gsc && gsc.pages && gsc.pages.length) {
+    html += h2('Google’da en çok görünen sayfalarınız');
+    html += list(gsc.pages.map((p) => [pageName(p[0]), fmt(p[1]) + ' görünme · ' + fmt(p[2]) + ' tık']));
   }
   if (cf && cf.pages.length) {
     html += h2('En çok bakılan sayfalar');
@@ -314,7 +429,27 @@ function render(data, range, opts) {
     const total = cf.sources.reduce((s, x) => s + x[1], 0) || 1;
     html += h2('Ziyaretçiler nereden geldi?');
     html += list(cf.sources.map((s) => [s[0], '%' + Math.round((s[1] / total) * 100)]));
-    html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + ';margin:10px 0 0">Ziyaretçilerin <b>%' + cf.mobilePct + '</b> kadarı siteye telefondan girdi.</p>';
+    html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + ';margin:10px 0 0;line-height:1.6">Ziyaretçilerin <b>%' + cf.mobilePct + '</b> kadarı siteye telefondan girdi.' +
+      (cf.loadSec ? ' Sayfalar ziyaretçilerin yarısı için <b>' + esc(cf.loadSec.toFixed(1).replace('.', ',')) + ' saniyeden</b> kısa sürede açıldı.' : '') + '</p>';
+  }
+  if (cf && cf.days && cf.days.length > 1) {
+    html += h2('Ziyaretler günlere göre');
+    html += bars(cf.days.map((d) => {
+      const t = new Date(d[0] + 'T00:00:00Z');
+      return [WEEKDAYS[t.getUTCDay()] + ' ' + trDate(t), d[1], fmt(d[1])];
+    }));
+  }
+  const blockSum = cf && cf.blocks ? cf.blocks.reduce((n, v) => n + v, 0) : 0;
+  if (blockSum) {
+    const top = cf.blocks.indexOf(Math.max.apply(null, cf.blocks));
+    html += h2('Ziyaretçiler hangi saatlerde geldi?');
+    html += bars(BLOCKS.map((b, i) => [b, cf.blocks[i], '%' + Math.round((cf.blocks[i] / blockSum) * 100)]));
+    html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + ';margin:10px 0 0">Ziyaretçiler en çok <b>' + esc(BLOCKS[top].split(' (')[0].toLocaleLowerCase('tr')) + '</b> saatlerinde geldi.</p>';
+  }
+  if (cf && cf.guideViews) {
+    html += h2('Ehliyet Rehberi');
+    html += '<p class="dk-text" style="font-size:14px;color:' + NAVY + ';margin:0 0 6px">Rehber yazıları bu dönemde <b>' + fmt(cf.guideViews) + '</b> kez okundu. En çok okunanlar:</p>';
+    html += list(cf.guideTop.map((g) => [g[0], fmt(g[1]) + ' okunma']));
   }
   const tip = TIPS[(isoWeek(range.end) - 1) % TIPS.length];
   html += h2('Bu haftanın önerisi');
@@ -330,6 +465,8 @@ function render(data, range, opts) {
     .concat(opts.sample ? ['ÖRNEK ÖZET: rakamlar gerçek değildir.', ''] : [])
     .concat(cf ? ['Ziyaret: ' + fmt(cf.visits) + ' (' + cfNote + ')'] : [])
     .concat(gsc ? ['Google’da görünme: ' + fmt(gsc.impressions), 'Google’dan tıklama: ' + fmt(gsc.clicks)] : [])
+    .concat(gsc && gsc.local ? gsc.local.map((l) => '“' + l.name + '” geçen aramalarda ortalama ' + rank(l.cur.position) + ' sıra') : [])
+    .concat(cf && cf.guideViews ? ['Rehber yazıları ' + fmt(cf.guideViews) + ' kez okundu'] : [])
     .concat(!cf && !gsc ? ['Veri kaynakları henüz bağlanmadı.'] : [])
     .concat(['', 'Bu haftanın önerisi: ' + tip])
     .join('\n');

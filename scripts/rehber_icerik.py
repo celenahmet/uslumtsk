@@ -2447,4 +2447,5 @@ HUB = dict(
 )
 
 # Ana sayfadaki "Rehber" bölümü: en çok aranan konular (görselli kartlar).
-HOME_FEATURED = ['nasil', 'masraf', 'sinav', 'yenileme', 'alkol', 'hiz']
+# Ana sayfa: ilki büyük görselli öne çıkan yazı, kalan altısı numaralı soru listesi.
+HOME_FEATURED = ['nasil', 'masraf', 'sinav', 'ankara', 'yenileme', 'alkol', 'hiz']
