@@ -229,7 +229,7 @@ PAGES.append(dict(
 <ul>
 <li>Fotoğraflı T.C. kimlik kartı (kayıtta görülüp geri verilir).</li>
 <li>Diploma, diploma yerine geçen belge ya da bir kamu kurumundan alınan öğrenim durumu belgesi. Aslı görülerek kurs tarafından onaylı örneği alınır. En az ilkokul düzeyinde öğrenim gerekir.</li>
-<li>Son altı ayda çekilmiş biyometrik fotoğraf. Yönetmelik iki adet sayar.</li>
+<li>Son altı ayda çekilmiş biyometrik fotoğraf. Kursumuzda kayıt için 1 adet yeterlidir.</li>
 <li>Sürücü olur raporu.</li>
 <li>Ehliyet almaya engel bir sabıka kaydı olmadığını gösteren barkodlu belge. Bu belgeyi e-Devlet’teki adli sicil kaydı hizmetinden alabilirsiniz; Bakanlık ayrıca yetkili adli mercilerden teyit eder.</li>
 <li>Başka sınıf ehliyetiniz varsa mevcut ehliyetinizin fotokopisi.</li>
@@ -242,7 +242,7 @@ PAGES.append(dict(
 <li>Pasaportun noter tasdikli Türkçe tercümesi veya geçici koruma kimlik belgesi.</li>
 <li>Kayıt tarihinden itibaren Türkiye’de en az altı ay kalacağını gösteren ikamet izni, öğrenim vizesi veya çalışma izni.</li>
 <li>Öğrenim belgesinin noter tasdikli Türkçe tercümesi.</li>
-<li>Sürücü olur raporu ve son altı ayda çekilmiş iki biyometrik fotoğraf.</li>
+<li>Sürücü olur raporu ve son altı ayda çekilmiş biyometrik fotoğraf.</li>
 <li>Cumhuriyet başsavcılığı veya kaymakamlıktan alınan adli sicil belgesi.</li>
 <li>18 yaşını doldurmamış adaylar için veli veya vasi muvafakatnamesi.</li>
 </ul>
