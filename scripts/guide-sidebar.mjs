@@ -9,7 +9,7 @@ const groups = [...hub.matchAll(/<section class="guide-hub-group">([\s\S]*?)<\/s
 if (!groups.length) throw new Error('Guide categories missing');
 const articles = groups.flatMap(g => g.articles);
 const featured = [...hub.matchAll(/<a class="home-guide-feature" href="([^"]+)">[\s\S]*?<strong>([^<]+)<\/strong>/g)].slice(0,3);
-const popularSlugs = ['ehliyet-icin-gerekli-belgeler', 'motosiklet-ehliyeti', 'ehliyet-yenileme'];
+const popularSlugs = ['ehliyet-icin-gerekli-belgeler', 'motosiklet-ehliyeti', 'ehliyet-yenileme', 'otomatik-vites-ehliyet', 'sinavda-kalirsam'];
 const popular = popularSlugs.map(slug => articles.find(a => a.url === `/rehber/${slug}/`)).filter(Boolean);
 const widget = (title, body) => `<section class="widget guide-sidebar-widget"><h2 class="widget-title heading-size-4">${title}</h2>${body}</section>`;
 const block = '<!-- guide sidebar -->\n<div class="guide-sidebar">' +
@@ -20,13 +20,28 @@ const block = '<!-- guide sidebar -->\n<div class="guide-sidebar">' +
  widget('En Çok Arananlar', '<nav aria-label="Sık aranan rehber konuları" class="guide-sidebar-topics">'+['Ehliyet masrafları','Gerekli belgeler','Direksiyon sınavı','Motosiklet ehliyeti','Ehliyet yenileme'].map(q=>`<a href="/rehber/?q=${encodeURIComponent(q)}">${q}</a>`).join('')+'</nav>') +
  '<section class="widget guide-sidebar-widget" id="guide-recent" hidden><h2 class="widget-title heading-size-4">Son Okuduklarınız</h2><div class="guide-sidebar-posts" id="guide-recent-list"></div></section>' +
  '<a class="guide-sidebar-all" href="/rehber/">Tüm rehber yazıları <span aria-hidden="true">→</span></a></div>\n<!-- guide sidebar end -->';
+const relatedSlugs = {
+ 'motor-a1': ['16-yasinda-ehliyet', 'motosiklet-direksiyon-sinavi', 'b-ehliyetle-motosiklet'],
+ 'motor-a2': ['motosiklet-direksiyon-sinavi', 'ehliyete-sinif-ekleme', 'direksiyon-dersi'],
+ 'manuel-b': ['direksiyon-dersi', 'direksiyon-sinavi-geri-park', 'aday-surucu-belgesi'],
+ 'otomatik-b': ['direksiyon-sinavi-geri-park', 'ehliyetim-var-araba-kullanamiyorum', 'direksiyon-dersi'],
+ 'ozel': ['ehliyetim-var-araba-kullanamiyorum', 'direksiyon-dersi', 'trafik-kazasinda-ne-yapilmali'],
+ 'diger': ['kamyon-ehliyeti', 'otobus-ehliyeti', 'ehliyete-sinif-ekleme'],
+ 'ozel-ab': ['ozel-gereksinimli-surucu-adaylari', 'surucu-olur-raporu', 'otomatik-vites-ehliyet']
+};
+function extraContent(course) {
+ const related = (relatedSlugs[course] || ['surucu-kursu-kayit-donemleri', 'direksiyon-dersi', 'surucu-olur-raporu'])
+  .map(slug => articles.find(a => a.url === `/rehber/${slug}/`)).filter(Boolean);
+ return widget('Bu Eğitim İçin Rehberler', '<div class="guide-sidebar-posts">'+related.map(a=>`<a href="${a.url}">${a.title}<span aria-hidden="true">→</span></a>`).join('')+'</div>') +
+ '<section class="guide-sidebar-contact"><span class="guide-sidebar-eyebrow">BİRLİKTE PLANLAYALIM</span><h2>Ehliyet yolculuğunuz<br/>buradan başlasın</h2><p>Kayıt, ders programı ve eğitim seçenekleri hakkında bize ulaşın.</p><a class="guide-sidebar-call" href="tel:+905320685647">Telefonla ara <strong>0532 068 56 47</strong></a><a class="guide-sidebar-whatsapp" href="https://wa.me/905320685647?text=Merhaba%2C%20ehliyet%20e%C4%9Fitimleri%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">WhatsApp’tan yazın <span aria-hidden="true">↗</span></a><small>Atatürk Cd. No:2/17, Sincan/Ankara<br/>2. Noterin üst katı</small></section>';
+}
 for (const dir of fs.readdirSync('egitim', {withFileTypes:true})) {
  const file = dir.isDirectory() ? `egitim/${dir.name}/index.html` : dir.name === 'index.html' ? 'egitim/index.html' : null;
  if (!file || !fs.existsSync(file)) continue;
  let html = fs.readFileSync(file,'utf8').replace(/\n?<!-- guide sidebar -->[\s\S]*?<!-- guide sidebar end -->/g,'');
  const anchor = '</div>\n</div>\n</div>\n</div>\n<div class="col-xl-8 col-lg-8">';
  if (!html.includes(anchor)) throw new Error(`Sidebar anchor missing: ${file}`);
- html = html.replace(anchor, '</div>\n</div>\n'+block+'\n</div>\n</div>\n<div class="col-xl-8 col-lg-8">');
+ html = html.replace(anchor, '</div>\n</div>\n'+block.replace('</div>\n<!-- guide sidebar end -->', extraContent(dir.name)+'</div>\n<!-- guide sidebar end -->')+'\n</div>\n</div>\n<div class="col-xl-8 col-lg-8">');
  if (!html.includes('/assets/css/guide-sidebar.css')) html=html.replace('</head>','<link href="/assets/css/guide-sidebar.css" rel="stylesheet"/>\n</head>');
  if (!html.includes('/assets/js/guide-reader.js')) html=html.replace('</body>','<script defer src="/assets/js/guide-reader.js"></script>\n</body>');
  fs.writeFileSync(file,html);
