@@ -84,6 +84,9 @@
         waAlso: 'Also write on WhatsApp',
         waSend: 'Send on WhatsApp',
         again: 'New request',
+        callNow: 'Call by phone',
+        callHint: 'For a faster reply, you can call us.',
+        waCountdown: 'Opening WhatsApp in {s} seconds with your message ready. Tap Send in WhatsApp.',
         privacy: 'Your request is sent to our school by email so that we can reply.',
         privacyLink: 'Privacy notice (KVKK)',
         teaser: 'Hi! How can we help you?',
@@ -184,6 +187,9 @@
         waAlso: 'WhatsApp’tan da yazın',
         waSend: 'WhatsApp’tan gönder',
         again: 'Yeni talep',
+        callNow: 'Telefonla ara',
+        callHint: 'Daha hızlı dönüş için bizi telefonla arayabilirsiniz.',
+        waCountdown: 'Hazır mesajınızla {s} saniye sonra WhatsApp açılacak. Göndermek için WhatsApp’ta Gönder’e dokunun.',
         privacy: 'Talebiniz, size yanıt verebilmemiz için kursumuza e-postayla iletilir.',
         privacyLink: 'KVKK Aydınlatma Metni',
         teaser: 'Merhaba! Size nasıl yardımcı olabiliriz?',
@@ -357,6 +363,7 @@
     '.uc-main .uc-ic svg{width:18px;height:18px}' +
     '.uc-main.uc-wa{background:#25d366}.uc-main.uc-wa .uc-ic{color:#25d366}.uc-main.uc-wa:hover{background:#1da851}' +
     '.uc-alt{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:8px;border:1.5px solid #25d366;border-radius:28px;padding:9px 14px;background:#fff;color:#128c4a;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none}' +
+    '.uc-call-hint{font-size:12px;line-height:1.4;color:#6b7280;text-align:center;margin:7px 4px 0}.uc-alt.uc-call{border-color:' + NAVY + ';color:' + NAVY + ';font-size:13px;margin-top:5px}.uc-alt.uc-call:hover{background:#f3f5f8;color:' + NAVY + '}' +
     '.uc-alt:hover{background:#f0fdf4;color:#128c4a}.uc-alt svg{width:18px;height:18px}' +
     '.uc-link{display:block;margin:10px auto 0;background:transparent;border:0;color:#6b7280;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}.uc-link:hover{color:' + RED + '}' +
     '.uc-note{font-size:11.5px;color:#6b7280;margin-top:8px;line-height:1.45;text-align:center}.uc-note a{color:' + NAVY + ';text-decoration:underline}' +
@@ -452,7 +459,13 @@
     // quiet: kendiliğinden açıldıysa ziyaretçi panele dokunana dek odak sayfada kalır.
     var state, gen = 0, lastSide = null, lastOpener = null, quiet = false;
 
+    var waTimer = null;
+    function cancelWhatsApp() {
+      if (waTimer !== null) clearInterval(waTimer);
+      waTimer = null;
+    }
     function reset() {
+      cancelWhatsApp();
       state = { topic: null, course: null, who: null, name: '', phone: '', times: [], note: '', startedAt: Date.now() };
     }
     reset();
@@ -781,7 +794,32 @@
         a.innerHTML = ICON_WA;
         a.appendChild(el('span', null, text));
       }
+      a.addEventListener('click', cancelWhatsApp);
       return a;
+    }
+    function contactActions(autoRedirect) {
+      dock.appendChild(waButton('uc-alt', T.waAlso));
+      dock.appendChild(restartLink());
+      dock.appendChild(el('p', { class: 'uc-call-hint' }, T.callHint));
+      var call = el('a', { class: 'uc-alt uc-call', href: 'tel:+' + PHONE }, T.callNow + ' · 0532 068 56 47');
+      call.addEventListener('click', cancelWhatsApp);
+      dock.appendChild(call);
+      if (!autoRedirect) return;
+      var seconds = 5;
+      var url = waUrl();
+      var notice = el('p', { class: 'uc-call-hint', role: 'status' }, fill(T.waCountdown, { s: seconds }));
+      dock.appendChild(notice);
+      var generation = gen;
+      cancelWhatsApp();
+      waTimer = setInterval(function () {
+        if (generation !== gen || panel.hidden) { cancelWhatsApp(); return; }
+        seconds--;
+        notice.textContent = fill(T.waCountdown, { s: seconds });
+        if (seconds <= 0) {
+          cancelWhatsApp();
+          window.location.assign(url);
+        }
+      }, 1000);
     }
     function restartLink() {
       var b = el('button', { type: 'button', class: 'uc-link' }, T.again);
@@ -925,8 +963,7 @@
             Array.prototype.forEach.call(log.querySelectorAll('.uc-edit'), function (b) { b.remove(); });
             say([fill(T.sentOk, { n: firstName(), h: T.hoursLong })], function () {
               dock.textContent = '';
-              dock.appendChild(waButton('uc-alt', T.waAlso));
-              dock.appendChild(restartLink());
+              contactActions(true);
               scrollDown();
             });
           } else if (data && (data.error === 'name' || data.error === 'phone' || data.error === 'note')) {
@@ -982,6 +1019,7 @@
     }
 
     function close() {
+      cancelWhatsApp();
       panel.hidden = true;
       launch.setAttribute('aria-expanded', 'false');
       if (lastOpener && lastOpener.focus) lastOpener.focus();
@@ -1099,6 +1137,7 @@
       buttons[0].focus();
     }
     function close() {
+      cancelWhatsApp();
       panel.hidden = true;
       tab.setAttribute('aria-expanded', 'false');
       tab.focus();

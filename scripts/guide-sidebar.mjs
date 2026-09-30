@@ -9,10 +9,13 @@ const groups = [...hub.matchAll(/<section class="guide-hub-group">([\s\S]*?)<\/s
 if (!groups.length) throw new Error('Guide categories missing');
 const articles = groups.flatMap(g => g.articles);
 const featured = [...hub.matchAll(/<a class="home-guide-feature" href="([^"]+)">[\s\S]*?<strong>([^<]+)<\/strong>/g)].slice(0,3);
+const popularSlugs = ['ehliyet-icin-gerekli-belgeler', 'motosiklet-ehliyeti', 'ehliyet-yenileme'];
+const popular = popularSlugs.map(slug => articles.find(a => a.url === `/rehber/${slug}/`)).filter(Boolean);
 const widget = (title, body) => `<section class="widget guide-sidebar-widget"><h2 class="widget-title heading-size-4">${title}</h2>${body}</section>`;
 const block = '<!-- guide sidebar -->\n<div class="guide-sidebar">' +
  widget('Rehberde Ara', '<form action="/rehber/" class="guide-sidebar-search" role="search"><label class="guide-sidebar-label" for="sidebar-guide-query">Ehliyet hakkında ne arıyorsunuz?</label><div><input id="sidebar-guide-query" name="q" type="search" maxlength="100" placeholder="Örn. sınav, belgeler…" required/><button type="submit" aria-label="Rehberde ara">Ara</button></div></form>') +
  widget('Rehber Kategorileri', '<nav aria-label="Rehber kategorileri" class="guide-sidebar-categories">' + groups.map(g=>`<a href="/rehber/#${g.id}"><span>${g.name}</span><small>${g.articles.length}</small></a>`).join('')+'</nav>') +
+ widget('Popüler Yazılar', '<div class="guide-sidebar-posts">'+popular.map((a,i)=>`<a href="${a.url}"><span class="guide-sidebar-number">0${i+1}</span><span>${a.title}</span></a>`).join('')+'</div>') +
  widget('Öne Çıkan Yazılar', '<div class="guide-sidebar-posts">'+featured.map((m,i)=>`<a href="${m[1]}"><span class="guide-sidebar-number">0${i+1}</span><span>${m[2]}</span></a>`).join('')+'</div>') +
  widget('En Çok Arananlar', '<nav aria-label="Sık aranan rehber konuları" class="guide-sidebar-topics">'+['Ehliyet masrafları','Gerekli belgeler','Direksiyon sınavı','Motosiklet ehliyeti','Ehliyet yenileme'].map(q=>`<a href="/rehber/?q=${encodeURIComponent(q)}">${q}</a>`).join('')+'</nav>') +
  '<section class="widget guide-sidebar-widget" id="guide-recent" hidden><h2 class="widget-title heading-size-4">Son Okuduklarınız</h2><div class="guide-sidebar-posts" id="guide-recent-list"></div></section>' +
