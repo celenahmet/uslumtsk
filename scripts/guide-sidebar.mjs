@@ -49,7 +49,13 @@ for (const dir of fs.readdirSync('egitim', {withFileTypes:true})) {
 for (const a of articles) {
  const file = a.url.slice(1)+'index.html';
  let html=fs.readFileSync(file,'utf8');
- if (!html.includes('/assets/js/guide-reader.js')) fs.writeFileSync(file,html.replace('</body>','<script defer src="/assets/js/guide-reader.js"></script>\n</body>'));
+ html=html.replace(/<!-- guide article sidebar -->[\s\S]*?<!-- guide article sidebar end -->/g,'').replace(/<!-- guide layout end -->[\s\S]*?<!-- guide layout end marker -->/g,'');
+ const courseWidget = fs.readFileSync('egitim/motor-a2/index.html','utf8').match(/<div class="widget category">[\s\S]*?<\/div>\n<\/div>/)[0];
+ const articleSidebar = '<!-- guide article sidebar --><div class="guide-reading-layout"><aside class="course-sidebar guide-reading-sidebar" aria-label="Rehber ve eğitim menüsü">'+courseWidget+block.replace('</div>\n<!-- guide sidebar end -->',extraContent('index.html')+'</div>\n<!-- guide sidebar end -->')+'</aside><!-- guide article sidebar end -->';
+ html=html.replace('<article class="legal-text guide-text">',articleSidebar+'<article class="legal-text guide-text">').replace('</article>','</article><!-- guide layout end --></div><!-- guide layout end marker -->');
+ if (!html.includes('/assets/css/guide-sidebar.css')) html=html.replace('</head>','<link href="/assets/css/guide-sidebar.css" rel="stylesheet"/>\n</head>');
+ if (!html.includes('/assets/js/guide-reader.js')) html=html.replace('</body>','<script defer src="/assets/js/guide-reader.js"></script>\n</body>');
+ fs.writeFileSync(file,html);
 }
 fs.writeFileSync('assets/js/guide-reader-data.js', 'window.usluGuideArticles = '+JSON.stringify(articles)+';\n');
 // Keep catalog embedded in reader script; no runtime request or global dependency.

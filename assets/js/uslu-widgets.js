@@ -400,6 +400,20 @@
     'html.ua-cursor,html.ua-cursor *{cursor:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2740%27 height=%2740%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M4 2l16 9-7 2-3 7z%27 fill=%27%23000%27 stroke=%27%23fff%27 stroke-width=%271.5%27/%3E%3C/svg%3E") 4 2,auto!important}' +
     '@media (prefers-reduced-motion:reduce){.uc-launch,.ua-tab{transition:none}.uc-launch.uc-bump,.uc-teaser{animation:none}}';
 
+  CSS += `/* Accessibility panel: content filters never affect its own controls. */
+.ua-panel{z-index:10010;width:440px;border-radius:16px;border:1px solid #dbe2eb;display:flex;flex-direction:column;overflow:hidden;max-height:calc(100dvh - 24px)}
+.ua-panel[hidden]{display:none!important}.ua-top{align-items:center;padding:18px 20px;flex-shrink:0}.ua-top b{font-size:19px;padding-bottom:0}.ua-top b::before,.ua-top b::after{display:none}.ua-top small{margin-top:3px;font-size:12px}.ua-close,.ua-layout{width:40px;height:40px;flex:0 0 40px;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:#fff;cursor:pointer;border-radius:6px;margin:0;font-size:28px;opacity:1}.ua-layout{margin-left:auto;font-size:24px}.ua-close:hover,.ua-layout:hover{background:#ffffff20}.ua-content{overflow-y:auto;overscroll-behavior:contain;padding:18px 20px;min-height:0}.ua-content h3{font-size:12px;letter-spacing:1px;font-weight:700;color:#5c6d80;margin:0 0 12px}.ua-profiles{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}.ua-profiles button{min-height:38px;padding:6px 4px;border:1px solid #dce3eb;border-radius:8px;color:#08233e;background:#f5f7fa;font-size:12px;font-weight:600;cursor:pointer}.ua-profiles button[aria-pressed=true]{background:#08233e;color:white;border-color:#08233e}.ua-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:0}.ua-btn{flex-direction:column;justify-content:center;gap:7px;text-align:center;padding:12px 7px;min-height:84px;border-radius:9px;font-size:13px;line-height:1.3;transition:none}.ua-btn svg{width:25px;height:25px;flex:0 0 25px;color:#08233e}.ua-btn span{max-width:100%}.ua-btn[aria-pressed=true]{background:#fff0f4;border-color:#cb1643;color:#08233e}.ua-btn[aria-pressed=true] svg{color:#cb1643}.ua-btn:disabled{opacity:.45;cursor:not-allowed}.ua-levels{display:flex;gap:5px}.ua-levels i{width:6px;height:6px;border-radius:50%;background:#dbe2eb}.ua-levels i.is-on{background:#cb1643}.ua-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;border-top:1px solid #e3e8ef;flex-shrink:0}.ua-footer small{font-size:11px;color:#5c6d80;line-height:1.5}.ua-reset{margin:0;padding:9px 12px;border:1px solid #dce3eb;border-radius:7px;min-height:38px;font-size:12px;letter-spacing:0;text-transform:none;white-space:nowrap}.ua-reset:disabled{opacity:.45;cursor:default}.ua-profiles button:focus-visible,.ua-layout:focus-visible{outline:3px solid #cb1643;outline-offset:2px}.ua-panel.ua-compact{width:580px}.ua-compact .ua-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.ua-mask{display:none;position:fixed;left:0;right:0;height:120px;box-shadow:0 0 0 200vmax #041e3799;z-index:9988;pointer-events:none}html.ua-mask-on .ua-mask{display:block}
+html body>:not([data-uslu-widget]):not(script):not(style){filter:var(--ua-filter,none)}
+html.ua-text-3 body>:not([data-uslu-widget]){zoom:1.4}html.ua-text-4 body>:not([data-uslu-widget]){zoom:1.6}
+html.ua-spacing-1 body>:not([data-uslu-widget]) p,html.ua-spacing-1 body>:not([data-uslu-widget]) li{line-height:1.9!important}html.ua-spacing-2 body>:not([data-uslu-widget]) p,html.ua-spacing-2 body>:not([data-uslu-widget]) li{line-height:2.3!important}
+html.ua-letters-1 body>:not([data-uslu-widget]) :is(p,li,a,h1,h2,h3,h4,h5,h6,span){letter-spacing:.06em!important;word-spacing:.1em!important}html.ua-letters-2 body>:not([data-uslu-widget]) :is(p,li,a,h1,h2,h3,h4,h5,h6,span){letter-spacing:.12em!important;word-spacing:.2em!important}
+html.ua-headings body>:not([data-uslu-widget]) :is(h1,h2,h3,h4,h5,h6){outline:2px solid #cb1643!important;outline-offset:4px!important;background:#fff0f4!important;color:#08233e!important}
+html.ua-links body>:not([data-uslu-widget]) a{background:#fff4cc!important;color:#08233e!important}
+html.ua-focus body>:not([data-uslu-widget]) :is(a,button,input,textarea,select,[tabindex]):focus{outline:4px solid #cb1643!important;outline-offset:4px!important;box-shadow:0 0 0 7px #fff!important}
+html.ua-motion *,html.ua-motion *::before,html.ua-motion *::after{animation-play-state:paused!important}
+@media(max-width:640px){.ua-panel,.ua-panel.ua-right,.ua-panel.ua-compact{left:8px;right:8px;width:auto;max-width:none;top:12px;bottom:12px;transform:none;max-height:calc(100dvh - 24px)}.ua-content{padding:16px}.ua-top{padding:12px 16px}.ua-footer{padding:12px 16px}.ua-compact .ua-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+`;
+
   function injectStyle() {
     var s = document.createElement('style');
     s.setAttribute('data-uslu-style', '');
@@ -1068,80 +1082,81 @@
   }
   /* ======================================================= ERİŞİLEBİLİRLİK */
   function buildA11y() {
-    var KEY = 'ua-prefs';
-    var keys = ['text', 'contrast', 'mono', 'links', 'font', 'spacing', 'guide', 'images', 'motion', 'cursor'];
-    var prefs = {};
-    try { prefs = JSON.parse(store.get(KEY) || '{}') || {}; } catch (e) { prefs = {}; }
-
-    var root = document.documentElement;
-    var guide = el('div', { class: 'ua-guide', 'aria-hidden': 'true', 'data-uslu-widget': '' });
-
-    function apply() {
-      root.classList.remove('ua-text-1', 'ua-text-2');
-      if (prefs.text === 1) root.classList.add('ua-text-1');
-      if (prefs.text === 2) root.classList.add('ua-text-2');
-      root.classList.toggle('ua-links', !!prefs.links);
-      root.classList.toggle('ua-font', !!prefs.font);
-      root.classList.toggle('ua-spacing', !!prefs.spacing);
-      root.classList.toggle('ua-images', !!prefs.images);
-      root.classList.toggle('ua-motion', !!prefs.motion);
-      root.classList.toggle('ua-cursor', !!prefs.cursor);
-      root.classList.toggle('ua-guide-on', !!prefs.guide);
-      var f = [];
-      if (prefs.mono) f.push('grayscale(1)');
-      if (prefs.contrast) f.push('contrast(1.4)');
-      root.style.filter = f.join(' ');
-      buttons.forEach(function (b) {
-        var k = b.getAttribute('data-k');
-        var on = k === 'text' ? prefs.text > 0 : !!prefs[k];
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        if (k === 'text') b.querySelector('span').textContent = A.items.text + (prefs.text ? ' (' + (prefs.text === 1 ? '+' : '++') + ')' : '');
-      });
-      store.set(KEY, JSON.stringify(prefs));
-    }
-
-    var tab = el('button', { type: 'button', class: 'ua-tab', 'aria-label': A.open, 'aria-expanded': 'false', 'aria-controls': 'ua-panel', 'data-uslu-widget': '' });
-    tab.innerHTML = ICON_A11Y;
-    var panel = el('div', { id: 'ua-panel', class: 'ua-panel', role: 'dialog', 'aria-label': A.title, 'data-uslu-widget': '' });
-    panel.hidden = true;
-    var top = el('div', { class: 'ua-top' });
-    var tt = el('div');
-    tt.appendChild(el('b', null, A.title));
-    tt.appendChild(el('small', null, A.hint));
-    var cl = el('button', { type: 'button', class: 'ua-close', 'aria-label': A.close }, '×');
-    top.appendChild(tt);
-    top.appendChild(cl);
-    panel.appendChild(top);
-    var grid = el('div', { class: 'ua-grid' });
-    var buttons = [];
-    keys.forEach(function (k) {
-      var b = el('button', { type: 'button', class: 'ua-btn', 'data-k': k, 'aria-pressed': 'false' });
-      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + ICONS[k] + '</svg>';
-      b.appendChild(el('span', null, A.items[k]));
-      b.addEventListener('click', function () {
-        if (k === 'text') prefs.text = ((prefs.text || 0) + 1) % 3;
-        else prefs[k] = !prefs[k];
-        apply();
-      });
-      buttons.push(b);
-      grid.appendChild(b);
+    var KEY = 'ua-prefs', root = document.documentElement, prefs = {}, speaking = false;
+    var keys = ['text','spacing','letters','font','contrast','invert','saturation','links','headings','cursor','guide','mask','motion','images','focus','speech'];
+    var levels = {text:4,spacing:2,letters:2,contrast:2,saturation:2};
+    var labels = EN ? ['Text size','Line spacing','Letter spacing','Readable font','High contrast','Invert colors','Color saturation','Highlight links','Highlight headings','Large cursor','Reading guide','Reading mask','Stop motion','Hide images','Visible focus','Read aloud'] : ['Yazı boyutu','Satır aralığı','Harf aralığı','Okunaklı yazı','Yüksek kontrast','Ters renk','Renk doygunluğu','Bağlantıları vurgula','Başlıkları vurgula','Büyük imleç','Okuma kılavuzu','Okuma maskesi','Hareketi durdur','Görselleri gizle','Belirgin odak','Sesli oku'];
+    var profiles = [
+      {name:EN?'Low vision':'Az gören',values:{text:2,contrast:1,cursor:true,focus:true}},
+      {name:EN?'Dyslexia':'Disleksi',values:{font:true,spacing:1,letters:1,guide:true}},
+      {name:EN?'Attention':'Dikkat',values:{mask:true,motion:true,focus:true}},
+      {name:EN?'Movement':'Hareket',values:{motion:true,cursor:true,focus:true}}
+    ];
+    try { var saved = JSON.parse(store.get(KEY) || '{}'); keys.forEach(function(k){ if(k==='speech')return; var v=saved&&saved[k]; if(levels[k]){if(Number.isInteger(v)&&v>0&&v<=levels[k])prefs[k]=v;}else if(v===true)prefs[k]=true; }); } catch (_) {}
+    var buttons=[], profileButtons=[], pausedVideos=[];
+    var guide=el('div',{class:'ua-guide','aria-hidden':'true','data-uslu-widget':''});
+    var mask=el('div',{class:'ua-mask','aria-hidden':'true','data-uslu-widget':''});
+    guide.style.top=mask.style.top=Math.round(window.innerHeight/2)+'px';
+    var tab=el('button',{type:'button',class:'ua-tab','aria-label':A.open,'aria-expanded':'false','aria-controls':'ua-panel','data-uslu-widget':''});
+    tab.innerHTML=ICON_A11Y;
+    var panel=el('div',{id:'ua-panel',class:'ua-panel',role:'dialog','aria-label':A.title,'data-uslu-widget':''}); panel.hidden=true;
+    var top=el('div',{class:'ua-top'}), title=el('div'), count=el('small',{'aria-live':'polite'});
+    title.appendChild(el('b',null,A.title)); title.appendChild(count); top.appendChild(title);
+    var layout=el('button',{type:'button',class:'ua-layout','aria-label':EN?'Toggle compact layout':'Kompakt görünümü değiştir','aria-pressed':'false'},'▦');
+    layout.addEventListener('click',function(){var compact=panel.classList.toggle('ua-compact');layout.setAttribute('aria-pressed',String(compact));store.set('ua-layout',compact?'compact':'wide');});
+    if(store.get('ua-layout')==='compact'){panel.classList.add('ua-compact');layout.setAttribute('aria-pressed','true');}
+    var cl=el('button',{type:'button',class:'ua-close','aria-label':A.close},'×');top.appendChild(layout);top.appendChild(cl);panel.appendChild(top);
+    var content=el('div',{class:'ua-content'});
+    content.appendChild(el('h3',null,EN?'READY PROFILES':'HAZIR PROFİLLER'));
+    var profileRow=el('div',{class:'ua-profiles'});
+    profiles.forEach(function(profile){var b=el('button',{type:'button','aria-pressed':'false'},profile.name);b.addEventListener('click',function(){var active=b.getAttribute('aria-pressed')==='true';stopSpeech();prefs=active?{}:Object.assign({},profile.values);apply();});profileButtons.push(b);profileRow.appendChild(b);});
+    content.appendChild(profileRow);content.appendChild(el('h3',null,EN?'TOOLS':'ARAÇLAR'));
+    var grid=el('div',{class:'ua-grid'});
+    var moreIcons={letters:'<path d="M5 17L12 3l7 14M8 12h8M4 21h16"/>',invert:'<path d="M12 3a9 9 0 1 0 9 9M16 3v5M14 5h5"/>',saturation:'<path d="M12 2s-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13z"/>',headings:'<path d="M5 3v18M19 3v18M5 12h14"/>',mask:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',focus:'<rect x="4" y="4" width="16" height="16" rx="2" stroke-dasharray="3 3"/>',speech:'<path d="M3 9h4l5-4v14l-5-4H3zM16 8a6 6 0 0 1 0 8M19 5a10 10 0 0 1 0 14"/>'};
+    keys.forEach(function(k,i){
+      var b=el('button',{type:'button',class:'ua-btn','data-k':k,'aria-pressed':'false'});
+      b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[k]||moreIcons[k])+'</svg>';
+      b.appendChild(el('span',null,labels[i]));
+      if(levels[k]){var dots=el('span',{class:'ua-levels','aria-hidden':'true'});for(var n=0;n<levels[k];n++)dots.appendChild(el('i'));b.appendChild(dots);}
+      b.addEventListener('click',function(){if(k==='speech'){toggleSpeech();return;}prefs[k]=levels[k]?((prefs[k]||0)+1)%(levels[k]+1):!prefs[k];apply();});
+      if(k==='speech'&&!('speechSynthesis' in window)){b.disabled=true;b.title=EN?'Your browser does not support speech':'Tarayıcınız sesli okumayı desteklemiyor';}
+      buttons.push(b);grid.appendChild(b);
     });
-    panel.appendChild(grid);
-    var reset = el('button', { type: 'button', class: 'ua-reset' }, A.reset);
-    reset.addEventListener('click', function () { prefs = {}; apply(); });
-    panel.appendChild(reset);
-
-    function open() {
-      panel.hidden = false;
-      tab.setAttribute('aria-expanded', 'true');
-      buttons[0].focus();
+    content.appendChild(grid);panel.appendChild(content);
+    var footer=el('div',{class:'ua-footer'});footer.appendChild(el('small',null,EN?'Preferences stay on this device.':'Tercihler yalnız bu cihazda saklanır.'));
+    var reset=el('button',{type:'button',class:'ua-reset'},'↺ '+A.reset);reset.addEventListener('click',function(){stopSpeech();prefs={};apply();});footer.appendChild(reset);panel.appendChild(footer);
+    function update(){
+      var active=0;buttons.forEach(function(b,i){var k=keys[i],v=k==='speech'?speaking:prefs[k];if(v)active++;b.setAttribute('aria-pressed',v?'true':'false');b.setAttribute('aria-label',labels[i]+(levels[k]?(EN?' — level ':' — seviye ')+(v||0)+'/'+levels[k]:''));if(levels[k])Array.prototype.forEach.call(b.querySelectorAll('.ua-levels i'),function(dot,n){dot.classList.toggle('is-on',n<(v||0));});});
+      count.textContent=EN?active+' tools active':active+' araç açık';reset.disabled=active===0;
+      profileButtons.forEach(function(b,i){var values=profiles[i].values;var match=keys.filter(function(k){return k!=='speech';}).every(function(k){return (prefs[k]||0)===(values[k]||0);});b.setAttribute('aria-pressed',String(match&&!speaking));});
     }
-    function close() {
-      cancelWhatsApp();
-      panel.hidden = true;
-      tab.setAttribute('aria-expanded', 'false');
-      tab.focus();
+    function apply(){
+      keys.forEach(function(k){if(k==='speech')return;root.classList.remove('ua-'+k,'ua-'+k+'-1','ua-'+k+'-2','ua-'+k+'-3','ua-'+k+'-4');if(prefs[k]&&k!=='guide'&&k!=='mask')root.classList.add('ua-'+k+(levels[k]?'-'+prefs[k]:''));});
+      root.classList.toggle('ua-guide-on',!!prefs.guide);root.classList.toggle('ua-mask-on',!!prefs.mask);
+      var filters=[];if(prefs.contrast)filters.push('contrast('+(prefs.contrast===1?'1.4':'1.8')+')');if(prefs.invert)filters.push('invert(1)');if(prefs.saturation)filters.push(prefs.saturation===1?'grayscale(1)':'saturate(1.8)');
+      // Filter content only: filtering html traps fixed panels and changes their contrast.
+      root.style.removeProperty('filter');root.style.setProperty('--ua-filter',filters.length?filters.join(' '):'none');
+      if(prefs.motion){document.querySelectorAll('video').forEach(function(v){if(!v.paused){pausedVideos.push(v);v.pause();}});}else{pausedVideos.forEach(function(v){var p=v.play();if(p&&p.catch)p.catch(function(){});});pausedVideos=[];}
+      update();store.set(KEY,JSON.stringify(prefs));
     }
+    var speechGeneration=0;
+    function stopSpeech(){speechGeneration++;if('speechSynthesis' in window)window.speechSynthesis.cancel();speaking=false;update();}
+    function toggleSpeech(){
+      if(speaking){stopSpeech();return;}if(!('speechSynthesis' in window))return;
+      var selection=String(window.getSelection()||'').trim(), main=document.querySelector('.guide-text')||document.querySelector('main')||document.getElementById('main-content');
+      var text=selection||(main?main.innerText:'');if(!text.trim())return;
+      window.speechSynthesis.cancel();var chunks=text.match(/[^.!?\n]{1,220}(?:[.!?\n]+|$)|[^.!?\n]{1,220}/g)||[];
+      speaking=true;update();var generation=++speechGeneration, index=0;
+      function next(){if(generation!==speechGeneration)return;if(index>=chunks.length){speaking=false;update();return;}var utterance=new SpeechSynthesisUtterance(chunks[index++]);utterance.lang=EN?'en-GB':'tr-TR';utterance.rate=.95;utterance.onend=next;utterance.onerror=function(){if(generation===speechGeneration){speaking=false;update();}};window.speechSynthesis.speak(utterance);}
+      next();
+    }
+    function open(){panel.hidden=false;tab.setAttribute('aria-expanded','true');cl.focus();}
+    function close(){panel.hidden=true;tab.setAttribute('aria-expanded','false');tab.focus();}
+    function moveReading(e){if(e.target.closest&&e.target.closest('[data-uslu-widget]'))return;guide.style.top=(e.clientY-7)+'px';mask.style.top=(e.clientY-60)+'px';}
+    document.addEventListener('pointermove',moveReading,{passive:true});document.addEventListener('pointerdown',moveReading,{passive:true});
+    document.addEventListener('focusin',function(e){if(e.target.closest&&e.target.closest('[data-uslu-widget]'))return;var r=e.target.getBoundingClientRect();guide.style.top=(r.top+r.height)+'px';mask.style.top=(r.top+r.height/2-60)+'px';});
+    document.addEventListener('keydown',function(e){if((prefs.guide||prefs.mask)&&!e.target.matches('input,textarea,select')&&(e.key==='ArrowDown'||e.key==='ArrowUp')){var d=e.key==='ArrowDown'?30:-30;[guide,mask].forEach(function(item){item.style.top=Math.max(0,Math.min(window.innerHeight-14,parseFloat(item.style.top)+d))+'px';});}});
+    window.addEventListener('pagehide',stopSpeech);
     /* Taşınabilir düğme: kenar boyunca yukarı/aşağı, bırakıldığı yarıya göre sol ya da sağ
        kenara yapışır; konum bu tarayıcıda saklanır. Sürükleme bitince gelen tıklama yutulur.
        Klavye: odaktayken Alt + ok tuşları. */
@@ -1224,6 +1239,7 @@
     }, { passive: true });
 
     document.body.appendChild(guide);
+    document.body.appendChild(mask);
     document.body.appendChild(panel);
     document.body.appendChild(tab);
     place();
