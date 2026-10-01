@@ -29,6 +29,10 @@ function copy(file) {
 }
 const pages=[...fs.readFileSync('sitemap.xml','utf8').matchAll(/<loc>https:\/\/uslusurucukursu\.com([^<]*)<\/loc>/g)].map(m=>m[1].replace(/^\//,'')+'index.html');
 for (const file of [...pages,'robots.txt','llms.txt','sitemap.xml','assets/img/og/uslu-og.jpg','8112ebbbc2e42aa3bdf1fc9431c1158a.txt','google05c43e8ce47e9840.html','assets/fonts/Barlow-OFL.txt']) copy(file);
+// Preserve previously indexed photograph URLs when publishing descriptive aliases.
+for (const original of ['assets/img/gallery/uslu01.webp','assets/img/gallery/uslu02.webp','assets/img/gallery/uslu03.webp','assets/img/gallery/uslu04.webp','assets/img/gallery/uslu05.webp','assets/img/gallery/uslu06.webp','egitim/motor-a1/motor2.webp','egitim/manuel-b/tek.webp','egitim/diger/car.webp']) {
+ for (const suffix of ['', '-480', '-800']) { const file=original.replace('.webp',suffix+'.webp');if(fs.existsSync(file))copy(file); }
+}
 // Rehber paylaşım görselleri (og:image, görsel site haritası) sayfada src olarak geçmez.
 for (const f of fs.existsSync('assets/img/rehber')?fs.readdirSync('assets/img/rehber'):[]) if (f.endsWith('.jpg')) copy(path.join('assets/img/rehber',f));
 for (const dir of ['qr','en/qr','e-sinav','en/e-sinav','whatsapp','galeri','en/gallery']) {
