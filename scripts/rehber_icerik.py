@@ -2061,6 +2061,7 @@ PAGES.append(dict(
 <li>Kolluğun alkol veya uyuşturucu ölçümünü yaptırmayan sürücüye 150.000 TL idari para cezası verilir ve ehliyeti 5 yıl geri alınır.</li>
 <li>Uyuşturucu veya uyarıcı madde aldığı tespit edilen sürücüye 150.000 TL idari para cezası verilir ve ehliyeti iptal edilir; yeniden ehliyet için en az beş yıl beklemek, kursa devam edip sınavları geçmek gerekir.</li>
 </ul>
+<p>Alkollü araç kullanımında kaskonun durumunu OtoSenior'un ''' + ext('Kasko Nedir, Neleri Kapsar?', 'https://otosenior.com/kasko-nedir-neleri-kapsar') + ''' rehberinde bulabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Alkollü araç kullanma cezası 2026’da ne kadar?',
@@ -2108,6 +2109,7 @@ PAGES.append(dict(
 <tr><td>90 gün geri alma</td><td>66 ve üzeri: 30.000 TL</td><td>71 ve üzeri: 30.000 TL</td></tr>
 </tbody></table></div>
 <p>Aradaki kademeler de kanunda ayrı ayrı belirlenmiştir. Geri alınan ehliyetin iadesi için idari para cezalarının tamamının ödenmiş olması gerekir. Bir yıl içinde beşinci kez geri alınan ehliyet, psikoteknik değerlendirme ve psikiyatri muayenesinden sonra iade edilir. Radar yerini tespit eden ya da sürücüyü uyaran cihazları araçta bulundurmak yasaktır.</p>
+<p>Hız cezasını sorgulamak ve indirimli ödemek için OtoSenior'un ''' + ext('Trafik Cezası Sorgulama ve Ödeme', 'https://otosenior.com/trafik-cezasi-sorgulama-ve-odeme') + ''' rehberine bakabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Şehir içi hız sınırı kaç?',
@@ -2190,6 +2192,7 @@ PAGES.append(dict(
 
 <h2>Güvenli kullanım</h2>
 <p>Sürüş sırasında dikkati dağıtan her şey kaza riskini artırır. Telefonla ilgili işinizi aracı güvenli bir yerde durdurduktan sonra yapın. Aday sürücüler için ek kurallar ''' + a('aday', 'aday sürücü belgesi') + ''' yazımızda.</p>
+<p>Ön cama takılan telefon tutucu ve araç kamerasıyla ilgili 2026 kuralını OtoSenior'un ''' + ext('Araçta Subwoofer, Ekran ve Telefon Tutucu Yasak mı?', 'https://otosenior.com/aracta-subwoofer-ekran-telefon-tutucu-kurali') + ''' yazısında bulabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Araç kullanırken telefonla konuşmanın cezası ne kadar?',
@@ -2228,6 +2231,7 @@ PAGES.append(dict(
 
 <h2>Sertifika ve K belgesi ehliyet değildir</h2>
 <p>Sınavları geçince alınan sertifika ile kursta verilen K sınıfı sürücü aday belgesi, karayolunda tek başına araç kullanma yetkisi vermez. Ayrıntılar ''' + a('sertifika', 'sürücü sertifikası') + ''' ve ''' + a('kbelgesi', 'K sınıfı sürücü aday belgesi') + ''' yazılarımızda.</p>
+<p>Ehliyetsiz kullanımda kaskonun durumunu OtoSenior'un ''' + ext('Kasko Nedir, Neleri Kapsar?', 'https://otosenior.com/kasko-nedir-neleri-kapsar') + ''' rehberinde bulabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Ehliyetsiz araç kullanmanın cezası ne kadar?',
@@ -2267,6 +2271,7 @@ PAGES.append(dict(
 
 <h2>Olay yerinden ayrılmanın cezası</h2>
 <p>Anlaşma hâli dışında zabıtanın iznini almadan, zaruret dışında olay yerinden ayrılan ya da kaza yerindeki durumu değiştiren sürücüye 46.000 TL idari para cezası verilir. Ölümlü veya yaralanmalı kazada izin almadan olay yerinden ayrılan sürücüye bir yıldan üç yıla kadar hapis cezası verilir.</p>
+<p>Kaza tespit tutanağının nasıl doldurulacağını ve değer kaybı başvurusunu OtoSenior'un ''' + ext('Kaza Tespit Tutanağı Nasıl Doldurulur?', 'https://otosenior.com/kaza-tespit-tutanagi-nasil-doldurulur') + ''' ve ''' + ext('Değer Kaybı Başvurusu Nasıl Yapılır?', 'https://otosenior.com/deger-kaybi-basvurusu') + ''' rehberlerinde bulabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Trafik kazasında ilk ne yapılır?',
@@ -2309,6 +2314,7 @@ PAGES.append(dict(
 
 <h2>Plakaya yazılan cezalar</h2>
 <p>Sürücüsü tespit edilemeyen araçlara plakaya göre tutanak düzenlenir ve tebligat trafik kaydında araç sahibi görünen kişiye posta yoluyla yapılır (KTK m.116).</p>
+<p>Cezanın sorgulanmasını, ödeme kanallarını ve indirimli ödeme süresini OtoSenior'un ''' + ext('Trafik Cezası Sorgulama ve Ödeme', 'https://otosenior.com/trafik-cezasi-sorgulama-ve-odeme') + ''' rehberinde bulabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Trafik cezasına itiraz süresi kaç gün?',
