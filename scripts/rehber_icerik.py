@@ -124,6 +124,7 @@ PAGES.append(dict(
 
 <h2>Ehliyet almak ne kadar sürer?</h2>
 <p>Süre; kursun grup başlama tarihine, sınav randevularına ve direksiyon ders planına göre değişir. Yönetmelik, grup başlama tarihinden itibaren son teorik sınav hakkı için randevu alma süresinin 90 günü, teorik sınavın geçildiği tarihten itibaren direksiyon derslerinin tamamlanma süresinin de 90 günü geçmeyecek şekilde planlanmasını öngörür (MTSK Yönetmeliği m.15).</p>
+<p>Ehliyetinizi aldıktan sonra ilk aracınızı alırken nelere dikkat edeceğinizi OtoSenior'un ''' + ext('İkinci El Araç Alırken Dikkat Edilmesi Gerekenler', 'https://otosenior.com/ikinci-el-arac-alirken-dikkat-edilmesi-gerekenler') + ''' rehberinde bulabilirsiniz.</p>
 ''',
     faq=[
         ('Ehliyet almak için kaç yaşında olmak gerekir?',
@@ -892,6 +893,7 @@ PAGES.append(dict(
 <h2>İptalden sonra yeniden ehliyet</h2>
 <p>Aday belgesi iptal edilen kişi, yeniden ehliyet alabilmek için sürücü kursuna devam edip sınavlarda başarılı olarak yeni bir sertifika almalıdır. Kursa başlayabilmesi için psikoteknik değerlendirme ve psikiyatri uzmanı muayenesi sonucunda sürücülüğe engel hâli olmadığını gösteren belgeyi kursa vermesi, kanun kapsamındaki idari para cezalarının tamamını ödemiş olması ve varsa bekleme ya da geri alma süresinin geçmiş olması gerekir.</p>
 <p>Ceza puanı kuralları için ''' + a('ceza', 'ehliyet ceza puanı') + ''' yazımıza bakın.</p>
+<p>İlk aracınızın trafik sigortasında hangi basamaktan başlayacağınızı OtoSenior'un ''' + ext('Trafik Sigortası Basamakları', 'https://otosenior.com/trafik-sigortasi-basamaklari') + ''' rehberinde bulabilirsiniz.</p>
 ''',
     faq=[
         ('Aday sürücülük kaç yıl sürer?',
@@ -934,6 +936,7 @@ PAGES.append(dict(
 
 <h2>Aday sürücüler için</h2>
 <p>İlk iki yılındaki sürücülerde sınır 75 ceza puanıdır; bu puanın aşılması aday belgenin iptaline yol açar. Ayrıntılar ''' + a('aday', 'aday sürücü belgesi') + ''' yazımızda.</p>
+<p>Plaka, modifiye ve aksesuar gibi araçla ilgili ihlallerin 2026 ceza ve puanlarını OtoSenior'un ''' + ext('Modifiye Cezası 2026', 'https://otosenior.com/modifiye-cezasi-2026') + ''' ve ''' + ext('Plaka Değişikliği ve Plaka Cezaları', 'https://otosenior.com/plaka-degisikligi') + ''' yazılarında bulabilirsiniz.</p>
 ''',
     faq=[
         ('Kaç ceza puanında ehliyet alınır?',
@@ -2153,6 +2156,7 @@ PAGES.append(dict(
 <li>Trafik polisinin uyarı ve işaretlerine uymayana 3.000 TL, levha ve yer işaretlerine uymayana 1.000 TL idari para cezası verilir.</li>
 <li>Dur ihtarına uymayıp kaçan sürücüye 200.000 TL idari para cezası verilir; ehliyeti 60 gün geri alınır ve araç 60 gün trafikten men edilir.</li>
 </ul>
+<p>Cezayı sorgulamak ve indirimli ödemek için OtoSenior'un ''' + ext('Trafik Cezası Sorgulama ve Ödeme', 'https://otosenior.com/trafik-cezasi-sorgulama-ve-odeme') + ''' rehberine bakabilirsiniz.</p>
 ''' + TUTAR_NOTU,
     faq=[
         ('Kırmızı ışık cezası 2026’da ne kadar?',
