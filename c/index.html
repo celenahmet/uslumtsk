@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta name="robots" content="noindex, follow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matris Sıralama Akış Diyagramı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Matris Sıralama Akış Diyagramı</h1>
+
+    <h2>Algoritma Akış Diyagramı Adımları</h2>
+    <p>Yukarıda verilen matrisi her satır için büyükten küçüğe doğru sıralamak için izlenecek adımlar:</p>
+
+    <ol>
+        <li><strong>Başlangıç:</strong> Program başlatılır.</li>
+        <li><strong>Matris Girişi:</strong>
+            <pre>
+Matris:
+8  16  7  9
+11 73 84 91
+2  16 62 17
+21 29 14 47
+            </pre>
+        </li>
+        <li><strong>Her Satır İçin Sıralama:</strong>
+            <p>Her satırda büyükten küçüğe sıralama yapılacaktır. Örneğin:</p>
+            <ul>
+                <li>Satır 1: [8, 16, 7, 9] → [16, 9, 8, 7]</li>
+                <li>Satır 2: [11, 73, 84, 91] → [91, 84, 73, 11]</li>
+                <li>Satır 3: [2, 16, 62, 17] → [62, 17, 16, 2]</li>
+                <li>Satır 4: [21, 29, 14, 47] → [47, 29, 21, 14]</li>
+            </ul>
+        </li>
+        <li><strong>Sonuçları Yazdırma:</strong>
+            <pre>
+Sonuçlar:
+16  9  8  7
+91  84  73  11
+62  17  16  2
+47  29  21  14
+            </pre>
+        </li>
+        <li><strong>Bitiş:</strong> Program sonlanır.</li>
+    </ol>
+
+    <h2>Algoritma (Pseudocode)</h2>
+    <pre>
+Başla
+    Matris = [
+        [8, 16, 7, 9],
+        [11, 73, 84, 91],
+        [2, 16, 62, 17],
+        [21, 29, 14, 47]
+    ]
+    
+    Her satır için:
+        BubbleSort veya SelectionSort kullanarak sıralama yap
+        Satırı büyükten küçüğe sıralayıp, güncelle
+    
+    Sıralanmış matrisi ekrana yazdır
+    
+Bitir
+    </pre>
+</div>
+
+</body>
+</html>
