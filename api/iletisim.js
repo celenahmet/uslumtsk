@@ -290,6 +290,7 @@ module.exports = async function handler(req, res) {
       return reply(req, res, 502, 'send', form);
     }
     sentToday++;
+    console.info(JSON.stringify({metric:'uslu_lead_delivery',source:m.source,lang:body.lang==='en'?'en':'tr',channel:['search','social','referral','direct','internal'].includes(body.measurementChannel)?body.measurementChannel:'unmeasured',status:'accepted'}));
   } catch (e) {
     console.error('iletisim: resend ulaşılamadı');
     return reply(req, res, 502, 'send', form);

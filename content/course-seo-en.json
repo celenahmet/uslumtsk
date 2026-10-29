@@ -1,0 +1,163 @@
+{
+  "index": {
+    "route": "",
+    "name": "Driving Licence Courses in Sincan, Ankara",
+    "intro": "Choose your training around the vehicle you intend to drive and the licence you already hold. Uslu Driving School in Sincan offers information about manual and automatic category B training, A1–A2 motorcycle courses and private driving lessons.",
+    "sections": [
+      [
+        "Start with the right training route",
+        "Compare manual and automatic car training if you need a first category B licence. For motorcycle training, check the class requirements against your age and intended motorcycle. If you already have a licence and need practice, discuss private driving lessons instead of a new licence application."
+      ],
+      [
+        "Plan your registration in Sincan",
+        "Visit our office on Atatürk Caddesi to discuss your current licence, training goals and available days. Ask which documents are required and which course and vehicle options are currently suitable for you."
+      ],
+      [
+        "Compare the complete cost",
+        "Ask what the course quotation includes. Training fees and official examination or licence payments are different items; request the current breakdown before agreeing to a programme."
+      ]
+    ],
+    "description": "Compare manual, automatic and motorcycle licence courses in Sincan, Ankara. Ask Uslu Driving School about registration, current programmes and private lessons."
+  },
+  "manuel-b": {
+    "route": "manuel-b",
+    "name": "Manual Category B Driving Course in Sincan",
+    "intro": "Manual car training brings clutch control, gear selection and steering together. Discuss your first category B application and manual driving lesson plan with Uslu Driving School in Sincan, Ankara.",
+    "sections": [
+      [
+        "What to focus on in manual lessons",
+        "Starting and stopping, selecting a suitable gear, preparing for turns and controlling the car at low speed are important parts of manual driving. Explain whether you have driven before and which skills you find difficult."
+      ],
+      [
+        "Manual or automatic training?",
+        "Compare both options with the car you intend to use. A licence obtained through automatic-vehicle training and examination has a restriction for automatic vehicles in that category; discuss the implications before registering."
+      ],
+      [
+        "Ask about the practical plan",
+        "Our published driving lesson location is the OSB Törekent training area. Confirm your meeting arrangements, schedule and current vehicle options with the school. You can also review our real training vehicle photos in the gallery."
+      ]
+    ],
+    "description": "Manual category B lessons in Sincan: clutch control, gear changes, parking and driving practice. Ask Uslu Driving School about registration and course costs."
+  },
+  "otomatik-b": {
+    "route": "automatic-b",
+    "name": "Automatic Driving Licence Course in Sincan",
+    "intro": "Automatic category B training allows you to focus on steering, speed management and observation without manual gear changes. Check both the programme and the licence scope with Uslu Driving School before registering.",
+    "sections": [
+      [
+        "Automatic driving skills",
+        "Pedal control, mirror checks, preparing for turns, parking and observing other road users remain essential. Tell the school whether your previous experience was in a manual or an automatic car."
+      ],
+      [
+        "Understand the automatic restriction",
+        "A licence issued for automatic-only driving does not authorise driving a manual car in that category. If you plan to drive manual vehicles later, compare manual B training and ask about the applicable certificate and licence process."
+      ],
+      [
+        "A first licence or practice lessons?",
+        "Obtaining your first category B licence and rebuilding confidence with an existing licence are different needs. Explain your licence status and the vehicle you want to use so that the school can discuss the relevant option."
+      ]
+    ],
+    "description": "Automatic category B training in Sincan. Compare manual and automatic licence options and ask Uslu Driving School about lessons, registration and current fees."
+  },
+  "motor-a1": {
+    "route": "motorcycle-a1",
+    "name": "A1 Motorcycle Licence Course in Sincan",
+    "intro": "The first step in motorcycle training is choosing the correct licence class for your age and intended vehicle. Ask Uslu Driving School about A1 registration, the lesson programme and current training motorcycle arrangements in Sincan.",
+    "sections": [
+      [
+        "Preparing for a first motorcycle lesson",
+        "Balance, controlled starts, low-speed direction changes and braking are important starting points. Tell the school whether you have ridden a motorcycle before so that you can discuss preparation and lesson expectations."
+      ],
+      [
+        "Compare A1 and A2",
+        "A1 and A2 have different age and vehicle limits. Discuss your age, existing licence and intended motorcycle rather than selecting a class by name alone. The linked Turkish guides explain the licence classes with official sources."
+      ],
+      [
+        "Confirm the training arrangements",
+        "Ask about the motorcycle, training location, meeting arrangements and lesson schedule before registration. Our published training location is the OSB Törekent area; confirm the details for your own programme."
+      ]
+    ],
+    "description": "A1 motorcycle licence training in Sincan: balance, controlled starts and braking. Ask Uslu Driving School about eligibility, lessons and registration."
+  },
+  "motor-a2": {
+    "route": "motorcycle-a2",
+    "name": "A2 Motorcycle Licence Course in Sincan",
+    "intro": "A2 motorcycle preparation combines vehicle control, braking and safe turning habits. Discuss a first application or an additional licence class with Uslu Driving School in Sincan, Ankara.",
+    "sections": [
+      [
+        "Skills for A2 preparation",
+        "Motorcycle handling, controlled braking and low-speed turns are key topics. Include pre-ride checks and observation habits in your discussion of the training plan rather than focusing only on examination manoeuvres."
+      ],
+      [
+        "If you already have a car licence",
+        "Holding category B does not itself provide category A2 riding entitlement. Tell the school which licence you already hold and ask which training, examination and licence steps apply to adding a class."
+      ],
+      [
+        "Choose the class for your motorcycle",
+        "Compare A1 and A2 against the vehicle you want to ride and your current eligibility. Our motorcycle guides can help you prepare questions; confirm current requirements before registration."
+      ]
+    ],
+    "description": "A2 motorcycle training in Sincan, Ankara. Ask about a first application or adding a licence class, lesson arrangements and current course fees."
+  },
+  "ozel": {
+    "route": "special",
+    "name": "Private Driving Lessons in Sincan",
+    "intro": "If you already hold a driving licence but need parking practice or help returning to driving after a break, explain your goals to Uslu Driving School. Ask about private lesson options in Sincan that match your current driving entitlement.",
+    "sections": [
+      [
+        "Choose a clear practice goal",
+        "Reversing, parking, mirror use, low-speed manoeuvres and making decisions in traffic are different skills. Give concrete examples of the situations you find difficult so that you can discuss a focused lesson plan."
+      ],
+      [
+        "Use your existing licence as the starting point",
+        "Share your licence category and restrictions, intended vehicle type and how long you have been away from driving. A private lesson does not grant a driving licence or a new category."
+      ],
+      [
+        "Agree the lesson conditions",
+        "There is no single hour count or guaranteed outcome suitable for everyone. Ask about lesson duration, vehicle and meeting arrangements, total planned sessions and current pricing before booking."
+      ]
+    ],
+    "description": "Private driving lesson enquiries in Sincan for licensed drivers: parking, vehicle control and returning to traffic. Discuss your goals and lesson conditions."
+  },
+  "ozel-ab": {
+    "route": "special-ab",
+    "name": "Driving Training Enquiries for Candidates with Special Requirements",
+    "intro": "Training suitability can depend on a candidate’s health assessment, licence codes and vehicle requirements. Discuss the registration process and the school’s current training options before making plans in Sincan.",
+    "sections": [
+      [
+        "Clarify the requirements before registration",
+        "Existing licence restrictions may affect the training and vehicle you can use. Medical suitability is assessed by authorised healthcare providers; a course enquiry is not a substitute for that assessment."
+      ],
+      [
+        "Confirm vehicle suitability",
+        "Do not assume that a particular adapted vehicle or equipment is available or suitable for every candidate. Confirm the relevant requirements and the school’s current provision before registration."
+      ],
+      [
+        "Protect your health information",
+        "Do not put detailed medical history or reports into the website contact form. Ask the school how any relevant documents should be reviewed through an appropriate channel."
+      ]
+    ],
+    "description": "Driving training enquiries for candidates with special requirements in Sincan. Confirm health assessment, licence codes and vehicle suitability before registration.",
+    "metaTitle": "Special Requirements Driver Training in Sincan | Uslu"
+  },
+  "diger": {
+    "route": "other",
+    "name": "Large Vehicle Driving Licence Training in Sincan",
+    "intro": "Truck, bus and other large vehicle categories have different requirements. Explain the vehicle you intend to drive and the licence you already hold when contacting Uslu Driving School about current programme suitability.",
+    "sections": [
+      [
+        "Specify the vehicle type",
+        "Truck, bus and trailer goals are not interchangeable. Start with the vehicle you intend to use, then discuss the relevant licence class and current training provision with the school."
+      ],
+      [
+        "Check your existing entitlement",
+        "Age and previous licence requirements vary by class. Share your current licence and ask which training and examination route is relevant to adding the category you need."
+      ],
+      [
+        "Clarify the complete programme",
+        "Confirm the available training vehicle, registration documents, lesson plan and current quotation. A vehicle licence and other documents required for professional transport are separate matters; check additional requirements with the relevant authority."
+      ]
+    ],
+    "description": "Large vehicle licence training enquiries in Sincan: discuss truck or bus goals, your existing licence and current course and vehicle suitability."
+  }
+}

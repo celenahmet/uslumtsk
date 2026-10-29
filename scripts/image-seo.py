@@ -5,15 +5,15 @@ import xml.etree.ElementTree as ET
 BASE='https://uslusurucukursu.com'
 # Visually reviewed real school photos. Legacy URLs remain available.
 photos={
- '/assets/img/gallery/uslu01.webp':('sincan-uslu-direksiyon-egitim-otomobilleri','Sincan Uslu Sürücü Kursu logolu direksiyon eğitim otomobilleri','Uslu Driving School training cars in Sincan'),
- '/assets/img/gallery/uslu02.webp':('uslu-surucu-kursu-egitim-minibusu','Uslu Sürücü Kursu logolu eğitim minibüsü','Uslu Driving School training minibus'),
- '/assets/img/gallery/uslu03.webp':('sincan-uslu-surucu-kursu-giris-tabelasi','Sincan Uslu Sürücü Kursu giriş tabelası','Uslu Driving School entrance sign in Sincan'),
- '/assets/img/gallery/uslu04.webp':('uslu-motosiklet-ehliyeti-egitim-motosikleti','Uslu Sürücü Kursu logolu motosiklet eğitimi aracı, yandan görünüm','Uslu Driving School training motorcycle, side view'),
- '/assets/img/gallery/uslu05.webp':('uslu-surucu-kursu-teorik-egitim-sinifi','Uslu Sürücü Kursu teorik trafik eğitimi sınıfı','Uslu Driving School traffic theory classroom'),
- '/assets/img/gallery/uslu06.webp':('sincan-uslu-surucu-kursu-egitim-araclari','Sincan Uslu Sürücü Kursu eğitim otomobilleri, park alanında','Uslu Driving School training cars in the parking area in Sincan'),
- '/egitim/motor-a1/motor2.webp':('uslu-motosiklet-egitim-araci-arka-gorunum','Uslu Sürücü Kursu motosiklet eğitim aracı, arkadan görünüm','Uslu Driving School training motorcycle, rear view'),
- '/egitim/manuel-b/tek.webp':('uslu-direksiyon-egitim-otomobili-aksam','Uslu Sürücü Kursu logolu direksiyon eğitim otomobili, gün batımında','Uslu Driving School training car at sunset'),
- '/egitim/diger/car.webp':('uslu-otobus-ehliyeti-egitim-otobusu','Uslu Sürücü Kursu yazılı otobüs ehliyeti eğitim aracı','Uslu Driving School bus used for bus licence training'),
+ '/assets/img/gallery/uslu01.webp':('sincan-uslu-direksiyon-egitim-otomobilleri','Sincan direksiyon dersi için Uslu Sürücü Kursu eğitim otomobilleri','Driving lessons in Sincan: Uslu Driving School training cars'),
+ '/assets/img/gallery/uslu02.webp':('uslu-surucu-kursu-egitim-minibusu','Sincan büyük araç ehliyeti eğitimi için Uslu Sürücü Kursu minibüsü','Large vehicle licence training in Sincan: Uslu training minibus'),
+ '/assets/img/gallery/uslu03.webp':('sincan-uslu-surucu-kursu-giris-tabelasi','Ankara Sincan Uslu Sürücü Kursu adresi ve giriş tabelası','Uslu Driving School location and entrance in Sincan, Ankara'),
+ '/assets/img/gallery/uslu04.webp':('uslu-motosiklet-ehliyeti-egitim-motosikleti','Sincan motosiklet ehliyeti kursu için Uslu eğitim motosikleti','Motorcycle licence course in Sincan: Uslu training motorcycle'),
+ '/assets/img/gallery/uslu05.webp':('uslu-surucu-kursu-teorik-egitim-sinifi','Sincan ehliyet kursu trafik ve teorik ders sınıfı, Uslu Sürücü Kursu','Driving licence theory lessons in Sincan: Uslu classroom'),
+ '/assets/img/gallery/uslu06.webp':('sincan-uslu-surucu-kursu-egitim-araclari','Ankara Sincan direksiyon eğitimi için Uslu Sürücü Kursu araçları','Driving training in Sincan, Ankara: Uslu Driving School cars'),
+ '/egitim/motor-a1/motor2.webp':('uslu-motosiklet-egitim-araci-arka-gorunum','Sincan motor ehliyeti ve direksiyon eğitimi için kurs motosikleti','Motorcycle licence and riding lessons in Sincan: training motorcycle'),
+ '/egitim/manuel-b/tek.webp':('uslu-direksiyon-egitim-otomobili-aksam','Sincan B sınıfı ehliyet ve direksiyon dersi için Uslu eğitim otomobili','Category B driving licence lessons in Sincan: Uslu training car'),
+ '/egitim/diger/car.webp':('uslu-otobus-ehliyeti-egitim-otobusu','Sincan otobüs ehliyeti kursu için Uslu Sürücü Kursu eğitim otobüsü','Bus driving licence course in Sincan: Uslu training bus'),
 }
 other={
  '/assets/img/about/01.webp':('Araç içinde form dolduran sürücü, temsili eğitim fotoğrafı','Driver completing a form inside a car, illustrative training photo'),

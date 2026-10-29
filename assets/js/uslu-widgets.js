@@ -831,6 +831,7 @@ html.ua-motion *,html.ua-motion *::before,html.ua-motion *::after{animation-play
         notice.textContent = fill(T.waCountdown, { s: seconds });
         if (seconds <= 0) {
           cancelWhatsApp();
+          if (typeof window.usluWhatsAppOpened === 'function') window.usluWhatsAppOpened();
           window.location.assign(url);
         }
       }, 1000);
@@ -948,6 +949,7 @@ html.ua-motion *,html.ua-motion *::before,html.ua-motion *::after{animation-play
       var g = gen;
       var payload = {
         source: 'asistan',
+        measurementChannel: typeof window.usluSourceChannel === 'function' ? window.usluSourceChannel() : 'unmeasured',
         lang: EN ? 'en' : 'tr',
         website: '',
         t: Date.now() - state.startedAt,

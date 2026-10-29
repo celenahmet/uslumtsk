@@ -143,6 +143,7 @@
       t: Date.now() - started,
       name: squash(name.value),
       phone: digits(phone.value),
+      measurementChannel: typeof window.usluSourceChannel === 'function' ? window.usluSourceChannel() : 'unmeasured',
       email: email.value.trim(),
       topic: topic.value,
       message: message.value.trim(),
