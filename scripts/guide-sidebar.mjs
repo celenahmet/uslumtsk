@@ -3,7 +3,7 @@ import fs from 'node:fs';
 const hub = fs.readFileSync('rehber/index.html', 'utf8');
 const groups = [...hub.matchAll(/<section class="guide-hub-group">([\s\S]*?)<\/section>/g)].map(m => {
  const [, id, name] = m[1].match(/<h2 id="([^"]+)">([^<]+)<\/h2>/);
- const articles = [...m[1].matchAll(/<a href="([^"]+)"><span><strong>([^<]+)<\/strong>/g)].map(a => ({url:a[1], title:a[2]}));
+ const articles = [...m[1].matchAll(/<a href="([^"]+)">(?:<img[^>]*>)?<span><strong>([^<]+)<\/strong>/g)].map(a => ({url:a[1], title:a[2]}));
  return {id, name, articles};
 });
 if (!groups.length) throw new Error('Guide categories missing');

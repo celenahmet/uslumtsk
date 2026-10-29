@@ -120,6 +120,8 @@ def build(url, title, desc, h1, crumbs, main, ld_nodes, ikey):
     # Çevirisi olmayan sayfa: dil değiştirici İngilizce ana sayfaya gider.
     s = s.replace('href="/en/faq/"', 'href="/en/"')
     assert s.count('<h1') == 1
+    if url == HUB_URL:
+        s = s.replace('</head>', '<link href="/assets/css/guide-cards.css" rel="stylesheet"/>\n</head>')
     return s
 
 def breadcrumb_html(h1, items):
@@ -205,8 +207,8 @@ hub_featured = ''.join(
 hub_groups = ''.join(
     '<section class="guide-hub-group"><div class="guide-hub-group-head"><h2 id="%s">%s</h2><span>%d yazı</span></div><ul class="guide-hub-list">%s</ul></section>\n'
     % (group_id(name), name, len(keys),
-       ''.join('<li data-ara="%s"><a href="%s"><span><strong>%s</strong><small>%s</small></span></a></li>'
-               % (esc_attr(' '.join(q for q, _ in BY_KEY[k]['faq'])), R[k], BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys))
+       ''.join('<li data-ara="%s"><a href="%s"><img alt="%s" decoding="async" height="630" loading="lazy" src="/assets/img/rehber/%s.webp" width="1200"/><span><strong>%s</strong><small>%s</small></span></a></li>'
+               % (esc_attr(' '.join(q for q, _ in BY_KEY[k]['faq'])), R[k], esc_attr(img_alt(BY_KEY[k]['h1'])), img_base(k), BY_KEY[k]['h1'], BY_KEY[k]['card']) for k in keys))
     for name, keys in GROUPS)
 quick = ''.join('<div><h3>%s</h3>\n<p>%s <a href="%s">Ayrıntılar</a></p></div>\n' % (q, ans, R[k]) for q, ans, k in HUB['quick'])
 main = (breadcrumb_html(HUB['h1'], [('Ehliyet Rehberi', '/rehber/')]) +
