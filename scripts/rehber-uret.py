@@ -21,6 +21,8 @@ def group_id(name):
 GROUP_OF = {k: name for name, ks in GROUPS for k in ks}
 
 def img_base(key):
+    if key == 'sincan':
+        return 'ehliyet-almak-ankara-sincan-v3'
     # Görsel dosya adı arama odaklı: <yazı>-ankara-sincan (scripts/rehber-gorsel.mjs ile aynı kural)
     return 'ehliyet-rehberi-ankara-sincan' if key == 'hub' else R[key].strip('/').split('/')[-1] + '-ankara-sincan'
 
