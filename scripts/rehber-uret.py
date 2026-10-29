@@ -24,14 +24,14 @@ def img_base(key):
     if key == 'sincan':
         return 'ehliyet-almak-ankara-sincan-v3'
     # Görsel dosya adı arama odaklı: <yazı>-ankara-sincan (scripts/rehber-gorsel.mjs ile aynı kural)
-    return 'ehliyet-rehberi-ankara-sincan' if key == 'hub' else R[key].strip('/').split('/')[-1] + '-ankara-sincan'
+    return ('ehliyet-rehberi-ankara-sincan' if key == 'hub' else R[key].strip('/').split('/')[-1] + '-ankara-sincan') + '-cover-v2'
 
 def img_alt(h1):
     return '%s: Ankara Sincan Uslu Sürücü Kursu ehliyet rehberi görseli' % h1
 
 # ── Menü ve footer: rehber dışındaki tüm TR sayfalarda tek kaynaktan ──
 NAV_OLD = '<li class="nav-item"><a class="nav-link" href="/rehber/">EHLİYET REHBERİ</a></li>'
-NAV_NEW = '<li class="nav-item"><a class="nav-link" href="/rehber/">REHBER</a></li>'
+NAV_NEW = '<li class="nav-item"><a class="nav-link guide-nav-link" href="/rehber/">REHBER<span class="guide-nav-badge">YENİ</span></a></li>'
 FT_OLD_LINK = '<li><a href="/rehber/"><i aria-hidden="true" class="fas fa-caret-right"></i> Ehliyet Rehberi</a></li>\n'
 FT_START, FT_END = '<!-- rehber footer -->', '<!-- rehber footer end -->'
 FT_ANCHOR = '</div>\n</div>\n<center>'
